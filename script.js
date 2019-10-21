@@ -32,6 +32,8 @@ function showLoading() {
   setTimeout(function(){
     document.getElementById("loading").style.display = "none";
   }, 15000);
+
+  // test comment
 }
 
 function confirm() {
