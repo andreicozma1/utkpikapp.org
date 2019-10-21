@@ -33,7 +33,7 @@ function showLoading() {
     document.getElementById("loading").style.display = "none";
   }, 15000);
 
-  // test comment
+  // test comment 1
 }
 
 function confirm() {
