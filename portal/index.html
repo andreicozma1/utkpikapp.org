@@ -1,0 +1,200 @@
+<html>
+
+<head>
+  <title>Pi Kappa Phi | Alpha Sigma Chapter - PORTAL</title>
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id"
+    content="747010973287-pa5r1t88qta33s7n92mick2ndqfamb5i.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../styles.css?v11">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="keywords"
+    content="Pi Kappa Phi, Alpha Sigma, Chapter, PiKapp, PONG, PKP, UTK, Tennessee, Portal, Member, Rush">
+  <meta name="author" content="Andrei Cozma">
+  <meta name="description"
+    content="The Official Pi Kappa Phi - Alpha Sigma Chapter at the University of Tennessee, Knoxville." />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+</head>
+
+<body class='noSelect'>
+  <script src="/jquery.js"></script>
+
+  <script src="/script.js?v16"></script>
+
+
+  <div>
+    <div class="top">
+      <a href="/menu.html" id="menuFallBackLink"><img class="menuStyle fadein0" src="/res/menu.png"
+          onclick="openNav()"></a>
+      <a target="_blank" href="http://utifc.org/"> <img class="headerLogo fadein1" src="/res/aelogo.png"></a>
+    </div>
+  </div>
+  <div id="mySidenav" class="sidenav">
+    <center>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/">HOME</a>
+      <a href="/portal/">MY PORTAL</a>
+      <a href="/recruitment/">RECRUITMENT</a>
+      <a href="/gallery/">GALLERY</a>
+      <a href="/history">HISTORY</a>
+      <a href="/about/">ABOUT</a>
+      <div class="scMediaBar">
+        <a href="https://utkpikapp.slack.com/"><img src="/res/slack.png"></a>
+        <a href="https://www.instagram.com/pikapputk/"><img src="/res/insta.png"></a>
+        <a href="https://twitter.com/pikappvols"><img src="/res/twitter.png"></img></a>
+        <a href="https://www.facebook.com/groups/117607315573925/"><img src="/res/face.png"></img></a>
+      </div>
+    </center>
+  </div>
+
+  
+  <div class="content ">
+    <div class="blockdiv">
+      <h1>Portal</h1>
+      <img id="profile_pic" src="/res/unknown.jpg">
+      <div>
+        <h1>General</h1>
+        <div>
+
+          <a href="slack://open?team={C8QLEESNP}">ANNOUNCEMENTS</a>
+          <a href="https://www.ticketreturn.com/UTK/SelectEvent.aspx" onclick="tickets()" targer="_blank">GAME
+            TICKETS</a>
+          <!---
+          <a href="https://forms.gle/1aJvuHxAJYZAL6rX6" target="_blank">* TAILGATE GUEST *<br>CHECK-IN</a>
+-->
+        </div>
+
+      </div>
+
+
+
+
+      <div>
+        <h1>Member Access</h1>
+        <!-- <a onclick="getLocation()">CHAPTER SIGN IN</a> -->
+        <a id="editButton" href="https://forms.gle/8ETmrpmcbL8jkhqh7" target="_blank">PROFILE</a>
+
+
+        <div id="loggedoffMenu">
+          <p id="helpText">Sign In with your UT account to get access to all member features.</p>
+
+
+          <div id="createAccount" style="display:none;">
+            <h2>How to join:</h2>
+            <p>1. Sign in to a chapter meeting or a mandatory event using the button below.</p>
+            <p>2. Use your myUTK Google Account when signing in.</p>
+            <p>3. You will receive an email report within 24hrs with instructions on how to complete your account.</p>
+            <p>4. You will then have access to the member portal when signing in again.</p>
+            <a class="importantButton" onclick="redirectSignIn()" class="block">&#128279;EVENT SIGN IN &#128279;</a>
+            <a id="excuseButton" href="https://forms.gle/uRjZSQcYjF3VhYFe9" target="_blank">EXCUSE FORM</a>
+          </div>
+        </div>
+
+
+        <div id="memberMenu" style="display:none;">
+
+          <p id="info"></p>
+
+
+          <a class="important" id="chapterSignIn" onclick="confirm()" target="_blank">EVENT SIGN-IN</a>
+          <a id="excuseButton" href="https://forms.gle/uRjZSQcYjF3VhYFe9" target="_blank">EXCUSE FORM</a>
+
+
+          <p id="chapterHint">* IMPORTANT: You are personally responsible to regularly check your attendance report and contact the secretary about missed events.<br>* 3 (THREE) free passes apply per academic year for mandatory events.
+            Use these wisely, and message the secretary
+            only for emergency excuses with a valid reason.</p>
+
+            <div>
+              * ATTENDANCE REPORT *
+            <p id="table">Loading...</p>
+          </div>
+
+            
+          <div id="elections">* OFFICER ELECTIONS *
+            <a href="https://forms.gle/PWXShetboYWZG3a66" target="_blank">RUN FOR EXEC</a>
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTh0pfjJiJkxO8Vn_90Eo02DmhFtPlgXoRRdzaQXnQp4NIHSfut5vw0Bld3Mdi3miP1xeAf0tGHYd_c/pubhtml?gid=762002455&single=true"
+              target="_blank">CURRENT NOMINEES</a>
+          </div>
+          <div id="housing">* HOUSING *
+              <a href="https://pkpp.twa.rentmanager.com/ApplyNow?propertyID=37" target="_blank">APPLY FOR A LEASE</a>
+          <a href="https://forms.gle/NUWaXY2UX53CNeUH8" target="_blank">ROOMING PREFERENCE</a>
+          </div>
+          <a class="tailgateGuests" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQFegfxhPQk6SoPJzGGI6TJ2e8k2HrxLyE08YtossNlfkHpzsVjM-vNkBXQAglwfMlSbaI3mIeVOx0q/pubhtml?gid=1874555172&single=true"
+            target="_blank">TAILGATE GUEST LIST</a>
+
+          <a href="https://drive.google.com/drive/folders/0B0-KY3cddau1RmJ1dHpUMGw2Ymc?usp=sharing"
+            target="_blank">GOOGLE DRIVE</a>
+
+          <a href="https://drive.google.com/drive/folders/0B0-KY3cddau1WFRiQ0gyNDBfdGs?usp=sharing"
+            target="_blank">IMPORTANT DOCS</a>
+          <a href="https://drive.google.com/drive/folders/17a1qWfLyoUnCb_VnTxsnsvG1EK4t1rCI?usp=sharing"
+            target="_blank">FORMS</a>
+
+          <div id=calendar>
+          <h2>Calendar</h2>
+          <iframe
+            src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=dW5pdmVyc2l0eW9mdGVubmVzc2VlcGlrYXBwQGdtYWlsLmNvbQ&amp;color=%23E67C73&amp;showTitle=0&amp;showDate=1&amp;showPrint=1&amp;showTabs=1&amp;showCalendars=0"
+            style="border-width:0" height="500" frameborder="0" scrolling="no"></iframe>
+          </div>
+          <a href="https://calendar.google.com/calendar/ical/universityoftennesseepikapp%40gmail.com/public/basic.ics"
+            target="_blank">SUBSCRIBE</a>
+          <p><i>Click the Subscribe button above to add this calendar to your phone</i></p>
+
+        </div>
+        <a id="signout" style="display:none" href="#" onclick="signOut()">SIGN OUT</a>
+
+      </div>
+
+
+
+      <div id="adminMenu" style="display:none;">
+        <h1>Control Panel</h1>
+        <div id="ownerMenu" style="display:none;">
+          <h2>Owner Menu</h2>
+          <a href="https://docs.google.com/spreadsheets/d/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/edit?usp=sharing"
+            target="_blank" class="important">* Edit Database</a>
+          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTh0pfjJiJkxO8Vn_90Eo02DmhFtPlgXoRRdzaQXnQp4NIHSfut5vw0Bld3Mdi3miP1xeAf0tGHYd_c/pubhtml?gid=1607428643&single=true"
+            target="_blank">Member Accounts</a>
+        </div>
+        <div>
+          <h2>Admin Menu</h2>
+          <a href="https://forms.gle/GnK1Tc2EMe2PQqXw9" target="_blank" class="important">- Add Mandatory Event -</a>
+          <div>* Attendence *
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTh0pfjJiJkxO8Vn_90Eo02DmhFtPlgXoRRdzaQXnQp4NIHSfut5vw0Bld3Mdi3miP1xeAf0tGHYd_c/pubhtml?gid=898422200&single=true"
+              target="_blank">Today's Attendence</a>
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTh0pfjJiJkxO8Vn_90Eo02DmhFtPlgXoRRdzaQXnQp4NIHSfut5vw0Bld3Mdi3miP1xeAf0tGHYd_c/pubhtml?gid=697880276&single=true"
+              target="_blank">Overall Attendence</a>
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTh0pfjJiJkxO8Vn_90Eo02DmhFtPlgXoRRdzaQXnQp4NIHSfut5vw0Bld3Mdi3miP1xeAf0tGHYd_c/pubhtml?gid=1799238262&single=true"
+              target="_blank">All Excuses</a>
+          </div>
+          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTh0pfjJiJkxO8Vn_90Eo02DmhFtPlgXoRRdzaQXnQp4NIHSfut5vw0Bld3Mdi3miP1xeAf0tGHYd_c/pubhtml?gid=540828680&single=true"
+            target="_blank">
+            Code History</a>
+          <a href="https://forms.gle/cYdzjzmJ3rSQEEQy6" target="_blank" class="important">Make
+            Announcement</a>
+
+          <a href="https://drive.google.com/drive/folders/0B0-KY3cddau1aVFMcmhOZW5RV2c?usp=sharing" target="_blank">Exec
+            Google Drive</a>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+  <div id="loading"> <img src="/res/loading.gif"></div>
+
+  <video id="vid" autoplay loop muted playsinline class="fadeinvid">
+    <source src="/res/vid.mp4" type="video/mp4">
+  </video>
+
+  <div id="gBtn" class="signin">
+    <div class="g-signin2" data-onsuccess="onSignIn" onclick="showLoading()" data-theme="dark"></div>
+  </div>
+</body>
+
+</html>

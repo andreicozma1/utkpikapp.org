@@ -1,0 +1,657 @@
+body,
+head {
+  -webkit-tap-highlight-color: transparent;
+  font-family: 'Open Sans', sans-serif;
+
+  margin: 1vh;
+  overflow-x: hidden;
+  background-color: #fff
+}
+
+.overFlowHidden {
+  overflow: hidden
+}
+
+.noSelect {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none
+}
+
+.top {
+  position: relative;
+  height: 3.5em;
+  width: 100%
+}
+
+.headerLogo {
+
+  height: 100%;
+  float: right;
+}
+
+#logo {
+  position: absolute;
+  margin: auto;
+  width: 85%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  filter: drop-shadow(0 0 15px #fff);
+  transition: all .5s ease-out;
+}
+
+#vid {
+  filter: blur(30px);
+  opacity: .4;
+  position: fixed;
+  top: 13vmin;
+  left: -5%;
+  min-width: 110%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  margin: auto;
+  z-index: -1;
+}
+
+.video {
+  height: 50vmin;
+}
+
+.red {
+  color: red;
+}
+
+.iframe-cont {
+  width: 100%;
+  padding: 0 !important;
+  margin: 0 !important
+}
+
+iframe {
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  width: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important
+}
+
+iframe::-webkit-scrollbar {
+  display: none
+}
+
+
+.website {
+  height: 600px;
+}
+
+.menuStyle {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  height: 100%;
+  width: auto;
+  opacity: 0;
+  padding: 0
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #005596;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-top: 8vh;
+  transition: .5s;
+  text-align: center
+}
+
+.sidenavFallback {
+  width: 100%
+}
+
+.sidenav center {
+  height: inherit;
+}
+
+#c {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto
+}
+
+.sidenav a {
+  padding: .8vh;
+  text-decoration: none;
+  font-size: 2.2em;
+  color: #fff;
+  display: block;
+  transition: .3s
+}
+
+.offcanvas a:focus,
+.sidenav a:hover {
+  color: #fff
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  font-size: 3.2em;
+  margin-left: 50px
+}
+
+.scMediaBar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  left: 0;
+  right: 0;
+  bottom: 10vh
+}
+
+.scMediaBar a img {
+  height: 1.2em;
+}
+
+.scMediaBarFallbackMargin {
+  margin-top: 5vh;
+}
+
+.scMediaBarSmallMargin {
+  margin-top: 2vh;
+}
+
+#loading{
+  background-color:rgba(0,0,0,.8);
+  display:none;
+  position:fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index:1;
+}
+
+#loading img{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+
+  margin: auto;
+  height: 4em;
+  width: auto;
+  z-index:5;
+}
+
+
+#editButton {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: auto;
+  margin: .4em;
+  width: auto;
+}
+
+
+.content {
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  position: absolute;
+  top: 4.5em;
+  left: 0;
+  right: 0;
+  bottom: 1px;
+  border-color: #005596;
+  border-top-style: dashed;
+  border-width: .2em;
+  color: #000
+}
+
+.content * {
+  display: block;
+}
+
+.blockdiv,
+.infoDiv {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100vmin;
+  margin-top: .5em;
+  text-align: center;
+}
+.blockdiv * {
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  padding-top: .2em;
+}
+
+#profile_pic {
+  display: none;
+  position: absolute;
+  height: 3.8em;
+width: auto;
+
+  right: 0;
+  top: 0;
+}
+
+.blockdiv h1 {
+  background-color: #005596;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  font-size: 2.5em;
+  padding: .1em;
+  font-weight: 700;
+  border-bottom: solid;
+  border-width: .1em;
+}
+
+.blockdiv a {
+  margin-top: .1em;
+}
+.blockdiv p{
+
+}
+
+#chapterHint{
+  font-size:.8em;
+}
+
+#info{
+font-size:1em;
+}
+
+#table{
+  text-align:left;
+}
+
+.blockdiv img {
+  width: 100%;
+  padding: 0;
+}
+
+.blockdiv div {
+  background-color: rgba(0, 85, 150, .5);
+  margin: 0;
+  padding: .5em;
+  position: relative;
+}
+
+.blockdiv div h1 {
+  font-size: 1.7em;
+  padding: .2em;
+  background-color: rgba(231, 166, 0, 1);
+  font-weight: bolder;
+  border-bottom: dashed;
+  border-width: .1em;
+  text-align: left
+}
+
+.blockdiv div p:first-child {
+  text-align: center;
+}
+
+.blockdiv div p {
+  font-weight: 200;
+  text-align: left;
+  padding: .5em;
+}
+
+.blockdiv div a {
+  font-size: 1.2em;
+  background-color: rgba(255, 255, 255, .3);
+  font-weight: bolder;
+  margin: auto;
+  margin-top: .2em;
+  padding: .6em;
+}
+
+.blockdiv div a a {
+  font-size: .9em;
+}
+
+.blockdiv div div h2 {
+  padding: 0em;
+  margin: 0;
+  text-decoration: underline;
+}
+
+
+
+.blockdiv div div div {
+  font-size: 1.2em;
+  background-color: rgba(255, 255, 255, .3);
+  font-weight: bolder;
+  margin: auto;
+  margin-top: .2em;
+}
+
+.blockdiv div div div h1 {
+  font-size: 1em;
+}
+.blockdiv div div div h2 {
+  font-size: 1.2em;
+}
+.blockdiv div div div p {
+  font-size: .8em;
+}
+
+.blockdiv div div div a {
+  font-size: 1em;
+  background-color: rgba(255, 255, 255, .2);
+}
+
+#calendar{
+  width:100%;
+  padding:0;
+ 
+}
+#calendar h2{
+  padding:.25em;
+}
+
+#signout {
+  width: 30%;
+  background-color: rgba(255, 50, 50, 1)
+}
+
+
+
+.signin {
+  position: fixed;
+  text-align: center;
+  bottom: 2em;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.wrapper {
+  width: 100%;
+  height: 10%;
+  text-align: center;
+}
+
+#mainSignIn {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+  bottom: 2em;
+  width: 10em;
+  height: 3.5em;
+  border-style: none;
+  background-color: rgba(0, 85, 150,1);
+  color: white;
+}
+
+.g-signin2 {
+  display: inline-block;
+}
+
+#gmap_canvas {
+  position: relative;
+  overflow: hidden;
+  padding: 0 !important;
+  width: 100%;
+  height: 30%;
+  margin: auto;
+}
+
+
+
+
+#elections{
+  display:none;
+}
+#housing{
+display:block'
+}
+.tailgateGuests{
+  display:none;
+}
+
+
+
+@media (min-aspect-ratio:5/7) {
+  #logo {
+    width: 60%;
+  }
+
+  .blockdiv div a {
+    width: 75%;
+  }
+
+  .blockdiv div div div {
+    width: 75%;
+  }
+
+  .blockdiv div div div a {
+    width: 80%;
+  }
+
+  .blockdiv div {
+    margin-left: .5em;
+    margin-right: .5em;
+  }
+}
+
+@media (min-aspect-ratio:1/1) {
+  #logo {
+    width: 50%;
+  }
+
+  .blockdiv div a {
+    width: 50%;
+  }
+
+  .blockdiv div div div {
+    width: 50%;
+  }
+
+  .blockdiv div div div a {
+    width: 65%;
+  }
+
+}
+
+@media (min-aspect-ratio:12/8) {
+  #logo {
+    width: 30%;
+  }
+}
+
+
+
+
+
+.title,
+h1 {
+  filter: drop-shadow(0 0 10px #005596);
+  user-select: none;
+}
+
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none
+}
+
+a {
+  color: inherit;
+  text-decoration: none
+}
+
+a:hover {
+  opacity: .7;
+}
+
+.sidenav div a img:hover {
+  transform: scale(1.3, 1.3);
+  transition: all .5s ease-in-out
+}
+
+div a img:hover,
+h1:hover {
+  transform: scale(1.08, 1.08);
+  transition: all .5s ease-in-out
+}
+
+
+
+
+
+.fadein0 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 0s;
+  animation-fill-mode: forwards
+}
+
+.fadein1 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: .2s;
+  animation-fill-mode: forwards
+}
+
+.fadein2 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: .6s;
+  animation-fill-mode: forwards
+}
+
+.fadein3 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards
+}
+
+.fadein4 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 1.4s;
+  animation-fill-mode: forwards
+}
+
+.fadein5 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 1.8s;
+  animation-fill-mode: forwards
+}
+
+.fadein6 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 2.2s;
+  animation-fill-mode: forwards
+}
+
+.fadein7 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 2.6s;
+  animation-fill-mode: forwards
+}
+
+.fadein8 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards
+}
+
+.fadein9 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 3.4s;
+  animation-fill-mode: forwards
+}
+
+.fadein10 {
+  opacity: 0;
+  animation: fadein 2s;
+  animation-delay: 3.8s;
+  animation-fill-mode: forwards
+}
+
+.fadeinvid {
+  opacity: 0;
+  animation: vid 2s;
+  animation-delay: .2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes vid {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: .4;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+::selection {
+  background: #005596
+}
+
+::-moz-selection {
+  background: #005596
+}
+
+::-webkit-scrollbar {
+  width: 7px
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 54, 95, .3)
+}
+
+::-webkit-scrollbar-thumb {
+  background: #005596
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #222
+}
