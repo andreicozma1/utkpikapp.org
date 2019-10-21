@@ -28,6 +28,9 @@ function tickets() {
 function showLoading() {
   document.getElementById("loading").style.display = "block";
   console.log("showing loading");
+  setTimeout(function(){
+    document.getElementById("loading").style.display = "none";
+  }, 15000);
 }
 
 function confirm() {
