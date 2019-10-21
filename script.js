@@ -17,6 +17,7 @@ window.onload = function (e) {
     },
     false
   );
+  
 };
 
 function tickets() {
