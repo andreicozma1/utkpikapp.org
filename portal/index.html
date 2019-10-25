@@ -20,7 +20,7 @@
 <body class='noSelect'>
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v17"></script>
+  <script src="/script.js?v25"></script>
 
 
   <div>
@@ -57,9 +57,11 @@
         <h1>General</h1>
         <div>
 
-          <a href="slack://open?team={C8QLEESNP}">ANNOUNCEMENTS</a>
+          <!---<a href="slack://open?team={C8QLEESNP}">ANNOUNCEMENTS</a>---->
           <a href="https://www.ticketreturn.com/UTK/SelectEvent.aspx" onclick="tickets()" targer="_blank">GAME
             TICKETS</a>
+           
+             
           <!---
           <a href="https://forms.gle/1aJvuHxAJYZAL6rX6" target="_blank">* TAILGATE GUEST *<br>CHECK-IN</a>
 -->
@@ -67,16 +69,11 @@
 
       </div>
 
-
-
-
       <div>
-        <h1>Member Access</h1>
-        <!-- <a onclick="getLocation()">CHAPTER SIGN IN</a> -->
-        <a id="editButton" href="https://forms.gle/8ETmrpmcbL8jkhqh7" target="_blank">PROFILE</a>
+        <h1 onClick="toggle(this)">Member Access</h1>
+        
 
-
-        <div id="loggedoffMenu">
+        <div id="loggedoffMenu" style="display: block;">
           <p id="helpText">Sign In with your UT account to get access to all member features.</p>
 
 
@@ -90,6 +87,9 @@
             <a id="excuseButton" href="https://forms.gle/uRjZSQcYjF3VhYFe9" target="_blank">EXCUSE FORM</a>
           </div>
         </div>
+
+
+        <a id="editButton" href="https://forms.gle/8ETmrpmcbL8jkhqh7" target="_blank">PROFILE</a>
 
 
         <div id="memberMenu" style="display:none;">
@@ -140,16 +140,28 @@
           <a href="https://calendar.google.com/calendar/ical/universityoftennesseepikapp%40gmail.com/public/basic.ics"
             target="_blank">SUBSCRIBE</a>
           <p><i>Click the Subscribe button above to add this calendar to your phone</i></p>
+          <a href="https://www.ticketreturn.com/UTK/SelectEvent.aspx" onclick="tickets()" targer="_blank">FEEDBACK</a>
 
+          <!---<a href="TODO" onclick="tickets()" targer="_blank">FAQ</a>---->
         </div>
         <a id="signout" style="display:none" href="#" onclick="signOut()">SIGN OUT</a>
 
       </div>
 
+ <div id="announcements" style="display:none;">
+    <h1 onClick="toggle(this)">Announcements</h1>
+ </div>
 
+ <div id="calendar" style="display:none;">
+    <h1 onClick="toggle(this)">Calendar</h1>
+  </div>
+
+ <div id="committees" style="display:none;">
+    <h1 onClick="toggle(this)">Committees</h1>
+</div>
 
       <div id="adminMenu" style="display:none;">
-        <h1>Control Panel</h1>
+        <h1 onClick="toggle(this)">Control Panel</h1>
         <div id="ownerMenu" style="display:none;">
           <h2>Owner Menu</h2>
           <a href="https://docs.google.com/spreadsheets/d/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/edit?usp=sharing"
@@ -193,7 +205,7 @@
   </video>
 
   <div id="gBtn" class="signin">
-    <div class="g-signin2" data-onsuccess="onSignIn" onclick="showLoading()" data-theme="dark"></div>
+    <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onFailure" onclick="showLoading()" data-theme="dark"></div>
   </div>
 </body>
 

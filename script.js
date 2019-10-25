@@ -7,7 +7,11 @@ var snakeShown = false;
 var profile;
 var signInCode = "";
 
+var auth2;
+
 window.onload = function (e) {
+  auth2 = gapi.auth2.getAuthInstance();
+
   console.log(window.location.pathname);
   var video = document.getElementById("vid");
   video.addEventListener(
@@ -17,6 +21,8 @@ window.onload = function (e) {
     },
     false
   );
+
+ 
   
 };
 
@@ -101,6 +107,22 @@ function showError(error) {
   redirectSignIn();
 }
 
+function toggle(source){
+if(auth2.isSignedIn.get()){
+  for(var i = 1; i<source.parentNode.children.length; i++){
+    if(source.parentNode.children[i].style.display == "none" && source.parentNode.children[i].id != "loggedoffMenu"){
+      source.parentNode.children[i].style.display = "block";
+    } else{
+      source.parentNode.children[i].style.display = "none";
+    }
+  }
+}
+}
+
+function onFailure(){
+  alert("Sign in failed due to an unexpected error.\nPlease try again later.");
+}
+
 function onSignIn(googleUser) {
   // Useful data for your client-side scripts:
 
@@ -108,6 +130,7 @@ function onSignIn(googleUser) {
     window.location.href = "http://utkpikapp.org/portal";
   }
 
+  showLoading();
   profile = googleUser.getBasicProfile();
   console.log("ID: " + profile.getId()); // Don't send this directly to your server!
   console.log("Full Name: " + profile.getName());
@@ -467,7 +490,7 @@ function signOut() {
   var memberMenu = document.getElementById("memberMenu");
   memberMenu.style = "display: none;"
   */
-  var auth2 = gapi.auth2.getAuthInstance();
+
   auth2.signOut().then(function () {
     console.log("User signed out.");
 
