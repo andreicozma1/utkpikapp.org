@@ -42,7 +42,7 @@ function showLoading() {
   // test comment 1
 }
 
-function confirm() {
+function confirmLocation() {
   alert(
     "IMPORTANT!\n\n* If asked, please allow location access on the next screen to skip having to enter the Secret Code\n\nMake sure to sign in using your UTK email address (@vols.utk.edu)\nPress the button below to continue..."
   );
@@ -142,6 +142,44 @@ function onSignIn(googleUser) {
   var signInButton = document.getElementById("gBtn");
   var signOutButton = document.getElementById("signout");
 
+  var announcements_sheet = "https://sheets.googleapis.com/v4/spreadsheets/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/values/Announcements?key=AIzaSyBZ2ChwZHAO4ivejpTnoMzLJyPhDrmCsM0"
+  $.getJSON(announcements_sheet, function (data) {
+    var entry = data.values;
+
+var popup_title = "";
+var popup_body = "";
+var popup_link = "";
+var popup_author = "";
+for(var i=0; i< entry.length; i++){
+  console.log(entry[i][4])
+  if(entry[i][4].indexOf("POPUP") != -1){
+    console.log("Found matchind popup")
+    var entry_date = entry[i][11].split("/");
+
+    var date = new Date();
+    if(entry_date[0] == date.getMonth()+1 && entry_date[1] == date.getDate() && entry_date[2] == date.getFullYear()){
+      console.log("Found matchind date")
+     popup_title = entry[i][8];
+     popup_body = entry[i][9];
+     popup_link = entry[i][10];
+     popup_author = entry[i][1];
+    }
+  }
+
+}
+if(popup_title != "" && popup_body != "" && popup_author != ""){
+  if(window.confirm(popup_title + "\n\n" + popup_body + "\n" + " - by " + popup_author +"\n\n" + "Link: " + popup_link + "\n" + "Click OK to proceed to the link.")){
+    if(popup_link != ""){
+      window.location.href = popup_link;
+    }
+   
+  } else{
+    // DO NOTHING
+  }
+}
+
+
+  });
   // Make sure it is public or set to Anyone with link can view
   var accounts_sheet =
     "https://sheets.googleapis.com/v4/spreadsheets/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/values/Accounts?key=AIzaSyBZ2ChwZHAO4ivejpTnoMzLJyPhDrmCsM0";
