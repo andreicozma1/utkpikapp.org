@@ -35,9 +35,7 @@ function tickets() {
 function showLoading() {
   document.getElementById("loading").style.display = "block";
   console.log("showing loading");
-  setTimeout(function(){
-    document.getElementById("loading").style.display = "none";
-  }, 15000);
+
 
   // test comment 1
 }
@@ -120,7 +118,8 @@ if(auth2.isSignedIn.get()){
 }
 
 function onFailure(){
-  alert("Sign in failed due to an unexpected error.\nPlease try again later.");
+  document.getElementById("loading").style.display = "none";
+  alert("Google Sign-in Dialog closed by user.");
 }
 
 function onSignIn(googleUser) {
