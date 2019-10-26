@@ -35,8 +35,6 @@ function tickets() {
 function showLoading() {
   document.getElementById("loading").style.display = "block";
   console.log("showing loading");
-
-
   // test comment 1
 }
 
