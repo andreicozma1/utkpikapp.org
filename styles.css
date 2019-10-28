@@ -89,6 +89,11 @@ iframe::-webkit-scrollbar {
   height: 600px;
 }
 
+#shirtsFrame{
+  width:100%;
+  height:90%;
+}
+
 .menuStyle {
   -webkit-user-select: none;
   -moz-user-select: none;
