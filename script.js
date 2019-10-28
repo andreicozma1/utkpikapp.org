@@ -488,6 +488,7 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
           "<br>* INFO: You are permanently excused from chapter meetings";
       }
     } else {
+      document.getElementById("loading").style.display = "none";
       if (profile.getEmail().indexOf("@vols.utk.edu") != -1) {
         signInButton.style = "display:none;";
         signOutButton.style = "display:block;";
