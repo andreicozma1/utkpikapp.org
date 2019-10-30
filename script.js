@@ -510,8 +510,8 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
   }).fail(function () {
     signOut();
     alert(
-      "An unexpected error occured signing you in.\nPlease try again later."
-    );
+      "An unexpected error occured signing you in.\nPlease try again later.");
+    document.getElementById("loading").style.display = "none";
   });
 
   // The ID token you need to pass to your backend:
