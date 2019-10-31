@@ -139,7 +139,7 @@ function onSignIn(googleUser) {
   var signInButton = document.getElementById("gBtn");
   var signOutButton = document.getElementById("signout");
 
-  var announcements_sheet = "https://sheets.googleapis.com/v4/spreadsheets/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/values/Announcements?key=AIzaSyBZ2ChwZHAO4ivejpTnoMzLJyPhDrmCsM0"
+  var announcements_sheet = "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI"
   $.getJSON(announcements_sheet, function (data) {
     var entry = data.values;
 
@@ -179,7 +179,7 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
   });
   // Make sure it is public or set to Anyone with link can view
   var accounts_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/values/Accounts?key=AIzaSyBZ2ChwZHAO4ivejpTnoMzLJyPhDrmCsM0";
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Accounts?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
   var is_setup;
   var is_admin;
   var is_owner;
@@ -275,7 +275,7 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
       signOutButton.style = "display:block;";
 
       var codes_sheet =
-        "https://sheets.googleapis.com/v4/spreadsheets/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/values/Codes?key=AIzaSyBZ2ChwZHAO4ivejpTnoMzLJyPhDrmCsM0";
+        "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Codes?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
       var lastCodeRow;
       var codes;
       $.getJSON(codes_sheet, function (data) {
@@ -289,8 +289,7 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
         signInCode = lastCodeRow[lastCodeRow.length - 1];
 
 
-        var attendence_sheet =
-        "https://sheets.googleapis.com/v4/spreadsheets/1IP_owcpeCwwK36Ttpc1z9-Xu53NXaLQ673HyTbOXgGE/values/Overview?key=AIzaSyBZ2ChwZHAO4ivejpTnoMzLJyPhDrmCsM0";
+        var attendence_sheet ="https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 
       var report_element = document.getElementById("table");
 
