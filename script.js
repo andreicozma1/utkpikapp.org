@@ -73,7 +73,7 @@ function getLocation() {
 
 function redirectSignIn(code = "") {
   window.location.href =
-    "https://docs.google.com/forms/d/e/1FAIpQLSfBNXq5f_AFPK0EcldYG-uTS2bTyEgPzDdrVQexYZW2gDmhVA/viewform?usp=pp_url&entry.248598887=" +
+    "https://docs.google.com/forms/d/e/1FAIpQLSf7c8D_wwBKNMdJS7z6jJ-rdOcmv1LAHKo9SPgk0jgX92uEzQ/viewform?usp=pp_url&entry.248598887=" +
     profile.getGivenName() +
     "&entry.1123381156=" +
     profile.getFamilyName() +
@@ -206,7 +206,7 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
           alert(
             "Welcome to Alpha Sigma!\n\nIt seems like this is your first time logging in to your Member Portal.\nThe Member Portal is your prime stop for everything PiKapp, where you sign in for all required events, check your attendance, submit excuses, view the calendar, run for elections, and much more!\n\nLet's finish setting up your profile.\nClick the button below to proceed."
           );
-          window.location.href = "https://forms.gle/8ETmrpmcbL8jkhqh7";
+          window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform";
           return;
         }
         is_admin = parseInt(entry[i][2]);
@@ -224,8 +224,8 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
     if (validated) {
       var editProfileButton = document.getElementById("editButton");
       editProfileButton.style.display = "block";
-      editProfileButton.href =
-        "https://docs.google.com/forms/d/e/1FAIpQLSd7XUPH6D5Ou_e9VwfCLvUSo-QccOhX5uPuYHPDLcjMF27OBg/viewform?usp=pp_url&entry.289015268=" +
+      if(editProfileButton.href.indexOf("entry") == -1){
+        editProfileButton.href += "?usp=pp_url&entry.289015268=" +
         entry[i][7] +
         "&entry.121518091=" +
         entry[i][8] +
@@ -257,6 +257,9 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
         entry[i][21] +
         "&entry.813408308=" +
         entry[i][22];
+
+      }
+     
 
       var menu = document.getElementById("memberMenu");
       menu.style = "visibility: visible;";
@@ -476,8 +479,8 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
       img.src = profile.getImageUrl();
 
       var excuseButton = document.getElementById("excuseButton");
-      excuseButton.href =
-        "https://docs.google.com/forms/d/e/1FAIpQLSfP5veTYVmjdZ1yKC1r8tBnDxNCFbvirYyFQTWZ3lRxNI-7PQ/viewform?entry.191386322=" +
+      if(excuseButton.href.indexOf("entry") == -1)
+      excuseButton.href += "?entry.191386322=" +
         profile.getGivenName() +
         "&entry.908237995=" +
         profile.getFamilyName();
