@@ -343,8 +343,7 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
                   break;
                 case "Unexcused":
                   header[i] = "* " + header[i];
-                  account_entry[i] =
-                    parseInt(account_entry[i]) - parseInt(account_entry[i - 1]);
+                  
                   if (account_entry[i] == 0) {
                     displayNoMissed = true;
                   } else {
