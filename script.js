@@ -165,14 +165,20 @@ for(var i=0; i< entry.length; i++){
 
 }
 if(popup_title != "" && popup_body != "" && popup_author != ""){
-  if(window.confirm(popup_title + "\n\n" + popup_body + "\n" + " - by " + popup_author +"\n\n" + "Link: " + popup_link + "\n" + "* Click OK to proceed to the link.\n* CANCEL to dismiss this message.")){
-    if(popup_link != ""){
-      window.location.href = popup_link;
-    }
-   
+  var message = popup_title + "\n\n" + popup_body + "\n" + " - by " + popup_author;
+  if(popup_link == ""){
+    window.alert( message + "* Click OK to continue");
   } else{
-    // DO NOTHING
+    if(window.confirm(message +"\n\n" + "Link: " + popup_link + "\n" + "* Click OK to proceed to the link.\n* CANCEL to dismiss this message.")){
+      if(popup_link != ""){
+        window.location.href = popup_link;
+      }
+     
+    } else{
+      // DO NOTHING
+    }
   }
+  
 }
 
 
