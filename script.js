@@ -21,9 +21,6 @@ window.onload = function (e) {
     },
     false
   );
-
- 
-  
 };
 
 function tickets() {
@@ -103,19 +100,22 @@ function showError(error) {
   redirectSignIn();
 }
 
-function toggle(source){
-if(auth2.isSignedIn.get()){
-  for(var i = 1; i<source.parentNode.children.length; i++){
-    if(source.parentNode.children[i].style.display == "none" && source.parentNode.children[i].id != "loggedoffMenu"){
-      source.parentNode.children[i].style.display = "block";
-    } else{
-      source.parentNode.children[i].style.display = "none";
+function toggle(source) {
+  if (auth2.isSignedIn.get()) {
+    for (var i = 1; i < source.parentNode.children.length; i++) {
+      if (
+        source.parentNode.children[i].style.display == "none" &&
+        source.parentNode.children[i].id != "loggedoffMenu"
+      ) {
+        source.parentNode.children[i].style.display = "block";
+      } else {
+        source.parentNode.children[i].style.display = "none";
+      }
     }
   }
 }
-}
 
-function onFailure(){
+function onFailure() {
   document.getElementById("loading").style.display = "none";
   alert("Google Sign-in Dialog closed by user.");
 }
@@ -139,49 +139,64 @@ function onSignIn(googleUser) {
   var signInButton = document.getElementById("gBtn");
   var signOutButton = document.getElementById("signout");
 
-  var announcements_sheet = "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI"
+  var announcements_sheet =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
   $.getJSON(announcements_sheet, function (data) {
     var entry = data.values;
 
-var popup_title = "";
-var popup_body = "";
-var popup_link = "";
-var popup_author = "";
-for(var i=0; i< entry.length; i++){
-  console.log(entry[i][4])
-  if(entry[i][4].indexOf("POPUP") != -1){
-    console.log("Found matchind popup")
-    var entry_date = entry[i][11].split("/");
+    var popup_title = "";
+    var popup_body = "";
+    var popup_link = "";
+    var popup_author = "";
+    for (var i = 0; i < entry.length; i++) {
+      console.log(entry[i][4]);
+      if (entry[i][4].indexOf("POPUP") != -1) {
+        console.log("Found matchind popup");
+        var entry_date = entry[i][11].split("/");
 
-    var date = new Date();
-    if(entry_date[0] == date.getMonth()+1 && entry_date[1] == date.getDate() && entry_date[2] == date.getFullYear()){
-      console.log("Found matchind date")
-     popup_title = entry[i][8];
-     popup_body = entry[i][9];
-     popup_link = entry[i][10];
-     popup_author = entry[i][1];
-    }
-  }
-
-}
-if(popup_title != "" && popup_body != "" && popup_author != ""){
-  var message = popup_title + "\n\n" + popup_body + "\n" + " - by " + popup_author +"\n\n" ;
-  if(popup_link == ""){
-    window.alert( message + "* Click OK to continue");
-  } else{
-    if(window.confirm(message + "Link: " + popup_link + "\n" + "* Click OK to proceed to the link.\n* CANCEL to dismiss this message.")){
-      if(popup_link != ""){
-        window.location.href = popup_link;
+        var date = new Date();
+        if (
+          entry_date[0] == date.getMonth() + 1 &&
+          entry_date[1] == date.getDate() &&
+          entry_date[2] == date.getFullYear()
+        ) {
+          console.log("Found matchind date");
+          popup_title = entry[i][8];
+          popup_body = entry[i][9];
+          popup_link = entry[i][10];
+          popup_author = entry[i][1];
+        }
       }
-     
-    } else{
-      // DO NOTHING
     }
-  }
-  
-}
-
-
+    if (popup_title != "" && popup_body != "" && popup_author != "") {
+      var message =
+        popup_title +
+        "\n\n" +
+        popup_body +
+        "\n" +
+        " - by " +
+        popup_author +
+        "\n\n";
+      if (popup_link == "") {
+        window.alert(message + "* Click OK to continue");
+      } else {
+        if (
+          window.confirm(
+            message +
+            "Link: " +
+            popup_link +
+            "\n" +
+            "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
+          )
+        ) {
+          if (popup_link != "") {
+            window.location.href = popup_link;
+          }
+        } else {
+          // DO NOTHING
+        }
+      }
+    }
   });
   // Make sure it is public or set to Anyone with link can view
   var accounts_sheet =
@@ -212,7 +227,8 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
           alert(
             "Welcome to Alpha Sigma!\n\nIt seems like this is your first time logging in to your Member Portal.\nThe Member Portal is your prime stop for everything PiKapp, where you sign in for all required events, check your attendance, submit excuses, view the calendar, run for elections, and much more!\n\nLet's finish setting up your profile.\nClick the button below to proceed."
           );
-          window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform";
+          window.location.href =
+            "https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform";
           return;
         }
         is_admin = parseInt(entry[i][2]);
@@ -230,42 +246,41 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
     if (validated) {
       var editProfileButton = document.getElementById("editButton");
       editProfileButton.style.display = "block";
-      if(editProfileButton.href.indexOf("entry") == -1){
-        editProfileButton.href += "?usp=pp_url&entry.289015268=" +
-        entry[i][7] +
-        "&entry.121518091=" +
-        entry[i][8] +
-        "&entry.1347198033=" +
-        entry[i][9] +
-        "&entry.662107591=" +
-        entry[i][10] +
-        "&entry.1544953760=" +
-        entry[i][11] +
-        "&entry.1909659683=" +
-        entry[i][12] +
-        "&entry.1730843126=" +
-        entry[i][13] +
-        "&entry.860463443=" +
-        entry[i][14] +
-        "&entry.470070660=" +
-        entry[i][15] +
-        "&entry.499866465=" +
-        entry[i][16] +
-        "&entry.968397117=" +
-        entry[i][17] +
-        "&entry.1730056655=" +
-        entry[i][18] +
-        "&entry.1783386910=" +
-        entry[i][19] +
-        "&entry.684013321=" +
-        entry[i][20] +
-        "&entry.1837258615=" +
-        entry[i][21] +
-        "&entry.813408308=" +
-        entry[i][22];
-
+      if (editProfileButton.href.indexOf("entry") == -1) {
+        editProfileButton.href +=
+          "?usp=pp_url&entry.289015268=" +
+          entry[i][7] +
+          "&entry.121518091=" +
+          entry[i][8] +
+          "&entry.1347198033=" +
+          entry[i][9] +
+          "&entry.662107591=" +
+          entry[i][10] +
+          "&entry.1544953760=" +
+          entry[i][11] +
+          "&entry.1909659683=" +
+          entry[i][12] +
+          "&entry.1730843126=" +
+          entry[i][13] +
+          "&entry.860463443=" +
+          entry[i][14] +
+          "&entry.470070660=" +
+          entry[i][15] +
+          "&entry.499866465=" +
+          entry[i][16] +
+          "&entry.968397117=" +
+          entry[i][17] +
+          "&entry.1730056655=" +
+          entry[i][18] +
+          "&entry.1783386910=" +
+          entry[i][19] +
+          "&entry.684013321=" +
+          entry[i][20] +
+          "&entry.1837258615=" +
+          entry[i][21] +
+          "&entry.813408308=" +
+          entry[i][22];
       }
-     
 
       var menu = document.getElementById("memberMenu");
       menu.style = "visibility: visible;";
@@ -297,177 +312,129 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
           " **</b>";
         signInCode = lastCodeRow[lastCodeRow.length - 1];
 
+        var attendence_sheet =
+          "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 
-        var attendence_sheet ="https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+        var report_element = document.getElementById("table");
 
-      var report_element = document.getElementById("table");
+        $.getJSON(attendence_sheet, function (data) {
+          var entry = data.values;
+          var header = entry[0];
+          header.splice(0, 3);
 
-      $.getJSON(attendence_sheet, function (data) {
-        var entry = data.values;
-        var header = entry[0];
-        header.splice(0, 3);
-
-        var overview_sheet_index = -1;
-        for (var i = 0; i < entry.length; i++) {
-          if (entry[i][0] == profile.getEmail()) {
-            overview_sheet_index = i;
+          var overview_sheet_index = -1;
+          for (var i = 0; i < entry.length; i++) {
+            if (entry[i][0] == profile.getEmail()) {
+              overview_sheet_index = i;
+            }
           }
-        }
 
-        if (overview_sheet_index == -1) {
+          if (overview_sheet_index == -1) {
+            report_element.innerHTML =
+              "An unexpected error occured fetching your attendance report.<br>Please try again later.";
+          } else {
+            var account_entry = entry[overview_sheet_index];
+            var email = account_entry[0];
+            account_entry.splice(0, 3);
+
+            report_element.innerHTML = "Report for: " + email + "<br>";
+            var time_updated = entry[1][0].split(" ")[5];
+            var time_updated_split = time_updated.split(":");
+            var time_updated_hour = parseInt(time_updated_split[0]);
+            if (time_updated_hour > 12) {
+              time_updated =
+                time_updated_hour - 12 + ":" + time_updated_split[1] + "PM";
+            } else {
+              time_updated =
+                time_updated_split[0] + ":" + time_updated_split[1] + "AM";
+            }
+            report_element.innerHTML +=
+              "Last Updated: " + time_updated + " (Updated hourly)<br>";
+            //report_element.innerHTML += "Missed dates:<br>"
+            var displayNoMissed = false;
+            for (var i = 0; i < header.length; i++) {
+              title = "";
+              if (header[i].indexOf("/") == -1) {
+                switch (header[i]) {
+                  case "Left":
+                    header[i] = "Passes Left";
+                    break;
+                  case "Total":
+                    header[i] = "- Total Events";
+                    break;
+                  case "Unexcused":
+                    header[i] = "* " + header[i];
+
+                    if (account_entry[i] == 0) {
+                      displayNoMissed = true;
+                    } else {
+                      displayNoMissed = false;
+                    }
+                    break;
+                  case "Fine":
+                    header[i] = "* " + header[i];
+
+                    account_entry[i] += "<br>";
+                    break;
+                  default:
+                    header[i] = "- " + header[i];
+                }
+                report_element.innerHTML +=
+                  header[i] + ": " + account_entry[i] + "<br>";
+              } else {
+                if (
+                  account_entry[i] == "P_EXC" ||
+                  account_entry[i] == "EXC" ||
+                  account_entry[i] == "OK" ||
+                  account_entry[i] == "1"
+                ) {
+                  // do nothing
+                } else {
+                  console.log("here");
+                  for (var x = 1; x < codes.length; x++) {
+                    if (codes[x][0].split(" ")[0] == header[i]) {
+                      title = codes[x][2];
+                      break;
+                    }
+                  }
+
+                  var date = header[i].split("/");
+                  if (date[0].length == 1) {
+                    date[0] = "0" + date[0];
+                  }
+                  if (date[1].length == 1) {
+                    date[1] = "0" + date[1];
+                  }
+                  header[i] = date[0] + "/" + date[1] + "/" + date[2];
+
+                  if (account_entry[i] == "0") {
+                    account_entry[i] = "** Missed";
+                  }
+                  if (account_entry[i] == "PASS") {
+                    account_entry[i] = "** PASS";
+                  }
+                  account_entry[i] += " - " + title;
+                  report_element.innerHTML +=
+                    header[i] + ": " + account_entry[i] + "<br>";
+                }
+              }
+            }
+
+            if (displayNoMissed) {
+              report_element.innerHTML +=
+                "Looking good!<br>You have 0 missed events so far!";
+            } else {
+              report_element.innerHTML +=
+                "<br>* IMPORTANT: You are personally responsible to contact the secretary within the next few days if there are any errors with your attendence. Fines are to be put in a week after missing a required event.";
+            }
+          }
+
+          document.getElementById("loading").style.display = "none";
+        }).fail(function () {
           report_element.innerHTML =
             "An unexpected error occured fetching your attendance report.<br>Please try again later.";
-        } else {
-          var account_entry = entry[overview_sheet_index];
-          var email = account_entry[0];
-          account_entry.splice(0, 3);
-
-          report_element.innerHTML = "Report for: " + email + "<br>";
-          var time_updated = entry[1][0].split(" ")[5];
-          var time_updated_split = time_updated.split(":");
-          var time_updated_hour = parseInt(time_updated_split[0]);
-          if (time_updated_hour > 12) {
-            time_updated =
-              time_updated_hour - 12 + ":" + time_updated_split[1] + "PM";
-          } else {
-            time_updated =
-              time_updated_split[0] + ":" + time_updated_split[1] + "AM";
-          }
-          report_element.innerHTML +=
-            "Last Updated: " + time_updated + " (Updated hourly)<br>";
-          //report_element.innerHTML += "Missed dates:<br>"
-          var displayNoMissed = false;
-          for (var i = 0; i < header.length; i++) {
-            title = "";
-            if (header[i].indexOf("/") == -1) {
-              switch (header[i]) {
-                case "Left":
-                  header[i] = "Passes Left";
-                  break;
-                case "Total":
-                  header[i] = "- Total Events";
-                  break;
-                case "Unexcused":
-                  header[i] = "* " + header[i];
-                  
-                  if (account_entry[i] == 0) {
-                    displayNoMissed = true;
-                  } else {
-                    displayNoMissed = false;
-                  }
-                  break;
-                case "Fine":
-                  header[i] = "* " + header[i];
-
-                  account_entry[i] += "<br>";
-                  break;
-                default:
-                  header[i] = "- " + header[i];
-              }
-              report_element.innerHTML +=
-                header[i] + ": " + account_entry[i] + "<br>";
-            } else {
-              if (account_entry[i] == "P_EXC" ||
-                account_entry[i] == "EXC" ||
-                account_entry[i] == "OK" ||
-                account_entry[i] == "1") {
-                  // do nothing
-              } else {
-                console.log("here");
-                for (var x = 1; x < codes.length; x++) {
-                  if (codes[x][0].split(" ")[0] == header[i]) {
-                    title = codes[x][2];
-                    break;
-                  }
-                }
-
-                var date = header[i].split("/");
-                if(date[0].length == 1){
-                  date[0] = "0" + date[0];
-                }
-                if(date[1].length == 1){
-                  date[1] = "0" + date[1];
-                }
-                header[i] = date[0] + "/" + date[1] + "/" + date[2];
-
-                if (account_entry[i] == "0") {
-                  account_entry[i] = "** Missed";
-                }
-                if (account_entry[i] == "PASS") {
-                  account_entry[i] = "** PASS";
-                }
-                account_entry[i] += " - " + title;
-                report_element.innerHTML += header[i] + ": " + account_entry[i] + "<br>";
-              }
-            }
-
-            /*
-          var title = "";
-          if (header[i].indexOf("/") == -1 && header[i] == "Left") header[i] = "Passes Left";
-          if (header[i].indexOf("/") == -1 && header[i] == "Total") header[i] = "Total Events";
-          if (header[i].indexOf("/") == -1) {
-            if (header[i] == "Unexcused" || header[i] == "Fine") {
-              header[i] = "* " + header[i];
-            } else {
-              header[i] = "- " + header[i];
-            }
-
-          } else{
-            for(var x = 0; x < codes.length; x++){
-              if(codes[x][0].split(" ")[0] == header[i]){
-                title = codes[x][2];
-                break;
-              }
-            }
-          }
-
-          if (header[i].indexOf("/") != -1 && account_entry[i] == 1) continue; //account_entry[i] = "ATTENDED";
-          if (header[i].indexOf("/") != -1 && account_entry[i] == 0) {
-            account_entry[i] = "** ABSENT";
-            displayNoMissed = false;
-          }
-          if (header[i].indexOf("/") != -1 && account_entry[i] == "PASS") {
-            account_entry[i] = "** USED PASS";
-            displayNoMissed = false;
-          }
-          if (header[i].indexOf("/") != -1 && (account_entry[i] == "P_EXC" || account_entry[i] == "EXC" || account_entry[i] == "OK")) continue;
-
-       
-            report_element.innerHTML += header[i] + ": ";
-            if (header[i].indexOf("Unexcused") != -1) {
-
-              report_element.innerHTML += (parseInt(account_entry[i]) - parseInt(account_entry[i - 1])) + "<br>";
-            } else {
-              report_element.innerHTML += account_entry[i];
-              if(header[i] == "* Fine"){
-                report_element.innerHTML += "<br>"
-              }
-              if(title != ""){
-                report_element.innerHTML +=" - " + title;
-              }
-              report_element.innerHTML +="<br>";
-            }
-
-            */
-          }
-
-          if (displayNoMissed) {
-            report_element.innerHTML +=
-              "Looking good!<br>You have 0 missed events so far!";
-          } else {
-            report_element.innerHTML +=
-              "<br>* IMPORTANT: You are personally responsible to contact the secretary within the next few days if there are any errors with your attendence. Fines are to be put in a week after missing a required event.";
-          }
-        }
-
-        document.getElementById("loading").style.display = "none";
-      }).fail(function () {
-        report_element.innerHTML =
-          "An unexpected error occured fetching your attendance report.<br>Please try again later.";
+        });
       });
-      });
-
-    
 
       var menuLoggedOff = document.getElementById("loggedoffMenu");
       menuLoggedOff.style = "display: none;";
@@ -484,8 +451,9 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
       img.src = profile.getImageUrl();
 
       var excuseButton = document.getElementById("excuseButton");
-      if(excuseButton.href.indexOf("entry") == -1)
-      excuseButton.href += "?entry.191386322=" +
+      if (excuseButton.href.indexOf("entry") == -1)
+        excuseButton.href +=
+        "?entry.191386322=" +
         profile.getGivenName() +
         "&entry.908237995=" +
         profile.getFamilyName();
@@ -517,7 +485,8 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
   }).fail(function () {
     signOut();
     alert(
-      "An unexpected error occured signing you in.\nPlease try again later.");
+      "An unexpected error occured signing you in.\nPlease try again later."
+    );
     document.getElementById("loading").style.display = "none";
   });
 
@@ -527,12 +496,6 @@ if(popup_title != "" && popup_body != "" && popup_author != ""){
 }
 
 function signOut() {
-  /*
-  var menuLoggedOff = document.getElementById("loggedoffMenu");
-  menuLoggedOff.style = "display: block;"
-  var memberMenu = document.getElementById("memberMenu");
-  memberMenu.style = "display: none;"
-  */
 
   auth2.signOut().then(function () {
     console.log("User signed out.");
