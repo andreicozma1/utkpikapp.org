@@ -7,7 +7,7 @@
     content="985120126863-jp08oapp0iq28lloav4cabh7t3i9jbo4.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../styles.css?v14">
+  <link rel="stylesheet" type="text/css" href="../styles.css?v15">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="keywords"
     content="Pi Kappa Phi, Alpha Sigma, Chapter, PiKapp, PONG, PKP, UTK, Tennessee, Portal, Member, Rush">
@@ -20,7 +20,7 @@
 <body class='noSelect'>
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v36"></script>
+  <script src="/script.js?v37"></script>
 
 
   <div>
@@ -59,11 +59,11 @@
         <h1>General</h1>
         <div>
           <!---<a href="slack://open?team={C8QLEESNP}">ANNOUNCEMENTS</a>---->
+
+
+          <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank">GUEST CHECK-IN</a>
           <a href="https://www.ticketreturn.com/UTK/SelectEvent.aspx" onclick="tickets()" targer="_blank">GAME
             TICKETS</a>
-          <!---
-          <a href="https://forms.gle/1aJvuHxAJYZAL6rX6" target="_blank">* TAILGATE GUEST *<br>CHECK-IN</a>
-          -->
         </div>
 
       </div>
@@ -114,6 +114,12 @@
             * ATTENDANCE REPORT *
             <p id="table">Loading...</p>
           </div>
+          <div id="guest_list">* GUEST LIST *
+            <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank">CHECK GUESTS IN</a>
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1670700471&single=true"
+              target="_blank">RESPONSES</a>
+          </div>
+
 
 
           <div id="elections">* OFFICER ELECTIONS *
@@ -139,9 +145,6 @@
             <a href="https://drive.google.com/open?id=1y7OO6TH2gdmUDmChVQlYK1uCGhH-kag3" target="_blank">FORMS &
               RESPONSES</a>
           </div>
-          <a class="tailgateGuests"
-            href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1874555172&single=true"
-            target="_blank">TAILGATE GUEST LIST</a>
 
           <div>
             MANAGEMENT
@@ -153,16 +156,8 @@
             <a href="/shirts" target="_blank">ALPHA SIGMA SHIRTS</a>
             <a href="https://pikapp.org/shop/" target="_blank">PIKAPP STORE</a>
           </div>
-          <div id=calendar>
-            <h2>Calendar</h2>
-            <iframe
-              src="https://calendar.google.com/calendar/b/2/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YWxwaGFzaWdtYUB1dGtwaWthcHAub3Jn&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%230B8043&amp;showTitle=0&amp;showDate=1&amp;showCalendars=0"
-              style="border-width:0" height="500" frameborder="0" scrolling="no"></iframe>
-            <a href="https://calendar.google.com/calendar/ical/alphasigma%40utkpikapp.org/public/basic.ics"
-              target="_blank">SUBSCRIBE</a>
-            <p><i>Click the Subscribe button above to add this calendar to your phone</i></p>
-          </div>
-          <a href="TODO" onclick="tickets()" targer="_blank">FEEDBACK</a>
+
+          <a href="https://forms.gle/bCqg9KdN891NAq86A" target="_blank">FEEDBACK</a>
 
           <!---<a href="TODO" onclick="tickets()" targer="_blank">FAQ</a>---->
 
@@ -171,16 +166,52 @@
         </div>
       </div>
 
+      <div id="attendance" style="display:none;">
+        <h1 onClick="toggle(this)">Attendance</h1>
+        <div>
+
+          <h2>Today's Event:</h2>
+          <h3 id="event_name">- Data Unavailable -</h3>
+          <p>NOT SIGNED IN:</p>
+          <p id="missing_members">- Data Unavailable</p>
+          <h2>Excuses:</h2>
+          <p id="excuses_element">- Data Unavailable</p>
+          <h2>Member Ranking:</h2>
+          <p>MOST SIGN-INS:</p>
+          <p id="most_sign_ins">- Data Unavailable</p>
+          <p>LEAST SIGN-INS</p>
+          <p id="least_sign_ins">- Data Unavailable</p>
+        </div>
+
+      </div>
+
       <div id="announcements" style="display:none;">
         <h1 onClick="toggle(this)">Announcements</h1>
+        <div>
+          <p>Coming soon</p>
+        </div>
+
       </div>
 
       <div id="calendar" style="display:none;">
         <h1 onClick="toggle(this)">Calendar</h1>
+        <div>
+          <iframe
+            src="https://calendar.google.com/calendar/b/2/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YWxwaGFzaWdtYUB1dGtwaWthcHAub3Jn&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%230B8043&amp;showTitle=0&amp;showDate=1&amp;showCalendars=0"
+            style="border-width:0" height="500" frameborder="0" scrolling="no"></iframe>
+          <a href="https://calendar.google.com/calendar/ical/alphasigma%40utkpikapp.org/public/basic.ics"
+            target="_blank">SUBSCRIBE</a>
+          <p><i>Click the Subscribe button above to add this calendar to your phone</i></p>
+        </div>
+
+
       </div>
 
       <div id="committees" style="display:none;">
         <h1 onClick="toggle(this)">Committees</h1>
+        <div>
+          <p>Coming soon</p>
+        </div>
       </div>
 
       <div id="adminMenu" style="display:none;">
@@ -193,7 +224,7 @@
         <div>
           <h2>Admin Menu</h2>
           <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1607428643&single=true"
-          target="_blank">Member Accounts</a>
+            target="_blank">Member Accounts</a>
           <div>Announcements
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSdvX0H3WiKmXNvU_R6W4Em7C3YrAbeTB2Tq1dmVgDkbDB6vLw/viewform"
               target="_blank" class="important">- Make

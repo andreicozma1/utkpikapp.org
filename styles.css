@@ -370,19 +370,11 @@ font-size:1em;
 .blockdiv div div div a {
   font-size: 1em;
   background-color: rgba(255, 255, 255, .2);
+  width:94%;
 }
 
-#calendar{
-  width:100%;
-  padding:0;
- 
-}
-#calendar h2{
-  padding:.25em;
-}
 
 #signout {
-  width: 30%;
   background-color: rgba(255, 50, 50, 1)
 }
 
@@ -431,16 +423,13 @@ font-size:1em;
 
 
 
-
 #elections{
   display:none;
 }
 #housing{
 display:block'
 }
-.tailgateGuests{
-  display:none;
-}
+
 
 
 
@@ -457,9 +446,6 @@ display:block'
     width: 75%;
   }
 
-  .blockdiv div div div a {
-    width: 80%;
-  }
 
   .blockdiv div {
     margin-left: .5em;
@@ -480,9 +466,6 @@ display:block'
     width: 50%;
   }
 
-  .blockdiv div div div a {
-    width: 65%;
-  }
 
 }
 

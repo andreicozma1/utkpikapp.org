@@ -7,6 +7,9 @@ var snakeShown = false;
 var profile;
 var signInCode = "";
 
+var attendance_sheet_entries;
+var today_attendance;
+
 var auth2;
 
 window.onload = function (e) {
@@ -21,7 +24,46 @@ window.onload = function (e) {
     },
     false
   );
+
+
+
 };
+
+function refreshAttendance(){
+  var today_sheet =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Today?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+  $.getJSON(today_sheet, function (data) {
+
+     today_attendance = data.values;
+
+     var missing_members_element = document.getElementById("missing_members");
+     missing_members_element.innerHTML = "";
+
+     for (var i = 2; i < attendance_sheet_entries.length; i++) {
+      if (today_attendance != undefined && attendance_sheet_entries[i][0].indexOf("@") != -1) {
+        console.log("At " + attendance_sheet_entries[i][0])
+     
+  
+        var found = false;
+  
+        for (var j = 0; j < today_attendance.length; j++) {
+          console.log("Checking " + attendance_sheet_entries[i][0] + " against " + today_attendance[j][1]);
+          if (today_attendance[j][1].indexOf("@") != -1 && today_attendance[j][1] == attendance_sheet_entries[i][0]) {
+            found = true;
+          }
+  
+        }
+        if (found == false) {
+          missing_members_element.innerHTML += "- " + attendance_sheet_entries[i][1] + " " + attendance_sheet_entries[i][2] + "<br>";
+        } else {
+  
+        }
+      }
+    }
+
+  });
+}
+
 
 function tickets() {
   alert(
@@ -284,6 +326,15 @@ function onSignIn(googleUser) {
 
       var menu = document.getElementById("memberMenu");
       menu.style = "visibility: visible;";
+      var attendance_section = document.getElementById("attendance");
+      attendance_section.style = "visibility: visible;";
+      var announcements_section =  document.getElementById("announcements");
+      announcements_section.style = "visibility: visible;";
+      var calendar_section = document.getElementById("calendar");
+      calendar_section.style = "visibility: visible;";
+      var committees_section = document.getElementById("committees");
+      committees_section.style = "visibility: visible;";
+
       signInButton.style = "display:none;";
 
       if (is_owner) {
@@ -312,20 +363,29 @@ function onSignIn(googleUser) {
           " **</b>";
         signInCode = lastCodeRow[lastCodeRow.length - 1];
 
-        var attendence_sheet =
+
+
+  
+
+
+        var attendence_sheet_url =
           "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 
         var report_element = document.getElementById("table");
 
-        $.getJSON(attendence_sheet, function (data) {
-          var entry = data.values;
-          var header = entry[0];
-          header.splice(0, 3);
 
+        $.getJSON(attendence_sheet_url, function (data) {
+          attendance_sheet_entries = data.values;
+          var header = attendance_sheet_entries[0];
+          header.splice(0, 3);
+          var report_element = document.getElementById("table");
+  
           var overview_sheet_index = -1;
-          for (var i = 0; i < entry.length; i++) {
-            if (entry[i][0] == profile.getEmail()) {
+          for (var i = 2; i < attendance_sheet_entries.length; i++) {
+            if (attendance_sheet_entries[i][0] == profile.getEmail()) {
+              console.log("Found in overview");
               overview_sheet_index = i;
+              break;
             }
           }
 
@@ -333,12 +393,16 @@ function onSignIn(googleUser) {
             report_element.innerHTML =
               "An unexpected error occured fetching your attendance report.<br>Please try again later.";
           } else {
-            var account_entry = entry[overview_sheet_index];
+
+            refreshAttendance();
+            setInterval(refreshAttendance, 5000);
+
+            var account_entry = attendance_sheet_entries[overview_sheet_index];
             var email = account_entry[0];
             account_entry.splice(0, 3);
 
             report_element.innerHTML = "Report for: " + email + "<br>";
-            var time_updated = entry[1][0].split(" ")[5];
+            var time_updated = attendance_sheet_entries[1][0].split(" ")[5];
             var time_updated_split = time_updated.split(":");
             var time_updated_hour = parseInt(time_updated_split[0]);
             if (time_updated_hour > 12) {
