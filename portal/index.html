@@ -15,12 +15,22 @@
   <meta name="description"
     content="The Official Pi Kappa Phi - Alpha Sigma Chapter at the University of Tennessee, Knoxville." />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153159238-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153159238-1');
+</script>
 </head>
+
 
 <body class='noSelect'>
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v37"></script>
+  <script src="/script.js?v38"></script>
 
 
   <div>
@@ -170,13 +180,13 @@
         <h1 onClick="toggle(this)">Attendance</h1>
         <div>
 
-          <h2>Today's Event:</h2>
+          <h2>TODAY'S EVENT:</h2>
           <h3 id="event_name">- Data Unavailable -</h3>
           <p>NOT SIGNED IN:</p>
           <p id="missing_members">- Data Unavailable</p>
-          <h2>Excuses:</h2>
+          <h2>EXCUSES:</h2>
           <p id="excuses_element">- Data Unavailable</p>
-          <h2>Member Ranking:</h2>
+          <h2>RANKING:</h2>
           <p>MOST SIGN-INS:</p>
           <p id="most_sign_ins">- Data Unavailable</p>
           <p>LEAST SIGN-INS</p>
@@ -188,7 +198,10 @@
       <div id="announcements" style="display:none;">
         <h1 onClick="toggle(this)">Announcements</h1>
         <div>
-          <p>Coming soon</p>
+          <h2>RECENT:</h2>
+          <p>Coming soon...</p>
+          <h2>HISTORY:</h2>
+          <p>Coming soon...</p>
         </div>
 
       </div>
@@ -196,9 +209,15 @@
       <div id="calendar" style="display:none;">
         <h1 onClick="toggle(this)">Calendar</h1>
         <div>
+          <h2>COMING UP:</h2>
+          <p>Coming soon...</p>
+          <h2>GOOGLE CALENDAR</h2>
           <iframe
             src="https://calendar.google.com/calendar/b/2/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YWxwaGFzaWdtYUB1dGtwaWthcHAub3Jn&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%2333B679&amp;color=%230B8043&amp;showTitle=0&amp;showDate=1&amp;showCalendars=0"
             style="border-width:0" height="500" frameborder="0" scrolling="no"></iframe>
+          <a href="https://calendar.google.com/calendar/embed?src=alphasigma%40utkpikapp.org" target="_blank">DIRECT
+            LINK</a>
+
           <a href="https://calendar.google.com/calendar/ical/alphasigma%40utkpikapp.org/public/basic.ics"
             target="_blank">SUBSCRIBE</a>
           <p><i>Click the Subscribe button above to add this calendar to your phone</i></p>
@@ -207,10 +226,20 @@
 
       </div>
 
+      <div id="members" style="display:none;">
+        <h1 onClick="toggle(this)">Members</h1>
+        <div>
+          <h2>EXEC BOARD</h2>
+          <p>Coming soon...</p>
+          <h2>ACTIVE CHAPTER</h2>
+          <p>Coming soon...</p>
+        </div>
+      </div>
+
       <div id="committees" style="display:none;">
         <h1 onClick="toggle(this)">Committees</h1>
         <div>
-          <p>Coming soon</p>
+          <p>Coming soon...</p>
         </div>
       </div>
 
@@ -238,7 +267,7 @@
           <div>* ATTENDANCE *
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSc77LKvBQHEbCMTiyrqmaYqso-LmPAV9Wg-robqm8yQgsfU1w/viewform"
               target="_blank" class="important">Add Mandatory Event</a>
-            Reports:
+            REPORTS:
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=898422200&single=true"
               target="_blank">Today's Attendance</a>
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=697880276&single=true"
@@ -248,7 +277,6 @@
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=540828680&single=true"
               target="_blank">Code History</a>
           </div>
-
 
           <a href="https://drive.google.com/drive/folders/1UQroDdykpydv3yYlSc9jiqsLVr2QVx4T?usp=sharing"
             target="_blank">Exec Google Drive</a>

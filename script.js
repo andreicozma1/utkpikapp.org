@@ -37,10 +37,11 @@ function refreshAttendance(){
      today_attendance = data.values;
 
      var missing_members_element = document.getElementById("missing_members");
-     missing_members_element.innerHTML = "";
 
+     if (today_attendance != undefined){
+      missing_members_element.innerHTML = "";
      for (var i = 2; i < attendance_sheet_entries.length; i++) {
-      if (today_attendance != undefined && attendance_sheet_entries[i][0].indexOf("@") != -1) {
+      if(attendance_sheet_entries[i][0].indexOf("@") != -1) {
         console.log("At " + attendance_sheet_entries[i][0])
      
   
@@ -60,6 +61,9 @@ function refreshAttendance(){
         }
       }
     }
+  } else{
+    missing_members_element.innerHTML = "- No one signed in yet";
+  }
 
   });
 }
@@ -324,6 +328,7 @@ function onSignIn(googleUser) {
           entry[i][22];
       }
 
+      // TODO - USE FOR LOOP TO SET ALL ELEMENTS VISIBLE EXCEPT ADMIN MENU
       var menu = document.getElementById("memberMenu");
       menu.style = "visibility: visible;";
       var attendance_section = document.getElementById("attendance");
@@ -332,6 +337,8 @@ function onSignIn(googleUser) {
       announcements_section.style = "visibility: visible;";
       var calendar_section = document.getElementById("calendar");
       calendar_section.style = "visibility: visible;";
+      var members_section = document.getElementById("members");
+      members_section.style = "visibility: visible;";
       var committees_section = document.getElementById("committees");
       committees_section.style = "visibility: visible;";
 
