@@ -40,7 +40,7 @@ function refreshAttendance(){
 
      if (today_attendance != undefined){
       missing_members_element.innerHTML = "";
-     for (var i = 2; i < attendance_sheet_entries.length; i++) {
+     for (var i = 0; i < attendance_sheet_entries.length; i++) {
       if(attendance_sheet_entries[i][0].indexOf("@") != -1) {
         console.log("At " + attendance_sheet_entries[i][0])
      
