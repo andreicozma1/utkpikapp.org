@@ -12,62 +12,58 @@ var today_attendance;
 
 var auth2;
 
-window.onload = function (e) {
+window.onload = function(e) {
   auth2 = gapi.auth2.getAuthInstance();
 
   console.log(window.location.pathname);
   var video = document.getElementById("vid");
   video.addEventListener(
     "loadedmetadata",
-    function () {
+    function() {
       video.currentTime = Math.random() * video.duration;
     },
     false
   );
-
-
-
 };
 
-function refreshAttendance(){
+function refreshAttendance() {
   var today_sheet =
     "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Today?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-  $.getJSON(today_sheet, function (data) {
+  $.getJSON(today_sheet, function(data) {
+    today_attendance = data.values;
 
-     today_attendance = data.values;
+    var missing_members_element = document.getElementById("missing_members");
 
-     var missing_members_element = document.getElementById("missing_members");
-
-     if (today_attendance != undefined){
+    if (today_attendance != undefined) {
       missing_members_element.innerHTML = "";
-     for (var i = 0; i < attendance_sheet_entries.length; i++) {
-      if(attendance_sheet_entries[i][0].indexOf("@") != -1) {
-        console.log("At " + attendance_sheet_entries[i][0])
-     
-  
-        var found = false;
-  
-        for (var j = 0; j < today_attendance.length; j++) {
-          console.log("Checking " + attendance_sheet_entries[i][0] + " against " + today_attendance[j][1]);
-          if (today_attendance[j][1].indexOf("@") != -1 && today_attendance[j][1] == attendance_sheet_entries[i][0]) {
-            found = true;
+      for (var i = 0; i < attendance_sheet_entries.length; i++) {
+        if (attendance_sheet_entries[i][0].indexOf("@") != -1) {
+          var found = false;
+
+          for (var j = 0; j < today_attendance.length; j++) {
+            if (
+              today_attendance[j][1].indexOf("@") != -1 &&
+              today_attendance[j][1] == attendance_sheet_entries[i][0]
+            ) {
+              found = true;
+            }
           }
-  
-        }
-        if (found == false) {
-          missing_members_element.innerHTML += "- " + attendance_sheet_entries[i][1] + " " + attendance_sheet_entries[i][2] + "<br>";
-        } else {
-  
+          if (found == false) {
+            missing_members_element.innerHTML +=
+              "- " +
+              attendance_sheet_entries[i][1] +
+              " " +
+              attendance_sheet_entries[i][2] +
+              "<br>";
+          } else {
+          }
         }
       }
+    } else {
+      missing_members_element.innerHTML = "- No one signed in yet";
     }
-  } else{
-    missing_members_element.innerHTML = "- No one signed in yet";
-  }
-
   });
 }
-
 
 function tickets() {
   alert(
@@ -187,7 +183,7 @@ function onSignIn(googleUser) {
 
   var announcements_sheet =
     "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-  $.getJSON(announcements_sheet, function (data) {
+  $.getJSON(announcements_sheet, function(data) {
     var entry = data.values;
 
     var popup_title = "";
@@ -198,7 +194,7 @@ function onSignIn(googleUser) {
       console.log(entry[i][4]);
       if (entry[i][4].indexOf("POPUP") != -1) {
         console.log("Found matchind popup");
-        var entry_date = entry[i][11].split("/");
+        var entry_date = entry[i][9].split("/");
 
         var date = new Date();
         if (
@@ -207,9 +203,9 @@ function onSignIn(googleUser) {
           entry_date[2] == date.getFullYear()
         ) {
           console.log("Found matchind date");
-          popup_title = entry[i][8];
-          popup_body = entry[i][9];
-          popup_link = entry[i][10];
+          popup_title = entry[i][6];
+          popup_body = entry[i][7];
+          popup_link = entry[i][8];
           popup_author = entry[i][1];
         }
       }
@@ -229,10 +225,10 @@ function onSignIn(googleUser) {
         if (
           window.confirm(
             message +
-            "Link: " +
-            popup_link +
-            "\n" +
-            "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
+              "Link: " +
+              popup_link +
+              "\n" +
+              "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
           )
         ) {
           if (popup_link != "") {
@@ -251,7 +247,7 @@ function onSignIn(googleUser) {
   var is_admin;
   var is_owner;
   var is_excused;
-  $.getJSON(accounts_sheet, function (data) {
+  $.getJSON(accounts_sheet, function(data) {
     var entry = data.values;
     //console.log(entry);
     if (entry == undefined) {
@@ -333,7 +329,7 @@ function onSignIn(googleUser) {
       menu.style = "visibility: visible;";
       var attendance_section = document.getElementById("attendance");
       attendance_section.style = "visibility: visible;";
-      var announcements_section =  document.getElementById("announcements");
+      var announcements_section = document.getElementById("announcements");
       announcements_section.style = "visibility: visible;";
       var calendar_section = document.getElementById("calendar");
       calendar_section.style = "visibility: visible;";
@@ -360,7 +356,7 @@ function onSignIn(googleUser) {
         "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Codes?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
       var lastCodeRow;
       var codes;
-      $.getJSON(codes_sheet, function (data) {
+      $.getJSON(codes_sheet, function(data) {
         codes = data.values;
 
         lastCodeRow = codes[codes.length - 1];
@@ -370,23 +366,17 @@ function onSignIn(googleUser) {
           " **</b>";
         signInCode = lastCodeRow[lastCodeRow.length - 1];
 
-
-
-  
-
-
         var attendence_sheet_url =
           "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 
         var report_element = document.getElementById("table");
 
-
-        $.getJSON(attendence_sheet_url, function (data) {
+        $.getJSON(attendence_sheet_url, function(data) {
           attendance_sheet_entries = data.values;
           var header = attendance_sheet_entries[0];
-          header.splice(0, 3);
+
           var report_element = document.getElementById("table");
-  
+
           var overview_sheet_index = -1;
           for (var i = 2; i < attendance_sheet_entries.length; i++) {
             if (attendance_sheet_entries[i][0] == profile.getEmail()) {
@@ -400,13 +390,12 @@ function onSignIn(googleUser) {
             report_element.innerHTML =
               "An unexpected error occured fetching your attendance report.<br>Please try again later.";
           } else {
-
             refreshAttendance();
             setInterval(refreshAttendance, 5000);
 
             var account_entry = attendance_sheet_entries[overview_sheet_index];
             var email = account_entry[0];
-            account_entry.splice(0, 3);
+            // TO PUT BACK account_entry.splice(0, 3);
 
             report_element.innerHTML = "Report for: " + email + "<br>";
             var time_updated = attendance_sheet_entries[1][0].split(" ")[5];
@@ -423,7 +412,7 @@ function onSignIn(googleUser) {
               "Last Updated: " + time_updated + " (Updated hourly)<br>";
             //report_element.innerHTML += "Missed dates:<br>"
             var displayNoMissed = false;
-            for (var i = 0; i < header.length; i++) {
+            for (var i = 3; i < header.length; i++) {
               title = "";
               if (header[i].indexOf("/") == -1) {
                 switch (header[i]) {
@@ -501,7 +490,7 @@ function onSignIn(googleUser) {
           }
 
           document.getElementById("loading").style.display = "none";
-        }).fail(function () {
+        }).fail(function() {
           report_element.innerHTML =
             "An unexpected error occured fetching your attendance report.<br>Please try again later.";
         });
@@ -517,17 +506,17 @@ function onSignIn(googleUser) {
         profile.getEmail() +
         "<br>Status: " +
         (is_owner ? "Owner" : is_admin ? "Admin" : "Member") +
-        (is_setup ? "" : "") /*TODO". Click below to set up your account"*/ ;
+        (is_setup ? "" : "") /*TODO". Click below to set up your account"*/;
 
       img.src = profile.getImageUrl();
 
       var excuseButton = document.getElementById("excuseButton");
       if (excuseButton.href.indexOf("entry") == -1)
         excuseButton.href +=
-        "?entry.191386322=" +
-        profile.getGivenName() +
-        "&entry.908237995=" +
-        profile.getFamilyName();
+          "?entry.191386322=" +
+          profile.getGivenName() +
+          "&entry.908237995=" +
+          profile.getFamilyName();
 
       if (is_excused) {
         document.getElementById("chapterHint").innerHTML +=
@@ -553,7 +542,7 @@ function onSignIn(googleUser) {
           "<br>Please sign in with an UT email address.";
       }
     }
-  }).fail(function () {
+  }).fail(function() {
     signOut();
     alert(
       "An unexpected error occured signing you in.\nPlease try again later."
@@ -567,8 +556,7 @@ function onSignIn(googleUser) {
 }
 
 function signOut() {
-
-  auth2.signOut().then(function () {
+  auth2.signOut().then(function() {
     console.log("User signed out.");
 
     var signInButton = document.getElementById("gBtn");
@@ -610,7 +598,7 @@ function openNav() {
   console.log("Opened nav");
 }
 
-$(".form").focusout(function () {
+$(".form").focusout(function() {
   $(this).focus();
   console.log("Form out of focus. Focusing back on form");
 });
@@ -620,8 +608,8 @@ function removeFocus() {
 }
 document.body.addEventListener("touchstart", removeFocus);
 
-$(function () {
-  $(".blockdiv div").click(function () {
+$(function() {
+  $(".blockdiv div").click(function() {
     /*
     if ($(this).attr("hidden")) {
       $(this).find("a").show(200);
@@ -634,7 +622,7 @@ $(function () {
     */
   });
 
-  $(document).keypress(function (event) {
+  $(document).keypress(function(event) {
     if (event.which == 32) {
       if (snakeShown) {
         hideSnake();
@@ -650,23 +638,23 @@ $(function () {
     }
   });
 
-  $(".top").dblclick(function () {
+  $(".top").dblclick(function() {
     binaryToggle();
   });
-  $(".blockDiv h1").dblclick(function () {
+  $(".blockDiv h1").dblclick(function() {
     $(".content").css("color", getRandomColor);
     $(".content").css("outline-color", getRandomColor);
     $("p").css("color", getRandomColor);
     $("h1").css("color", getRandomColor);
   });
 
-  $(".content").click(function () {
+  $(".content").click(function() {
     if (snakeShown) {
       hideSnake();
     }
     if (videoBlurred) {
       $("#HHSLogo").css("transform", "scale(1.1, 1.1)");
-      setTimeout(function () {
+      setTimeout(function() {
         $("#HHSLogo").css("transform", "scale(1.0, 1.0)");
       }, 450);
     }
@@ -716,7 +704,7 @@ function closeNav() {
   console.log("Closed Nav");
 }
 
-window.addEventListener("resize", function (event) {
+window.addEventListener("resize", function(event) {
   if (isOpen === true) {
     openNavAction();
   }
@@ -749,28 +737,30 @@ function recursiveReplace(node) {
       // element
       $(node)
         .contents()
-        .each(function () {
+        .each(function() {
           recursiveReplace(this);
         });
     }
   }
 }
 
-(function () {
+(function() {
   var SIZE =
-    window.innerWidth < window.innerHeight ?
-    window.innerWidth :
-    window.innerHeight; // Size of the play-field in pixels
+    window.innerWidth < window.innerHeight
+      ? window.innerWidth
+      : window.innerHeight; // Size of the play-field in pixels
   var GRID_SIZE = SIZE / 50;
   var c;
   var context;
 
   var direction = (newDirection = 1); // -2: up, 2: down, -1: left, 1: right
   var snakeLength = 5;
-  var snake = [{
-    x: SIZE / 2,
-    y: SIZE / 2
-  }]; // Snake starts in the center
+  var snake = [
+    {
+      x: SIZE / 2,
+      y: SIZE / 2
+    }
+  ]; // Snake starts in the center
   var candy = null;
   var end = false;
 
@@ -850,7 +840,7 @@ function recursiveReplace(node) {
     context.fillRect(candy.x, candy.y, GRID_SIZE, GRID_SIZE); // Paint the candy
   }
 
-  $("body").on("DOMNodeInserted", "canvas", function () {
+  $("body").on("DOMNodeInserted", "canvas", function() {
     console.log("Hereee");
     c = document.getElementById("c");
     c.height = c.width = SIZE * 2; // 2x our resolution so retina screens look good
@@ -859,13 +849,14 @@ function recursiveReplace(node) {
     context.scale(2, 2); // Scale our canvas for retina screens
 
     setInterval(tick, 100); // Kick off the game loop!
-    window.onkeydown = function (e) {
-      newDirection = {
-        37: -1,
-        38: -2,
-        39: 1,
-        40: 2
-      } [e.keyCode] || newDirection;
+    window.onkeydown = function(e) {
+      newDirection =
+        {
+          37: -1,
+          38: -2,
+          39: 1,
+          40: 2
+        }[e.keyCode] || newDirection;
     };
   });
 })();

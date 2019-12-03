@@ -1,3 +1,9 @@
+.important{
+  border-style: solid;
+  border-width:2px;
+  border-color:rgba(231, 166, 0, 1);
+}
+
 body,
 head {
   -webkit-tap-highlight-color: transparent;
@@ -302,7 +308,7 @@ font-size:1em;
 }
 
 .blockdiv div {
-  background-color: rgba(0, 85, 150, .5);
+
   margin: 0;
   padding: .5em;
   position: relative;
@@ -340,6 +346,10 @@ font-size:1em;
 .blockdiv div a a {
   font-size: .9em;
 }
+.blockdiv div div{
+  background-color: rgba(0, 85, 150, .5);
+}
+
 
 .blockdiv div div h2 {
   padding: 0em;
@@ -351,10 +361,13 @@ font-size:1em;
 
 .blockdiv div div div {
   font-size: 1.2em;
-  background-color: rgba(255, 255, 255, .3);
+  background-color: rgba(255, 255, 255, .1);
   font-weight: bolder;
   margin: auto;
   margin-top: .2em;
+  border-style: solid;
+  border-width: 1px;
+  border-color:rgba(255,255,255,0.5);
 }
 
 .blockdiv div div div h1 {
@@ -371,6 +384,11 @@ font-size:1em;
   font-size: 1em;
   background-color: rgba(255, 255, 255, .2);
   width:94%;
+}
+.blockdiv div div div a:first-of-type{
+  border-style: solid;
+  border-width:2px;
+  border-color:rgba(231, 166, 0, 1);
 }
 
 

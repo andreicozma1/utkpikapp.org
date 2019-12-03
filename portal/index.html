@@ -7,7 +7,7 @@
     content="985120126863-jp08oapp0iq28lloav4cabh7t3i9jbo4.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../styles.css?v15">
+  <link rel="stylesheet" type="text/css" href="../styles.css?v17">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="keywords"
     content="Pi Kappa Phi, Alpha Sigma, Chapter, PiKapp, PONG, PKP, UTK, Tennessee, Portal, Member, Rush">
@@ -30,7 +30,7 @@
 <body class='noSelect'>
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v38"></script>
+  <script src="/script.js?v42"></script>
 
 
   <div>
@@ -71,7 +71,7 @@
           <!---<a href="slack://open?team={C8QLEESNP}">ANNOUNCEMENTS</a>---->
 
 
-          <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank">GUEST CHECK-IN</a>
+          <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank" class="important">GUEST CHECK-IN</a>
           <a href="https://www.ticketreturn.com/UTK/SelectEvent.aspx" onclick="tickets()" targer="_blank">GAME
             TICKETS</a>
         </div>
@@ -108,7 +108,7 @@
           <p id="info"></p>
 
 
-          <a class="important" id="chapterSignIn" onclick="confirmLocation()" target="_blank">EVENT SIGN-IN</a>
+          <a class="important" id="chapterSignIn" onclick="confirmLocation()" target="_blank" class="important">EVENT SIGN-IN</a>
           <a id="excuseButton"
             href="https://docs.google.com/forms/d/e/1FAIpQLSf0jJtVsFBlgKcrvxs9B0VWsUnB5HM9_7shr9aJhJIypAEMCQ/viewform"
             target="_blank">EXCUSE FORM</a>
@@ -125,7 +125,7 @@
             <p id="table">Loading...</p>
           </div>
           <div id="guest_list">* GUEST LIST *
-            <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank">CHECK GUESTS IN</a>
+            <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank">GUEST CHECK-IN</a>
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1670700471&single=true"
               target="_blank">RESPONSES</a>
           </div>
@@ -139,11 +139,13 @@
               target="_blank">CURRENT NOMINEES</a>
           </div>
           <div id="housing">HOUSING
+              <a href="https://pkpp.twa.rentmanager.com/ApplyNow?propertyID=37" target="_blank">APPLY FOR A LEASE</a>
             <a href="  https://pkpp.twa.rentmanager.com/" target="_blank">RENT MANAGER</a>
-
-            <a href="https://pkpp.twa.rentmanager.com/ApplyNow?propertyID=37" target="_blank">APPLY FOR A LEASE</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiSfbMmaf66mCziKnXa8V-gUBfL-sqKgSB6ihLvoAg5Ks4PA/viewform"
               target="_blank">ROOMING PREFERENCE</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiSfbMmaf66mCziKnXa8V-gUBfL-sqKgSB6ihLvoAg5Ks4PA/viewform"
+              target="_blank">RESPONSES</a>
+              
           </div>
           <div>
             DOCUMENTS
@@ -158,8 +160,9 @@
 
           <div>
             MANAGEMENT
-            <a href="https://gateway.pikapp.org/" target="_blank">CHAPTER GATEWAY</a>
             <a href="https://my.omegafi.com/" target="_blank">OMEGAFI</a>
+            <a href="https://gateway.pikapp.org/" target="_blank">CHAPTER GATEWAY</a>
+
           </div>
           <div>
             PIKAPP MERCH
@@ -185,7 +188,10 @@
           <p>NOT SIGNED IN:</p>
           <p id="missing_members">- Data Unavailable</p>
           <h2>EXCUSES:</h2>
-          <p id="excuses_element">- Data Unavailable</p>
+          <p>TODAY:</p>
+          <p id="today_excuses">- Data Unavailable</p>
+          <p>FUTURE:</p>
+          <p id="future_excuses">- Data Unavailable</p>
           <h2>RANKING:</h2>
           <p>MOST SIGN-INS:</p>
           <p id="most_sign_ins">- Data Unavailable</p>
@@ -248,15 +254,21 @@
         <div id="ownerMenu" style="display:none;">
           <h2>Owner Menu</h2>
           <a href="https://docs.google.com/spreadsheets/d/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/edit?usp=sharing"
-            target="_blank" class="important">* Edit Database *</a>
+            target="_blank" class="important">* DATABASE *</a>
         </div>
         <div>
           <h2>Admin Menu</h2>
-          <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1607428643&single=true"
+          <a href="https://drive.google.com/drive/folders/1UQroDdykpydv3yYlSc9jiqsLVr2QVx4T?usp=sharing"
+          target="_blank" class="important">Exec Google Drive</a>
+          <div>* MEMBERS* 
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1607428643&single=true"
             target="_blank">Member Accounts</a>
+            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=762002455&single=true"
+            target="_blank">Exec Board</a>
+          </div>
           <div>Announcements
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSdvX0H3WiKmXNvU_R6W4Em7C3YrAbeTB2Tq1dmVgDkbDB6vLw/viewform"
-              target="_blank" class="important">- Make
+              target="_blank">- Make
               Announcement -</a>
             Email:
             <a href="mailto:active@utkpikapp.org" target="_blank">Active Members</a>
@@ -266,20 +278,26 @@
 
           <div>* ATTENDANCE *
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSc77LKvBQHEbCMTiyrqmaYqso-LmPAV9Wg-robqm8yQgsfU1w/viewform"
-              target="_blank" class="important">Add Mandatory Event</a>
+              target="_blank">Add Mandatory Event</a>
             REPORTS:
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=898422200&single=true"
               target="_blank">Today's Attendance</a>
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=697880276&single=true"
               target="_blank">Overall Attendance</a>
-            <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1799238262&single=true"
-              target="_blank">All Excuses</a>
+              <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1619376435&single=true"
+              target="_blank">Fined List</a>
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=540828680&single=true"
               target="_blank">Code History</a>
+            EXCUSES:
+                <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1799238262&single=true"
+                target="_blank">View Excuses</a>
+                <a href="https://docs.google.com/spreadsheets/d/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/edit#gid=1799238262"
+                target="_blank">EDIT Excuses</a>
+      
           </div>
 
-          <a href="https://drive.google.com/drive/folders/1UQroDdykpydv3yYlSc9jiqsLVr2QVx4T?usp=sharing"
-            target="_blank">Exec Google Drive</a>
+
+           
         </div>
       </div>
     </div>
