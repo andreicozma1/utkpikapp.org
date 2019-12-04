@@ -4,6 +4,10 @@
   border-color:rgba(231, 166, 0, 1);
 }
 
+#info{
+  padding-bottom: 0;
+}
+
 body,
 head {
   -webkit-tap-highlight-color: transparent;

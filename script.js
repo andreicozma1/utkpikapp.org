@@ -33,9 +33,19 @@ function refreshAttendance() {
     today_attendance = data.values;
 
     var missing_members_element = document.getElementById("missing_members");
-
+    var signed_in_today_1_element = document.getElementById("signed_in_today_1");
+    var signed_in_today_2_element = document.getElementById("signed_in_today_2");
+    var today_header_element = document.getElementById("today_header");
     if (today_attendance != undefined) {
       missing_members_element.innerHTML = "";
+      var signed_in_count = (today_attendance.length-1);
+      var total_members_count = (attendance_sheet_entries.length - 2);
+var signed_in_perc = ((signed_in_count/total_members_count)*100).toFixed(2);
+      var signed_in_today_text = signed_in_count + " out of " + total_members_count + " (" + signed_in_perc+ "%)";
+      console.log(signed_in_today_text)
+      signed_in_today_1_element.style.display = "block";
+      signed_in_today_1_element.innerHTML = signed_in_today_text;
+      signed_in_today_2_element.innerHTML = "- " + signed_in_today_text;
       for (var i = 0; i < attendance_sheet_entries.length; i++) {
         if (attendance_sheet_entries[i][0].indexOf("@") != -1) {
           var found = false;
@@ -60,7 +70,11 @@ function refreshAttendance() {
         }
       }
     } else {
-      missing_members_element.innerHTML = "- No one signed in yet";
+      today_header_element.innerHTML = "LAST EVENT"
+      missing_members_element.innerHTML = "- No one signed in yet today";
+      signed_in_today_1_element.innerHTML = "- No one signed in yet today";
+      signed_in_today_1_element.style.display = "none";
+      signed_in_today_2_element.innerHTML = "- No one signed in yet today";
     }
   });
 }
@@ -361,9 +375,12 @@ function onSignIn(googleUser) {
 
         lastCodeRow = codes[codes.length - 1];
         info.innerHTML +=
-          "<br><b>** REQUIRED EVENT ON " +
+          "<br><b>** Mandatory " + lastCodeRow[2] +" on " +
           lastCodeRow[0].split(" ")[0] +
           " **</b>";
+
+          var event_name_element = document.getElementById("event_name");
+          event_name_element.innerHTML = lastCodeRow[2];
         signInCode = lastCodeRow[lastCodeRow.length - 1];
 
         var attendence_sheet_url =
@@ -408,10 +425,14 @@ function onSignIn(googleUser) {
               time_updated =
                 time_updated_split[0] + ":" + time_updated_split[1] + "AM";
             }
+
+         
             report_element.innerHTML +=
               "Last Updated: " + time_updated + " (Updated hourly)<br>";
             //report_element.innerHTML += "Missed dates:<br>"
             var displayNoMissed = false;
+
+            var percent_attended = ((account_entry[header.indexOf("Attended")] / account_entry[header.indexOf("Total")]) * 100).toFixed(2);
             for (var i = 3; i < header.length; i++) {
               title = "";
               if (header[i].indexOf("/") == -1) {
@@ -440,7 +461,7 @@ function onSignIn(googleUser) {
                     header[i] = "- " + header[i];
                 }
                 report_element.innerHTML +=
-                  header[i] + ": " + account_entry[i] + "<br>";
+                  header[i] + ": " + ((header[i].indexOf("Attended") != -1)?(account_entry[i]+ " (" + percent_attended +"%)"):account_entry[i]) + "<br>";
               } else {
                 if (
                   account_entry[i] == "P_EXC" ||
