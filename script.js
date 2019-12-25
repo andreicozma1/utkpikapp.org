@@ -587,6 +587,11 @@ function signOut() {
     document.getElementById("editButton").style.display = "none";
 
     document.getElementById("memberMenu").style.display = "none";
+    document.getElementById("committees").style.display = "none";
+    document.getElementById("attendance").style.display = "none";
+    document.getElementById("calendar").style.display = "none";
+    document.getElementById("announcements").style.display = "none";
+    document.getElementById("members").style.display = "none";
     document.getElementById("adminMenu").style.display = "none";
     document.getElementById("createAccount").style.display = "none";
 
