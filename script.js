@@ -554,13 +554,8 @@ function onSignIn(googleUser) {
           "<br>You don't appear to be a member of the Alpha Sigma chapter yet.";
         document.getElementById("createAccount").style = "display:block;";
       } else {
-        signInButton.style = "display:block;";
-        signOutButton.style = "display:block;";
-
-        helpText.innerHTML =
-          "Signed in as: " +
-          profile.getEmail() +
-          "<br>Please sign in with an UT email address.";
+        alert("Please sign in with an UT email address.\nSigning you out.");
+        signOut();
       }
     }
   }).fail(function() {
