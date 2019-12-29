@@ -458,7 +458,7 @@ function onSignIn(googleUser) {
 
           if (overview_sheet_index == -1) {
             report_element.innerHTML =
-              "You don't have any new reports yet!<br>Sign in to mandatory events and come back later.<br><br>If you think this is an error, please try again later or contact the chapter secretary for assistance.";
+              "You don't have any new reports yet!<br>Sign in to mandatory chapter events and check back later.<br><br>If you think this is an error, please try again later or contact the chapter secretary for assistance.";
           } else {
             refreshAttendance();
             setInterval(refreshAttendance, 5000);
