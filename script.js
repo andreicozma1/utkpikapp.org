@@ -12,6 +12,25 @@ var today_attendance;
 
 var auth2;
 
+var error_try_later = "<br><br>Please try again later.<br>* If the error persists, please contact the chapter secretary for assistance"
+
+// Make sure it is public or set to Anyone with link can view
+var accounts_sheet =
+"https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Accounts?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+var announcements_sheet =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+    var today_sheet =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Today?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+    var exec_sheet =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Exec?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+    var committees_sheet =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Committees?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+    var codes_sheet =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Codes?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+    var attendence_sheet_url =
+    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+
+
 window.onload = function(e) {
   auth2 = gapi.auth2.getAuthInstance();
 
@@ -26,9 +45,10 @@ window.onload = function(e) {
   );
 };
 
+
+
 function refreshAttendance() {
-  var today_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Today?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+ 
   $.getJSON(today_sheet, function(data) {
     today_attendance = data.values;
 
@@ -176,6 +196,35 @@ function onFailure() {
   alert("Google Sign-in Dialog closed by user.");
 }
 
+
+function loadMembersTab(){
+  $.getJSON(exec_sheet, function(data) {
+    var entry = data.values;
+    for(var i=1; i< entry.length; i++){
+      document.getElementById("exec_members").innerHTML += "<p class='center'><b>" + entry[i][2] + "</b><i>"+ entry[i][0] + " " + entry[i][1] + "</i><i>" + entry[i][3] + "</i></p>";
+    }
+  });
+}
+
+function loadCommitteesTab(){
+  $.getJSON(committees_sheet, function(data) {
+    var entry = data.values;
+    for(var i=1; i< entry.length; i++){
+      for(var h=0; h<entry[0].length;h++){
+        if(entry[0][h].indexOf("Committee") != -1 && entry[0][h].indexOf("Name") != -1){
+          if(entry[i][h] != null){
+          document.getElementById("committees_inner").innerHTML += "<div class='center'><h2>" + entry[i][h] + "</h2><i>Chair: " + entry[i][h+1] + "</i><p>" + entry[i][h+2] + "</p>";
+        }
+        }
+      
+      }
+      
+    }
+  });
+}
+
+
+
 function onSignIn(googleUser) {
   // Useful data for your client-side scripts:
 
@@ -195,8 +244,7 @@ function onSignIn(googleUser) {
   var signInButton = document.getElementById("gBtn");
   var signOutButton = document.getElementById("signout");
 
-  var announcements_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+  
   $.getJSON(announcements_sheet, function(data) {
     var entry = data.values;
 
@@ -254,9 +302,7 @@ function onSignIn(googleUser) {
       }
     }
   });
-  // Make sure it is public or set to Anyone with link can view
-  var accounts_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Accounts?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+  
   var is_setup;
   var is_admin;
   var is_owner;
@@ -265,7 +311,7 @@ function onSignIn(googleUser) {
     var entry = data.values;
     //console.log(entry);
     if (entry == undefined) {
-      alert("Error!\nCouldn't log you in.\nPlease try again later.");
+      alert("Error!\nCouldn't log you in.\nPlease try again later.\nIf the error persists, please contact the chapter secretary for assistance.");
       location.href = "/";
     }
     validated = false;
@@ -280,9 +326,17 @@ function onSignIn(googleUser) {
 
         if (!is_setup) {
           console.log("Account isn't set up");
-          alert(
-            "Welcome to Alpha Sigma!\n\nIt seems like this is your first time logging in to your Member Portal.\nThe Member Portal is your prime stop for everything PiKapp, where you sign in for all required events, check your attendance, submit excuses, view the calendar, run for elections, and much more!\n\nLet's finish setting up your profile.\nClick the button below to proceed."
-          );
+          if(entry[i][6] == ""){
+            alert(
+              "Welcome to Alpha Sigma!\n\nIt seems like this is your first time logging in to your Member Portal. Let's get you familiar with it.\nThe Member Portal is your prime stop for everything PiKapp. It's where you sign in for all required events, check your attendance, submit excuses, view the calendar, run for elections, view the chapter roster, and much more!\n\nBefore continuing, let's finish setting up your profile. Then, take a look at what your Member Portal has to offer.\n* Click the button below to proceed."
+            );
+          } else{
+            alert(
+              "Welcome back, " +  entry[i][7] + "!\n\nIt's time for you to update your Member Profile information!\n\nYou MUST complete this step first before continuing to your Member Portal. After you're done, please come back to this page to continue\n* Click the button below to proceed."
+            );
+          }
+
+         
           window.location.href =
             "https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform";
           return;
@@ -366,14 +420,14 @@ function onSignIn(googleUser) {
       }
       signOutButton.style = "display:block;";
 
-      var codes_sheet =
-        "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Codes?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-      var lastCodeRow;
+       var lastCodeRow;
       var codes;
       $.getJSON(codes_sheet, function(data) {
         codes = data.values;
 
+        if(codes.length != 1){
         lastCodeRow = codes[codes.length - 1];
+        
         info.innerHTML +=
           "<br><b>** Mandatory " + lastCodeRow[2] +" on " +
           lastCodeRow[0].split(" ")[0] +
@@ -382,10 +436,9 @@ function onSignIn(googleUser) {
           var event_name_element = document.getElementById("event_name");
           event_name_element.innerHTML = lastCodeRow[2];
         signInCode = lastCodeRow[lastCodeRow.length - 1];
+      }
 
-        var attendence_sheet_url =
-          "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-
+       
         var report_element = document.getElementById("table");
 
         $.getJSON(attendence_sheet_url, function(data) {
@@ -405,7 +458,7 @@ function onSignIn(googleUser) {
 
           if (overview_sheet_index == -1) {
             report_element.innerHTML =
-              "An unexpected error occured fetching your attendance report.<br>Please try again later.";
+              "You don't have any new reports yet! Sign in to mandatory events and come back later.<br><br>If you think this is an error, please try again later or contact the chapter secretary for assistance.";
           } else {
             refreshAttendance();
             setInterval(refreshAttendance, 5000);
@@ -513,7 +566,7 @@ function onSignIn(googleUser) {
           document.getElementById("loading").style.display = "none";
         }).fail(function() {
           report_element.innerHTML =
-            "An unexpected error occured fetching your attendance report.<br>Please try again later.";
+            "An unexpected error occured fetching your attendance report." + error_try_later;
         });
       });
 
@@ -531,17 +584,20 @@ function onSignIn(googleUser) {
 
       img.src = profile.getImageUrl();
 
+      loadMembersTab();
+      loadCommitteesTab();
+
       var excuseButton = document.getElementById("excuseButton");
-      if (excuseButton.href.indexOf("entry") == -1)
+      if (excuseButton.href.indexOf("entry") == -1){
         excuseButton.href +=
           "?entry.191386322=" +
           profile.getGivenName() +
           "&entry.908237995=" +
           profile.getFamilyName();
-
+        }
       if (is_excused) {
         document.getElementById("chapterHint").innerHTML +=
-          "<br>* INFO: You are permanently excused from chapter meetings";
+          "<br>* INFO: You are currently set as perma-excused from mandatory events.";
       }
     } else {
       document.getElementById("loading").style.display = "none";
