@@ -201,7 +201,7 @@ function loadMembersTab(){
   $.getJSON(exec_sheet, function(data) {
     var entry = data.values;
     for(var i=1; i< entry.length; i++){
-      document.getElementById("exec_members").innerHTML += "<p class='center'><b>" + entry[i][2] + "</b><i>"+ entry[i][0] + " " + entry[i][1] + "</i><i>" + entry[i][3] + "</i></p>";
+      document.getElementById("exec_members").innerHTML += "<div><h1>" + entry[i][2] + "</h1><b>"+ entry[i][0] + " " + entry[i][1] + "</b><a class='nobold' href='mailto:" + entry[i][3] + "'>"+ entry[i][3]  +"</a></div>";
     }
   });
 }
@@ -213,7 +213,7 @@ function loadCommitteesTab(){
       for(var h=0; h<entry[0].length;h++){
         if(entry[0][h].indexOf("Committee") != -1 && entry[0][h].indexOf("Name") != -1){
           if(entry[i][h] != null){
-          document.getElementById("committees_inner").innerHTML += "<div class='center'><h2>" + entry[i][h] + "</h2><i>Chair: " + entry[i][h+1] + "</i><p>" + entry[i][h+2] + "</p>";
+          document.getElementById("committees_inner").innerHTML += "<div class='center'><h1>" + entry[i][h] + "</h1><b>Run by " + entry[i][h+1] + "</b><p>Description:<br>" + entry[i][h+2] + "</p>";
         }
         }
       
