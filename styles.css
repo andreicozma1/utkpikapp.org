@@ -1,3 +1,28 @@
+.blockdiv div div .grid_container{
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-row-gap: .2em;
+  width: initial;
+  border: none;
+  background-color: transparent;
+}
+
+.blockdiv div div .grid_container div{
+  font-size: .7em;
+  margin: auto;
+  width: 90%;
+  height:90%;
+}
+.blockdiv div div .grid_container div *{
+  margin: .1em;
+}
+
+.blockdiv div div .grid_container div a{
+  font-size: .8em;
+  font-weight: normal;
+  margin: auto;
+}
+
 .important{
   border-style: solid;
   border-width:2px;
@@ -14,6 +39,7 @@
 .nobold{
   font-weight: normal;
 }
+
 
 body,
 head {
@@ -388,7 +414,7 @@ padding: .3em;
 .blockdiv div div div h1 {
 padding: .5em;
 font-size: 1.1em;
-margin-bottom: .25em;
+margin-bottom: .1em;
 filter: none;
 background-color: rgba(0, 0, 0, .4);
 /* border-bottom-style: solid; */
@@ -566,6 +592,7 @@ h1:hover {
   /* transition: all .5s ease-in-out */
   opacity: .7;
 }
+
 
 
 

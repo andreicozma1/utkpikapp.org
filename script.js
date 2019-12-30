@@ -1,68 +1,87 @@
+var auth2;
+
+var signInButton;
+var signOutButton;
+
 var isOpen = false;
 var isBin = false;
 var clicked = [];
 var videoBlurred = true;
 var snakeShown = false;
 
-var profile;
+var google_profile;
+var pikapp_user = {};
 var signInCode = "";
 
 var attendance_sheet_entries;
 var today_attendance;
 
-var auth2;
 
-var error_try_later = "<br><br>Please try again later.<br>* If the error persists, please contact the chapter secretary for assistance"
+var error_try_later =
+  "<br><br>Please try again later.<br>* If the error persists, please contact the chapter secretary for assistance";
 
 // Make sure it is public or set to Anyone with link can view
 var accounts_sheet =
-"https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Accounts?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Accounts?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 var announcements_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-    var today_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Today?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-    var exec_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Exec?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-    var committees_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Committees?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-    var codes_sheet =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Codes?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-    var attendence_sheet_url =
-    "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+var today_sheet =
+  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Today?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+var exec_sheet =
+  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Exec?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+var committees_sheet =
+  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Committees?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+var codes_sheet =
+  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Codes?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+var attendence_sheet_url =
+  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 
-
-window.onload = function(e) {
+window.onload = function (e) {
   auth2 = gapi.auth2.getAuthInstance();
+  this.console.log(auth2);
 
   console.log(window.location.pathname);
   var video = document.getElementById("vid");
   video.addEventListener(
     "loadedmetadata",
-    function() {
+    function () {
       video.currentTime = Math.random() * video.duration;
     },
     false
   );
+
+  signInButton = document.getElementById("gBtn");
+  signOutButton = document.getElementById("signout");
 };
 
-
-
 function refreshAttendance() {
- 
-  $.getJSON(today_sheet, function(data) {
+  $.getJSON(today_sheet, function (data) {
     today_attendance = data.values;
 
     var missing_members_element = document.getElementById("missing_members");
-    var signed_in_today_1_element = document.getElementById("signed_in_today_1");
-    var signed_in_today_2_element = document.getElementById("signed_in_today_2");
+    var signed_in_today_1_element = document.getElementById(
+      "signed_in_today_1"
+    );
+    var signed_in_today_2_element = document.getElementById(
+      "signed_in_today_2"
+    );
     var today_header_element = document.getElementById("today_header");
     if (today_attendance != undefined) {
       missing_members_element.innerHTML = "";
-      var signed_in_count = (today_attendance.length-1);
-      var total_members_count = (attendance_sheet_entries.length - 2);
-var signed_in_perc = ((signed_in_count/total_members_count)*100).toFixed(2);
-      var signed_in_today_text = signed_in_count + " out of " + total_members_count + " (" + signed_in_perc+ "%)";
-      console.log(signed_in_today_text)
+      var signed_in_count = today_attendance.length - 1;
+      var total_members_count = attendance_sheet_entries.length - 2;
+      var signed_in_perc = (
+        (signed_in_count / total_members_count) *
+        100
+      ).toFixed(2);
+      var signed_in_today_text =
+        signed_in_count +
+        " out of " +
+        total_members_count +
+        " (" +
+        signed_in_perc +
+        "%)";
+      console.log(signed_in_today_text);
       signed_in_today_1_element.style.display = "block";
       signed_in_today_1_element.innerHTML = signed_in_today_text;
       signed_in_today_2_element.innerHTML = "- " + signed_in_today_text;
@@ -85,12 +104,11 @@ var signed_in_perc = ((signed_in_count/total_members_count)*100).toFixed(2);
               " " +
               attendance_sheet_entries[i][2] +
               "<br>";
-          } else {
-          }
+          } else {}
         }
       }
     } else {
-      today_header_element.innerHTML = "LAST EVENT"
+      today_header_element.innerHTML = "LAST EVENT";
       missing_members_element.innerHTML = "- No one signed in yet today";
       signed_in_today_1_element.innerHTML = "- No one signed in yet today";
       signed_in_today_1_element.style.display = "none";
@@ -103,12 +121,6 @@ function tickets() {
   alert(
     "Group Info:\n\nUser: Bsheppa1\nPassword: pikapp2019\n\nClick below to continue to the Ticket Portal"
   );
-}
-
-function showLoading() {
-  document.getElementById("loading").style.display = "block";
-  console.log("showing loading");
-  // test comment 1
 }
 
 function confirmLocation() {
@@ -147,9 +159,9 @@ function getLocation() {
 function redirectSignIn(code = "") {
   window.location.href =
     "https://docs.google.com/forms/d/e/1FAIpQLSf7c8D_wwBKNMdJS7z6jJ-rdOcmv1LAHKo9SPgk0jgX92uEzQ/viewform?usp=pp_url&entry.248598887=" +
-    profile.getGivenName() +
+    google_profile.getGivenName() +
     "&entry.1123381156=" +
-    profile.getFamilyName() +
+    google_profile.getFamilyName() +
     "&entry.594337284=" +
     code;
 }
@@ -196,56 +208,77 @@ function onFailure() {
   alert("Google Sign-in Dialog closed by user.");
 }
 
-
-function loadMembersTab(){
-  $.getJSON(exec_sheet, function(data) {
+function loadMembersTab() {
+  $.getJSON(exec_sheet, function (data) {
     var entry = data.values;
-    for(var i=1; i< entry.length; i++){
-      document.getElementById("exec_members").innerHTML += "<div><h1>" + entry[i][2] + "</h1><b>"+ entry[i][0] + " " + entry[i][1] + "</b><a class='nobold' href='mailto:" + entry[i][3] + "'>"+ entry[i][3]  +"</a></div>";
+    for (var i = 1; i < entry.length; i++) {
+      document.getElementById("exec_members").innerHTML +=
+        "<div><h1>" +
+        entry[i][2] +
+        "</h1><b>" +
+        entry[i][0] +
+        " " +
+        entry[i][1] +
+        "</b><a class='nobold' href='mailto:" +
+        entry[i][3] +
+        "'>" +
+        "Email" +
+        "</a></div>";
     }
   });
-}
-
-function loadCommitteesTab(){
-  $.getJSON(committees_sheet, function(data) {
+  $.getJSON(accounts_sheet, function (data) {
     var entry = data.values;
-    for(var i=1; i< entry.length; i++){
-      for(var h=0; h<entry[0].length;h++){
-        if(entry[0][h].indexOf("Committee") != -1 && entry[0][h].indexOf("Name") != -1){
-          if(entry[i][h] != null){
-          document.getElementById("committees_inner").innerHTML += "<div class='center'><h1>" + entry[i][h] + "</h1><b>Run by " + entry[i][h+1] + "</b><p>Description:<br>" + entry[i][h+2] + "</p>";
-        }
-        }
-      
+    for (var i = 1; i < entry.length; i++) {
+      if (entry[i][6] != undefined && entry[i][5] == 1) {
+        document.getElementById("all_members").innerHTML +=
+          "<div><h1>" +
+          entry[i][7] +
+          " " +
+          entry[i][8] +
+          "</h1><b>" +
+          entry[i][10] +
+          " " +
+          entry[i][11] +
+          " Class</b>" +
+          entry[i][13] +
+          "<i>" +
+          entry[i][14] +
+          "</i></div>";
       }
-      
+    }
+  });
+}
+
+function loadCommitteesTab() {
+  $.getJSON(committees_sheet, function (data) {
+    var entry = data.values;
+    for (var i = 1; i < entry.length; i++) {
+      for (var h = 0; h < entry[0].length; h++) {
+        if (
+          entry[0][h].indexOf("Committee") != -1 &&
+          entry[0][h].indexOf("Name") != -1
+        ) {
+          if (entry[i][h] != null) {
+            document.getElementById("committees_inner").innerHTML +=
+              "<div class='center'><h1>" +
+              entry[i][h] +
+              "</h1><b>Run by " +
+              entry[i][h + 1] +
+              "</b>About: " +
+              entry[i][h + 2] +
+              "</div>";
+          }
+        }
+      }
     }
   });
 }
 
 
 
-function onSignIn(googleUser) {
-  // Useful data for your client-side scripts:
-
-  if (window.location.pathname.indexOf("portal") == -1) {
-    window.location.href = "http://utkpikapp.org/portal";
-  }
-
-  showLoading();
-  profile = googleUser.getBasicProfile();
-  console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-  console.log("Full Name: " + profile.getName());
-  console.log("Given Name: " + profile.getGivenName());
-  console.log("Family Name: " + profile.getFamilyName());
-  console.log("Image URL: " + profile.getImageUrl());
-  console.log("Email: " + profile.getEmail());
-
-  var signInButton = document.getElementById("gBtn");
-  var signOutButton = document.getElementById("signout");
-
-  
-  $.getJSON(announcements_sheet, function(data) {
+function check_announcements() {
+  console.log("Checking announcements");
+  $.getJSON(announcements_sheet, function (data) {
     var entry = data.values;
 
     var popup_title = "";
@@ -253,7 +286,6 @@ function onSignIn(googleUser) {
     var popup_link = "";
     var popup_author = "";
     for (var i = 0; i < entry.length; i++) {
-      console.log(entry[i][4]);
       if (entry[i][4].indexOf("POPUP") != -1) {
         console.log("Found matchind popup");
         var entry_date = entry[i][9].split("/");
@@ -264,7 +296,7 @@ function onSignIn(googleUser) {
           entry_date[1] == date.getDate() &&
           entry_date[2] == date.getFullYear()
         ) {
-          console.log("Found matchind date");
+          console.log("Found matching date");
           popup_title = entry[i][6];
           popup_body = entry[i][7];
           popup_link = entry[i][8];
@@ -287,10 +319,10 @@ function onSignIn(googleUser) {
         if (
           window.confirm(
             message +
-              "Link: " +
-              popup_link +
-              "\n" +
-              "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
+            "Link: " +
+            popup_link +
+            "\n" +
+            "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
           )
         ) {
           if (popup_link != "") {
@@ -302,337 +334,426 @@ function onSignIn(googleUser) {
       }
     }
   });
-  
-  var is_setup;
-  var is_admin;
-  var is_owner;
-  var is_excused;
-  $.getJSON(accounts_sheet, function(data) {
+}
+
+function validate_account(callback) {
+  console.log("Validating account with database");
+
+  $.getJSON(accounts_sheet, function (data) {
     var entry = data.values;
-    //console.log(entry);
+
     if (entry == undefined) {
-      alert("Error!\nCouldn't log you in.\nPlease try again later.\nIf the error persists, please contact the chapter secretary for assistance.");
+      alert(
+        "Error!\nCouldn't log you in.\nPlease try again later.\nIf the error persists, please contact the chapter secretary for assistance."
+      );
       location.href = "/";
     }
     validated = false;
-    var validation_index;
 
     for (var i = 0; i < entry.length; i++) {
-      if (profile.getEmail() == entry[i][0]) {
+
+      if (google_profile.getEmail() == entry[i][0]) {
+        console.log("Found account");
+        console.log(entry[i]);
+        pikapp_user.entry = entry[i];
         validated = true;
 
-        validation_index = i;
-        is_setup = parseInt(entry[i][1]);
+        pikapp_user.is_setup = parseInt(entry[i][1]);
 
-        if (!is_setup) {
-          console.log("Account isn't set up");
-          if(entry[i][6] == ""){
+        if (!pikapp_user.is_setup) {
+          console.log("Account isn't set up.");
+          if (entry[i][6] == "") {
             alert(
               "Welcome to Alpha Sigma!\n\nIt seems like this is your first time logging in to your Member Portal. Let's get you familiar with it.\nThe Member Portal is your prime stop for everything PiKapp. It's where you sign in for all required events, check your attendance, submit excuses, view the calendar, run for elections, view the chapter roster, and much more!\n\nBefore continuing, let's finish setting up your profile. Then, take a look at what your Member Portal has to offer.\n* Click the button below to proceed."
             );
-          } else{
+          } else {
             alert(
-              "Welcome back, " +  entry[i][7] + "!\n\nIt's time for you to update your Member Profile information!\n\nYou MUST complete this step first before continuing to your Member Portal. After you're done, please come back to this page to continue\n* Click the button below to proceed."
+              "Welcome back, " +
+              entry[i][7] +
+              "!\n\nIt's time for you to update your Member Profile information!\n\nYou MUST complete this step first before continuing to your Member Portal. After you're done, please come back to this page to continue\n* Click the button below to proceed."
             );
           }
 
-         
+          signOut();
+
           window.location.href =
             "https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform";
+
           return;
         }
-        is_admin = parseInt(entry[i][2]);
-        is_owner = parseInt(entry[i][3]);
-        is_excused = parseInt(entry[i][4]);
 
+        pikapp_user.is_active = parseInt(entry[i][5]);
+
+        if (!pikapp_user.is_active) {
+          console.log("User isn't active.");
+          alert(
+            "Hello, " +
+            entry[i][7] +
+            "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance"
+          );
+
+          signOut();
+
+          return;
+        }
+        pikapp_user.is_admin = parseInt(entry[i][2]);
+        pikapp_user.is_owner = parseInt(entry[i][3]);
+        pikapp_user.is_excused = parseInt(entry[i][4]);
+
+        callback()
         break;
+      } else {
+
       }
     }
-
-    var info = document.getElementById("info");
-    var img = document.getElementById("profile_pic");
-    img.style.display = "block";
-    var helpText = document.getElementById("helpText");
-    if (validated) {
-      var editProfileButton = document.getElementById("editButton");
-      editProfileButton.style.display = "block";
-      if (editProfileButton.href.indexOf("entry") == -1) {
-        editProfileButton.href +=
-          "?usp=pp_url&entry.289015268=" +
-          entry[i][7] +
-          "&entry.121518091=" +
-          entry[i][8] +
-          "&entry.1347198033=" +
-          entry[i][9] +
-          "&entry.662107591=" +
-          entry[i][10] +
-          "&entry.1544953760=" +
-          entry[i][11] +
-          "&entry.1909659683=" +
-          entry[i][12] +
-          "&entry.1730843126=" +
-          entry[i][13] +
-          "&entry.860463443=" +
-          entry[i][14] +
-          "&entry.470070660=" +
-          entry[i][15] +
-          "&entry.499866465=" +
-          entry[i][16] +
-          "&entry.968397117=" +
-          entry[i][17] +
-          "&entry.1730056655=" +
-          entry[i][18] +
-          "&entry.1783386910=" +
-          entry[i][19] +
-          "&entry.684013321=" +
-          entry[i][20] +
-          "&entry.1837258615=" +
-          entry[i][21] +
-          "&entry.813408308=" +
-          entry[i][22];
-      }
-
-      // TODO - USE FOR LOOP TO SET ALL ELEMENTS VISIBLE EXCEPT ADMIN MENU
-      var menu = document.getElementById("memberMenu");
-      menu.style = "visibility: visible;";
-      var attendance_section = document.getElementById("attendance");
-      attendance_section.style = "visibility: visible;";
-      var announcements_section = document.getElementById("announcements");
-      announcements_section.style = "visibility: visible;";
-      var calendar_section = document.getElementById("calendar");
-      calendar_section.style = "visibility: visible;";
-      var members_section = document.getElementById("members");
-      members_section.style = "visibility: visible;";
-      var committees_section = document.getElementById("committees");
-      committees_section.style = "visibility: visible;";
-
-      signInButton.style = "display:none;";
-
-      if (is_owner) {
-        var adminMenu = document.getElementById("adminMenu");
-        adminMenu.style = "display:visible;";
-
-        var ownerMenu = document.getElementById("ownerMenu");
-        ownerMenu.style = "display:visible;";
-      } else if (is_admin) {
-        var adminMenu = document.getElementById("adminMenu");
-        adminMenu.style = "display:visible;";
-      }
-      signOutButton.style = "display:block;";
-
-       var lastCodeRow;
-      var codes;
-      $.getJSON(codes_sheet, function(data) {
-        codes = data.values;
-
-        if(codes.length != 1){
-        lastCodeRow = codes[codes.length - 1];
-        
-        info.innerHTML +=
-          "<br><b>** Mandatory " + lastCodeRow[2] +" on " +
-          lastCodeRow[0].split(" ")[0] +
-          " **</b>";
-
-          var event_name_element = document.getElementById("event_name");
-          event_name_element.innerHTML = lastCodeRow[2];
-        signInCode = lastCodeRow[lastCodeRow.length - 1];
-      }
-
-       
-        var report_element = document.getElementById("table");
-
-        $.getJSON(attendence_sheet_url, function(data) {
-          attendance_sheet_entries = data.values;
-          var header = attendance_sheet_entries[0];
-
-          var report_element = document.getElementById("table");
-
-          var overview_sheet_index = -1;
-          for (var i = 2; i < attendance_sheet_entries.length; i++) {
-            if (attendance_sheet_entries[i][0] == profile.getEmail()) {
-              console.log("Found in overview");
-              overview_sheet_index = i;
-              break;
-            }
-          }
-
-          if (overview_sheet_index == -1) {
-            report_element.innerHTML =
-              "You don't have any new reports yet!<br>Sign in to mandatory chapter events and check back later.<br><br>If you think this is an error, please try again later or contact the chapter secretary for assistance.";
-          } else {
-            refreshAttendance();
-            setInterval(refreshAttendance, 5000);
-
-            var account_entry = attendance_sheet_entries[overview_sheet_index];
-            var email = account_entry[0];
-            // TO PUT BACK account_entry.splice(0, 3);
-
-            report_element.innerHTML = "Report for: " + email + "<br>";
-            var time_updated = attendance_sheet_entries[1][0].split(" ")[5];
-            var time_updated_split = time_updated.split(":");
-            var time_updated_hour = parseInt(time_updated_split[0]);
-            if (time_updated_hour > 12) {
-              time_updated =
-                time_updated_hour - 12 + ":" + time_updated_split[1] + "PM";
-            } else {
-              time_updated =
-                time_updated_split[0] + ":" + time_updated_split[1] + "AM";
-            }
-
-         
-            report_element.innerHTML +=
-              "Last Updated: " + time_updated + " (Updated hourly)<br>";
-            //report_element.innerHTML += "Missed dates:<br>"
-            var displayNoMissed = false;
-
-            var percent_attended = ((account_entry[header.indexOf("Attended")] / account_entry[header.indexOf("Total")]) * 100).toFixed(2);
-            for (var i = 3; i < header.length; i++) {
-              title = "";
-              if (header[i].indexOf("/") == -1) {
-                switch (header[i]) {
-                  case "Left":
-                    header[i] = "Passes Left";
-                    break;
-                  case "Total":
-                    header[i] = "- Total Events";
-                    break;
-                  case "Unexcused":
-                    header[i] = "* " + header[i];
-
-                    if (account_entry[i] == 0) {
-                      displayNoMissed = true;
-                    } else {
-                      displayNoMissed = false;
-                    }
-                    break;
-                  case "Fine":
-                    header[i] = "* " + header[i];
-
-                    account_entry[i] += "<br>";
-                    break;
-                  default:
-                    header[i] = "- " + header[i];
-                }
-                report_element.innerHTML +=
-                  header[i] + ": " + ((header[i].indexOf("Attended") != -1)?(account_entry[i]+ " (" + percent_attended +"%)"):account_entry[i]) + "<br>";
-              } else {
-                if (
-                  account_entry[i] == "P_EXC" ||
-                  account_entry[i] == "EXC" ||
-                  account_entry[i] == "OK" ||
-                  account_entry[i] == "1"
-                ) {
-                  // do nothing
-                } else {
-                  console.log("here");
-                  for (var x = 1; x < codes.length; x++) {
-                    if (codes[x][0].split(" ")[0] == header[i]) {
-                      title = codes[x][2];
-                      break;
-                    }
-                  }
-
-                  var date = header[i].split("/");
-                  if (date[0].length == 1) {
-                    date[0] = "0" + date[0];
-                  }
-                  if (date[1].length == 1) {
-                    date[1] = "0" + date[1];
-                  }
-                  header[i] = date[0] + "/" + date[1] + "/" + date[2];
-
-                  if (account_entry[i] == "0") {
-                    account_entry[i] = "** Missed";
-                  }
-                  if (account_entry[i] == "PASS") {
-                    account_entry[i] = "** PASS";
-                  }
-                  account_entry[i] += " - " + title;
-                  report_element.innerHTML +=
-                    header[i] + ": " + account_entry[i] + "<br>";
-                }
-              }
-            }
-
-            if (displayNoMissed) {
-              report_element.innerHTML +=
-                "Looking good!<br>You have 0 missed events so far!";
-            } else {
-              report_element.innerHTML +=
-                "<br>* IMPORTANT: You are personally responsible to contact the secretary within the next few days if there are any errors with your attendence. Fines are to be put in a week after missing a required event.";
-            }
-          }
-
-          document.getElementById("loading").style.display = "none";
-        }).fail(function() {
-          report_element.innerHTML =
-            "An unexpected error occured fetching your attendance report." + error_try_later;
-        });
-      });
-
-      var menuLoggedOff = document.getElementById("loggedoffMenu");
-      menuLoggedOff.style = "display: none;";
-
-      info.innerHTML =
-        "Name: " +
-        profile.getName() +
-        "<br>Email: " +
-        profile.getEmail() +
-        "<br>Status: " +
-        (is_owner ? "Owner" : is_admin ? "Admin" : "Member") +
-        (is_setup ? "" : "") /*TODO". Click below to set up your account"*/;
-
-      img.src = profile.getImageUrl();
-
-      loadMembersTab();
-      loadCommitteesTab();
-
-      var excuseButton = document.getElementById("excuseButton");
-      if (excuseButton.href.indexOf("entry") == -1){
-        excuseButton.href +=
-          "?entry.191386322=" +
-          profile.getGivenName() +
-          "&entry.908237995=" +
-          profile.getFamilyName();
-        }
-      if (is_excused) {
-        document.getElementById("chapterHint").innerHTML +=
-          "<br>* INFO: You are currently set as perma-excused from mandatory events.";
-      }
-    } else {
-      document.getElementById("loading").style.display = "none";
-      if (profile.getEmail().indexOf("@vols.utk.edu") != -1) {
+    if (!validated) {
+      console.log("Account not found");
+      if (google_profile.getEmail().indexOf("@vols.utk.edu") != -1) {
+        console.log("UT email address. Showing account creation.")
         signInButton.style = "display:none;";
         signOutButton.style = "display:block;";
         helpText.innerHTML =
           "Email: " +
-          profile.getEmail() +
+          google_profile.getEmail() +
           "<br>You don't appear to be a member of the Alpha Sigma chapter yet.";
         document.getElementById("createAccount").style = "display:block;";
       } else {
+        console.log("Not a UT email address.")
         alert("Please sign in with an UT email address.\nSigning you out.");
         signOut();
+        return;
       }
     }
-  }).fail(function() {
+
+  }).fail(function () {
     signOut();
     alert(
-      "An unexpected error occured signing you in.\nPlease try again later."
+      "An unexpected error occured signing you in.\n\nPlease try again later\nIf the problem persists, please contact the chapter secretary for assistance."
     );
-    document.getElementById("loading").style.display = "none";
   });
 
+}
+
+function show_loading(should_load) {
+  if (should_load) {
+    document.getElementById("loading").style.display = "block";
+  } else {
+    document.getElementById("loading").style.display = "none";
+  }
+}
+
+function onSignIn(googleUser) {
+  // Useful data for your client-side scripts:
+
+  if (window.location.pathname.indexOf("portal") == -1) {
+    window.location.href = "http://utkpikapp.org/portal";
+  }
+
+  console.log(googleUser);
+
+  show_loading(true);
+  google_profile = googleUser.getBasicProfile();
+  console.log("ID: " + google_profile.getId()); // Don't send this directly to your server!
+  console.log("Full Name: " + google_profile.getName());
+  console.log("Given Name: " + google_profile.getGivenName());
+  console.log("Family Name: " + google_profile.getFamilyName());
+  console.log("Image URL: " + google_profile.getImageUrl());
+  console.log("Email: " + google_profile.getEmail());
   // The ID token you need to pass to your backend:
   var id_token = googleUser.getAuthResponse().id_token;
   console.log("ID Token: " + id_token);
+
+  check_announcements();
+  validate_account(function () {
+    console.log(pikapp_user.entry);
+    todoFunction();
+  });
+
+
+
+
+
+  // $.getJSON(accounts_sheet, function (data) {
+  //   var entry = data.values;
+  //   //console.log(entry);
+  //   if (entry == undefined) {
+  //     alert("Error!\nCouldn't log you in.\nPlease try again later.\nIf the error persists, please contact the chapter secretary for assistance.");
+  //     location.href = "/";
+  //   }
+
+  //   
+  // }).fail(function () {
+  //   signOut();
+  //   alert(
+  //     "An unexpected error occured signing you in.\n\nPlease try again later\nIf the problem persists, please contact the chapter secretary for assistance"
+  //   );
+  // });
+}
+
+function todoFunction() {
+
+  var info = document.getElementById("info");
+  var img = document.getElementById("profile_pic");
+  img.style.display = "block";
+  var helpText = document.getElementById("helpText");
+  if (validated) {
+    var editProfileButton = document.getElementById("editButton");
+    editProfileButton.style.display = "block";
+    if (editProfileButton.href.indexOf("entry") == -1) {
+      editProfileButton.href +=
+        "?usp=pp_url&entry.289015268=" +
+        pikapp_user.entry[7] +
+        "&entry.121518091=" +
+        pikapp_user.entry[8] +
+        "&entry.1347198033=" +
+        pikapp_user.entry[9] +
+        "&entry.662107591=" +
+        pikapp_user.entry[10] +
+        "&entry.1544953760=" +
+        pikapp_user.entry[11] +
+        "&entry.1909659683=" +
+        pikapp_user.entry[12] +
+        "&entry.1730843126=" +
+        pikapp_user.entry[13] +
+        "&entry.860463443=" +
+        pikapp_user.entry[14] +
+        "&entry.470070660=" +
+        pikapp_user.entry[15] +
+        "&entry.499866465=" +
+        pikapp_user.entry[16] +
+        "&entry.968397117=" +
+        pikapp_user.entry[17] +
+        "&entry.1730056655=" +
+        pikapp_user.entry[18] +
+        "&entry.1783386910=" +
+        pikapp_user.entry[19] +
+        "&entry.684013321=" +
+        pikapp_user.entry[20] +
+        "&entry.1837258615=" +
+        pikapp_user.entry[21] +
+        "&entry.813408308=" +
+        pikapp_user.entry[22];
+    }
+
+    // TODO - USE FOR LOOP TO SET ALL ELEMENTS VISIBLE EXCEPT ADMIN MENU
+    var menu = document.getElementById("memberMenu");
+    menu.style = "visibility: visible;";
+    var attendance_section = document.getElementById("attendance");
+    attendance_section.style = "visibility: visible;";
+    var announcements_section = document.getElementById("announcements");
+    announcements_section.style = "visibility: visible;";
+    var calendar_section = document.getElementById("calendar");
+    calendar_section.style = "visibility: visible;";
+    var members_section = document.getElementById("members");
+    members_section.style = "visibility: visible;";
+    var committees_section = document.getElementById("committees");
+    committees_section.style = "visibility: visible;";
+
+    signInButton.style = "display:none;";
+
+    if (pikapp_user.is_owner) {
+      var adminMenu = document.getElementById("adminMenu");
+      adminMenu.style = "display:visible;";
+
+      var ownerMenu = document.getElementById("ownerMenu");
+      ownerMenu.style = "display:visible;";
+    } else if (pikapp_user.is_admin) {
+      var adminMenu = document.getElementById("adminMenu");
+      adminMenu.style = "display:visible;";
+    }
+    signOutButton.style = "display:block;";
+
+    var lastCodeRow;
+    var codes;
+    $.getJSON(codes_sheet, function (data) {
+      codes = data.values;
+
+      if (codes.length != 1) {
+        lastCodeRow = codes[codes.length - 1];
+
+        info.innerHTML +=
+          "<br><b>** Mandatory " + lastCodeRow[2] + " on " +
+          lastCodeRow[0].split(" ")[0] +
+          " **</b>";
+
+        var event_name_element = document.getElementById("event_name");
+        event_name_element.innerHTML = lastCodeRow[2];
+        signInCode = lastCodeRow[lastCodeRow.length - 1];
+      }
+
+      var report_element = document.getElementById("table");
+
+      $.getJSON(attendence_sheet_url, function (data) {
+        attendance_sheet_entries = data.values;
+        var header = attendance_sheet_entries[0];
+
+        var report_element = document.getElementById("table");
+
+        var overview_sheet_index = -1;
+        for (var i = 2; i < attendance_sheet_entries.length; i++) {
+          if (attendance_sheet_entries[i][0] == google_profile.getEmail()) {
+            console.log("Found in overview");
+            overview_sheet_index = i;
+            break;
+          }
+        }
+
+        if (overview_sheet_index == -1) {
+          report_element.innerHTML =
+            "You don't have any new reports yet!<br>Sign in to mandatory chapter events and check back later.<br><br>If you think this is an error, please try again later or contact the chapter secretary for assistance.";
+        } else {
+          refreshAttendance();
+          setInterval(refreshAttendance, 5000);
+
+          var account_entry = attendance_sheet_entries[overview_sheet_index];
+          var email = account_entry[0];
+          // TO PUT BACK account_entry.splice(0, 3);
+
+          report_element.innerHTML = "Report for: " + email + "<br>";
+          var time_updated = attendance_sheet_entries[1][0].split(" ")[5];
+          var time_updated_split = time_updated.split(":");
+          var time_updated_hour = parseInt(time_updated_split[0]);
+          if (time_updated_hour > 12) {
+            time_updated =
+              time_updated_hour - 12 + ":" + time_updated_split[1] + "PM";
+          } else {
+            time_updated =
+              time_updated_split[0] + ":" + time_updated_split[1] + "AM";
+          }
+
+          report_element.innerHTML +=
+            "Last Updated: " + time_updated + " (Updated hourly)<br>";
+          //report_element.innerHTML += "Missed dates:<br>"
+          var displayNoMissed = false;
+
+          var percent_attended = ((account_entry[header.indexOf("Attended")] / account_entry[header.indexOf("Total")]) * 100).toFixed(2);
+          for (var i = 3; i < header.length; i++) {
+            title = "";
+            if (header[i].indexOf("/") == -1) {
+              switch (header[i]) {
+                case "Left":
+                  header[i] = "Passes Left";
+                  break;
+                case "Total":
+                  header[i] = "- Total Events";
+                  break;
+                case "Unexcused":
+                  header[i] = "* " + header[i];
+
+                  if (account_entry[i] == 0) {
+                    displayNoMissed = true;
+                  } else {
+                    displayNoMissed = false;
+                  }
+                  break;
+                case "Fine":
+                  header[i] = "* " + header[i];
+
+                  account_entry[i] += "<br>";
+                  break;
+                default:
+                  header[i] = "- " + header[i];
+              }
+              report_element.innerHTML +=
+                header[i] + ": " + ((header[i].indexOf("Attended") != -1) ? (account_entry[i] + " (" + percent_attended + "%)") : account_entry[i]) + "<br>";
+            } else {
+              if (
+                account_entry[i] == "P_EXC" ||
+                account_entry[i] == "EXC" ||
+                account_entry[i] == "OK" ||
+                account_entry[i] == "1"
+              ) {
+                // do nothing
+              } else {
+                console.log("here");
+                for (var x = 1; x < codes.length; x++) {
+                  if (codes[x][0].split(" ")[0] == header[i]) {
+                    title = codes[x][2];
+                    break;
+                  }
+                }
+
+                var date = header[i].split("/");
+                if (date[0].length == 1) {
+                  date[0] = "0" + date[0];
+                }
+                if (date[1].length == 1) {
+                  date[1] = "0" + date[1];
+                }
+                header[i] = date[0] + "/" + date[1] + "/" + date[2];
+
+                if (account_entry[i] == "0") {
+                  account_entry[i] = "** Missed";
+                }
+                if (account_entry[i] == "PASS") {
+                  account_entry[i] = "** PASS";
+                }
+                account_entry[i] += " - " + title;
+                report_element.innerHTML +=
+                  header[i] + ": " + account_entry[i] + "<br>";
+              }
+            }
+          }
+
+          if (displayNoMissed) {
+            report_element.innerHTML +=
+              "Looking good!<br>You have 0 missed events so far!";
+          } else {
+            report_element.innerHTML +=
+              "<br>* IMPORTANT: You are personally responsible to contact the secretary within the next few days if there are any errors with your attendence. Fines are to be put in a week after missing a required event.";
+          }
+        }
+
+        document.getElementById("loading").style.display = "none";
+      }).fail(function () {
+        report_element.innerHTML =
+          "An unexpected error occured fetching your attendance report." + error_try_later;
+      });
+    });
+
+    var menuLoggedOff = document.getElementById("loggedoffMenu");
+    menuLoggedOff.style = "display: none;";
+
+    info.innerHTML =
+      "Name: " +
+      google_profile.getName() +
+      "<br>Email: " +
+      google_profile.getEmail() +
+      "<br>Status: " +
+      (pikapp_user.is_owner ? "Owner" : pikapp_user.is_admin ? "Admin" : "Member") +
+      (pikapp_user.is_setup ? "" : "") /*TODO". Click below to set up your account"*/ ;
+
+    img.src = google_profile.getImageUrl();
+
+    loadMembersTab();
+    loadCommitteesTab();
+
+    var excuseButton = document.getElementById("excuseButton");
+    if (excuseButton.href.indexOf("entry") == -1) {
+      excuseButton.href +=
+        "?entry.191386322=" +
+        google_profile.getGivenName() +
+        "&entry.908237995=" +
+        google_profile.getFamilyName();
+    }
+    if (pikapp_user.is_excused) {
+      document.getElementById("chapterHint").innerHTML +=
+        "<br>* INFO: You are currently set as perma-excused from mandatory events.";
+    }
+  } else {
+    show_loading(false);
+
+  }
 }
 
 function signOut() {
-  auth2.signOut().then(function() {
-    console.log("User signed out.");
+  console.log("Signing out!");
+  auth2 = gapi.auth2.getAuthInstance();
 
-    var signInButton = document.getElementById("gBtn");
-    var signOutButton = document.getElementById("signout");
+  auth2.signOut().then(function () {
+    console.log("User signed out.");
+    show_loading(false);
+
 
     signOutButton.style = "display:none;";
     signInButton.style = "display:block;";
@@ -675,7 +796,7 @@ function openNav() {
   console.log("Opened nav");
 }
 
-$(".form").focusout(function() {
+$(".form").focusout(function () {
   $(this).focus();
   console.log("Form out of focus. Focusing back on form");
 });
@@ -685,8 +806,8 @@ function removeFocus() {
 }
 document.body.addEventListener("touchstart", removeFocus);
 
-$(function() {
-  $(".blockdiv div").click(function() {
+$(function () {
+  $(".blockdiv div").click(function () {
     /*
     if ($(this).attr("hidden")) {
       $(this).find("a").show(200);
@@ -699,7 +820,7 @@ $(function() {
     */
   });
 
-  $(document).keypress(function(event) {
+  $(document).keypress(function (event) {
     if (event.which == 32) {
       if (snakeShown) {
         hideSnake();
@@ -715,23 +836,23 @@ $(function() {
     }
   });
 
-  $(".top").dblclick(function() {
+  $(".top").dblclick(function () {
     binaryToggle();
   });
-  $(".blockDiv h1").dblclick(function() {
+  $(".blockDiv h1").dblclick(function () {
     $(".content").css("color", getRandomColor);
     $(".content").css("outline-color", getRandomColor);
     $("p").css("color", getRandomColor);
     $("h1").css("color", getRandomColor);
   });
 
-  $(".content").click(function() {
+  $(".content").click(function () {
     if (snakeShown) {
       hideSnake();
     }
     if (videoBlurred) {
       $("#HHSLogo").css("transform", "scale(1.1, 1.1)");
-      setTimeout(function() {
+      setTimeout(function () {
         $("#HHSLogo").css("transform", "scale(1.0, 1.0)");
       }, 450);
     }
@@ -781,7 +902,7 @@ function closeNav() {
   console.log("Closed Nav");
 }
 
-window.addEventListener("resize", function(event) {
+window.addEventListener("resize", function (event) {
   if (isOpen === true) {
     openNavAction();
   }
@@ -814,30 +935,28 @@ function recursiveReplace(node) {
       // element
       $(node)
         .contents()
-        .each(function() {
+        .each(function () {
           recursiveReplace(this);
         });
     }
   }
 }
 
-(function() {
+(function () {
   var SIZE =
-    window.innerWidth < window.innerHeight
-      ? window.innerWidth
-      : window.innerHeight; // Size of the play-field in pixels
+    window.innerWidth < window.innerHeight ?
+    window.innerWidth :
+    window.innerHeight; // Size of the play-field in pixels
   var GRID_SIZE = SIZE / 50;
   var c;
   var context;
 
   var direction = (newDirection = 1); // -2: up, 2: down, -1: left, 1: right
   var snakeLength = 5;
-  var snake = [
-    {
-      x: SIZE / 2,
-      y: SIZE / 2
-    }
-  ]; // Snake starts in the center
+  var snake = [{
+    x: SIZE / 2,
+    y: SIZE / 2
+  }]; // Snake starts in the center
   var candy = null;
   var end = false;
 
@@ -917,7 +1036,7 @@ function recursiveReplace(node) {
     context.fillRect(candy.x, candy.y, GRID_SIZE, GRID_SIZE); // Paint the candy
   }
 
-  $("body").on("DOMNodeInserted", "canvas", function() {
+  $("body").on("DOMNodeInserted", "canvas", function () {
     console.log("Hereee");
     c = document.getElementById("c");
     c.height = c.width = SIZE * 2; // 2x our resolution so retina screens look good
@@ -926,14 +1045,13 @@ function recursiveReplace(node) {
     context.scale(2, 2); // Scale our canvas for retina screens
 
     setInterval(tick, 100); // Kick off the game loop!
-    window.onkeydown = function(e) {
-      newDirection =
-        {
-          37: -1,
-          38: -2,
-          39: 1,
-          40: 2
-        }[e.keyCode] || newDirection;
+    window.onkeydown = function (e) {
+      newDirection = {
+        37: -1,
+        38: -2,
+        39: 1,
+        40: 2
+      } [e.keyCode] || newDirection;
     };
   });
 })();

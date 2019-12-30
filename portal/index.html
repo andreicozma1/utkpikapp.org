@@ -5,9 +5,9 @@
   <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id"
     content="985120126863-jp08oapp0iq28lloav4cabh7t3i9jbo4.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../styles.css?v23">
+  <link rel="stylesheet" type="text/css" href="../styles.css?v25">
   <meta name="viewport" content="width=device-width, initial-scale=.9, user-scalable=no">
   <meta name="keywords"
     content="Pi Kappa Phi, Alpha Sigma, Chapter, PiKapp, PONG, PKP, UTK, Tennessee, Portal, Member, Rush">
@@ -31,9 +31,10 @@
 
 
 <body class='noSelect'>
+
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v53"></script>
+  <script src="/script.js?v52"></script>
 
 
   <div>
@@ -115,20 +116,22 @@
           <div>
             <h1>PERSONAL ATTENDANCE</h1>
 
-  
-            <div><b>YOUR REPORT</b><p id="table">Report Loading...</p></div>
-     
+
+            <div><b>YOUR REPORT</b>
+              <p id="table">Report Loading...</p>
+            </div>
+
             <a id="chapterSignIn" onclick="confirmLocation()" target="_blank">EVENT
               SIGN-IN</a>
             <a id="excuseButton"
               href="https://docs.google.com/forms/d/e/1FAIpQLSf0jJtVsFBlgKcrvxs9B0VWsUnB5HM9_7shr9aJhJIypAEMCQ/viewform"
               target="_blank">EXCUSE FORM</a>
 
-              <p id="chapterHint">* IMPORTANT: You are personally responsible to sign in to mandatory fraternity events,
-                keep track of your attendance through the Member Portal and email reports, and contact the secretary to
-                discuss and resolve any attendance-related issues as outlined under the Chapter Constitution and
-                Bylaws.<br>Excuses may require proof of attendance, and fines will be put in a week after a missed event.
-              </p>
+            <p id="chapterHint">* IMPORTANT: You are personally responsible to sign in to mandatory fraternity events,
+              keep track of your attendance through the Member Portal and email reports, and contact the secretary to
+              discuss and resolve any attendance-related issues as outlined under the Chapter Constitution and
+              Bylaws.<br>Excuses may require proof of attendance, and fines will be put in a week after a missed event.
+            </p>
 
           </div>
 
@@ -193,11 +196,11 @@
             <a href="https://forms.gle/bCqg9KdN891NAq86A" target="_blank">PORTAL FEEDBACK</a>
 
             <!---<a href="TODO" onclick="tickets()" targer="_blank">FAQ</a>---->
-  
+
             <a id="signout" style="display:none" href="#" onclick="signOut()">SIGN OUT</a>
             <i>Created with &#9829; by Andrei Cozma</i>
           </div>
-         
+
 
         </div>
       </div>
@@ -260,8 +263,8 @@
 
           <div>
             <iframe
-            src="https://calendar.google.com/calendar/b/2/embed?height=500&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YWxwaGFzaWdtYUB1dGtwaWthcHAub3Jn&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23d60a46&amp;color=%231F753C&amp;mode=AGENDA&amp;showTitle=1&amp;showNav=1&amp;showDate=1&amp;showTabs=1&amp;showCalendars=0"
-            style="border-width:0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
+              src="https://calendar.google.com/calendar/b/2/embed?height=500&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YWxwaGFzaWdtYUB1dGtwaWthcHAub3Jn&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23d60a46&amp;color=%231F753C&amp;mode=AGENDA&amp;showTitle=1&amp;showNav=1&amp;showDate=1&amp;showTabs=1&amp;showCalendars=0"
+              style="border-width:0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
             <a href="https://calendar.google.com/calendar/embed?src=alphasigma%40utkpikapp.org" target="_blank">DIRECT
               LINK</a>
 
@@ -278,15 +281,27 @@
       <div id="members" style="display:none;">
         <h1 onClick="toggle(this)">Members</h1>
 
-        <div id="exec_members">
-          <h2>EXECUTIVE COUNCIL</h2>
+        <div>
+          <h2>EXEC BOARD & MANAGEMENT</h2>
+          <div class="grid_container" id="exec_members">
+
+          </div>
+        </div>
+
+        <div>
+          <h2>CHAPTER ROSTER</h2>
+          <div class="grid_container" id="all_members">
+
+          </div>
         </div>
       </div>
 
       <div id="committees" style="display:none;">
         <h1 onClick="toggle(this)">Committees</h1>
-        <div id="committees_inner">
+        <div>
+          <div class="grid_container" id="committees_inner">
 
+          </div>
         </div>
       </div>
 
@@ -297,17 +312,18 @@
           <div>
             <h1>GENERAL</h1>
             <a href="https://docs.google.com/spreadsheets/d/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/edit?usp=sharing"
-            target="_blank">* DATABASE *</a>
+              target="_blank">* DATABASE *</a>
           </div>
-         
+
         </div>
         <div>
           <h2>Admin Menu</h2>
           <div>
             <h1>GENERAL</h1>
-            <a href="https://drive.google.com/drive/folders/1UQroDdykpydv3yYlSc9jiqsLVr2QVx4T?usp=sharing" target="_blank">Exec Google Drive</a>
+            <a href="https://drive.google.com/drive/folders/1UQroDdykpydv3yYlSc9jiqsLVr2QVx4T?usp=sharing"
+              target="_blank">Exec Google Drive</a>
           </div>
-         
+
           <div>
             <h1>MEMBERS</h1>
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1607428643&single=true"
@@ -365,7 +381,7 @@
   </video>
 
   <div id="gBtn" class="signin">
-    <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onFailure" onclick="showLoading()"
+    <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onFailure" onclick="show_loading(true);"
       data-theme="dark"></div>
   </div>
 </body>
