@@ -390,8 +390,9 @@ padding: .5em;
 font-size: 1.1em;
 margin-bottom: .25em;
 filter: none;
-background-color: rgba(231, 166, 0, .7);
-border-style: none;
+background-color: rgba(0, 0, 0, .4);
+/* border-bottom-style: solid; */
+/* border-bottom-color: rgba(231, 166, 0, .7); */
 /* border-radius: .5em; */
 }
 
