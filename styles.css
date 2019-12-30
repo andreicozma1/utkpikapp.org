@@ -296,7 +296,7 @@ width: auto;
 
 .blockdiv a {
   margin-top: .1em;
-  border-radius: .5em;
+  border-radius: .25em;
 }
 .blockdiv p{
 
@@ -322,16 +322,16 @@ font-size:1em;
 .blockdiv div {
 
   margin: 0;
-  padding: .5em;
+  padding: .25em;
   position: relative;
 }
 
 .blockdiv div h1 {
   font-size: 1.7em;
-  padding: .2em;
+  padding: .25em;
   background-color: rgba(231, 166, 0, 1);
   font-weight: bolder;
-  border-bottom: dashed;
+  border-bottom: solid;
   border-width: .1em;
   text-align: left
 }
@@ -362,6 +362,7 @@ font-size:1em;
   background-color: rgba(0, 85, 150, .5);
   border-bottom-left-radius: .25em;
 border-bottom-right-radius: .25em;
+padding: .3em;
 }
 
 
@@ -375,7 +376,7 @@ border-bottom-right-radius: .25em;
 
 .blockdiv div div div {
   font-size: 1.2em;
-  background-color: rgba(255, 255, 255, .1);
+  background-color: rgba(0, 0, 0, .1);
   margin: auto;
   margin-top: .2em;
   border-style: solid;
@@ -387,11 +388,11 @@ border-bottom-right-radius: .25em;
 .blockdiv div div div h1 {
 padding: .5em;
 font-size: 1.1em;
-margin-bottom: .5em;
+margin-bottom: .25em;
 filter: none;
 background-color: rgba(231, 166, 0, .7);
 border-style: none;
-border-radius: 1em;
+/* border-radius: .5em; */
 }
 
 
@@ -405,7 +406,7 @@ border-radius: 1em;
 .blockdiv div div div a {
   font-size: 1em;
   background-color: rgba(255, 255, 255, .2);
-  width:75%;
+
   font-weight: bold;
 
 }
@@ -417,7 +418,6 @@ border-radius: 1em;
 }
 
 .blockdiv div div div div{
-  width:95%;
   background-color: none;
 }
 .blockdiv div div div p{
@@ -512,7 +512,7 @@ display:block'
   }
 
   .blockdiv div a {
-    width: 50%;
+    width: 60%;
   }
 
   .blockdiv div div div {
