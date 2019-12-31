@@ -7,7 +7,7 @@
     content="985120126863-jp08oapp0iq28lloav4cabh7t3i9jbo4.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../styles.css?v25">
+  <link rel="stylesheet" type="text/css" href="../styles.css?v28">
   <meta name="viewport" content="width=device-width, initial-scale=.9, user-scalable=no">
   <meta name="keywords"
     content="Pi Kappa Phi, Alpha Sigma, Chapter, PiKapp, PONG, PKP, UTK, Tennessee, Portal, Member, Rush">
@@ -34,7 +34,7 @@
 
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v52"></script>
+  <script src="/script.js?v54"></script>
 
 
   <div>
@@ -69,7 +69,7 @@
     <div class="blockdiv">
       <h1>Portal</h1>
       <img id="profile_pic" src="/res/unknown.jpg">
-      <div>
+      <div id="section_general">
         <h1>General</h1>
         <div>
           <!---<a href="slack://open?team={C8QLEESNP}">ANNOUNCEMENTS</a>---->
@@ -82,9 +82,8 @@
 
       </div>
 
-      <div>
+      <div id="section_member">
         <h1 onClick="toggle(this)">Member Access</h1>
-
 
         <div id="loggedoffMenu" style="display: block;">
           <p id="helpText">Sign In with your UT account to get access to all member features.</p>
@@ -106,11 +105,23 @@
           href="https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform"
           target="_blank">PROFILE</a>
 
+      
 
-        <div id="memberMenu" style="display:none;">
+        <div id="section_home" style="display:none;">
+
+       
 
           <p id="info"></p>
           <b id="signed_in_today_1" style="display: none;"></b>
+
+          <div id="controls">
+            <a href="#section_general"><img src="/res/icons/home.png"></a>
+            <a href="#section_attendance"><img src="/res/icons/attendance.png"></a href="#section_home">
+            <a href="#section_announcements"><img src="/res/icons/announcements.png"></a href="#section_home">
+            <a href="#section_calendar"><img src="/res/icons/calendar.png"></a href="#section_home">
+            <a href="#section_members"><img src="/res/icons/members.png"></a href="#section_home">
+            <a href="#section_committees"><img src="/res/icons/committee.png"></a href="#section_home">
+          </div>
 
 
           <div>
@@ -205,7 +216,7 @@
         </div>
       </div>
 
-      <div id="attendance" style="display:none;">
+      <div id="section_attendance" style="display:none;">
         <h1 onClick="toggle(this)">Chapter Attendance</h1>
         <div>
           <div>
@@ -236,7 +247,7 @@
 
       </div>
 
-      <div id="announcements" style="display:none;">
+      <div id="section_announcements" style="display:none;">
         <h1 onClick="toggle(this)">Announcements</h1>
 
         <div>
@@ -257,7 +268,7 @@
 
       </div>
 
-      <div id="calendar" style="display:none;">
+      <div id="section_calendar" style="display:none;">
         <h1 onClick="toggle(this)">Calendar</h1>
         <div>
 
@@ -278,7 +289,7 @@
 
       </div>
 
-      <div id="members" style="display:none;">
+      <div id="section_members" style="display:none;">
         <h1 onClick="toggle(this)">Members</h1>
 
         <div>
@@ -296,7 +307,7 @@
         </div>
       </div>
 
-      <div id="committees" style="display:none;">
+      <div id="section_committees" style="display:none;">
         <h1 onClick="toggle(this)">Committees</h1>
         <div>
           <div class="grid_container" id="committees_inner">
@@ -305,7 +316,7 @@
         </div>
       </div>
 
-      <div id="adminMenu" style="display:none;">
+      <div id="section_admin" style="display:none;">
         <h1 onClick="toggle(this)">Control Panel</h1>
         <div id="ownerMenu" style="display:none;">
           <h2>Owner Menu</h2>

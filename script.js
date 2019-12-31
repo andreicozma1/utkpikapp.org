@@ -16,7 +16,6 @@ var signInCode = "";
 var attendance_sheet_entries;
 var today_attendance;
 
-
 var error_try_later =
   "<br><br>Please try again later.<br>* If the error persists, please contact the chapter secretary for assistance";
 
@@ -36,26 +35,23 @@ var codes_sheet =
 var attendence_sheet_url =
   "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 
-window.onload = function (e) {
+window.onload = function(e) {
+  this.console.log("Loaded window");
   auth2 = gapi.auth2.getAuthInstance();
-  this.console.log(auth2);
 
   console.log(window.location.pathname);
   var video = document.getElementById("vid");
   video.addEventListener(
     "loadedmetadata",
-    function () {
+    function() {
       video.currentTime = Math.random() * video.duration;
     },
     false
   );
-
-  signInButton = document.getElementById("gBtn");
-  signOutButton = document.getElementById("signout");
 };
 
 function refreshAttendance() {
-  $.getJSON(today_sheet, function (data) {
+  $.getJSON(today_sheet, function(data) {
     today_attendance = data.values;
 
     var missing_members_element = document.getElementById("missing_members");
@@ -104,7 +100,8 @@ function refreshAttendance() {
               " " +
               attendance_sheet_entries[i][2] +
               "<br>";
-          } else {}
+          } else {
+          }
         }
       }
     } else {
@@ -209,7 +206,7 @@ function onFailure() {
 }
 
 function loadMembersTab() {
-  $.getJSON(exec_sheet, function (data) {
+  $.getJSON(exec_sheet, function(data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
       document.getElementById("exec_members").innerHTML +=
@@ -226,12 +223,19 @@ function loadMembersTab() {
         "</a></div>";
     }
   });
-  $.getJSON(accounts_sheet, function (data) {
+  $.getJSON(accounts_sheet, function(data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
       if (entry[i][6] != undefined && entry[i][5] == 1) {
+        // var url= entry[i][24]
+        // var url_id = url.split("?id=");
+        // console.log(url_id[1])
         document.getElementById("all_members").innerHTML +=
-          "<div><h1>" +
+          "<div>" +
+          // "<img src='https://drive.google.com/uc?export=view&id=" +
+          // url_id[1] +
+          // "'>" +
+          "<h1>" +
           entry[i][7] +
           " " +
           entry[i][8] +
@@ -250,7 +254,7 @@ function loadMembersTab() {
 }
 
 function loadCommitteesTab() {
-  $.getJSON(committees_sheet, function (data) {
+  $.getJSON(committees_sheet, function(data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
       for (var h = 0; h < entry[0].length; h++) {
@@ -274,11 +278,9 @@ function loadCommitteesTab() {
   });
 }
 
-
-
 function check_announcements() {
   console.log("Checking announcements");
-  $.getJSON(announcements_sheet, function (data) {
+  $.getJSON(announcements_sheet, function(data) {
     var entry = data.values;
 
     var popup_title = "";
@@ -319,10 +321,10 @@ function check_announcements() {
         if (
           window.confirm(
             message +
-            "Link: " +
-            popup_link +
-            "\n" +
-            "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
+              "Link: " +
+              popup_link +
+              "\n" +
+              "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
           )
         ) {
           if (popup_link != "") {
@@ -339,7 +341,7 @@ function check_announcements() {
 function validate_account(callback) {
   console.log("Validating account with database");
 
-  $.getJSON(accounts_sheet, function (data) {
+  $.getJSON(accounts_sheet, function(data) {
     var entry = data.values;
 
     if (entry == undefined) {
@@ -351,7 +353,6 @@ function validate_account(callback) {
     validated = false;
 
     for (var i = 0; i < entry.length; i++) {
-
       if (google_profile.getEmail() == entry[i][0]) {
         console.log("Found account");
         console.log(entry[i]);
@@ -369,8 +370,8 @@ function validate_account(callback) {
           } else {
             alert(
               "Welcome back, " +
-              entry[i][7] +
-              "!\n\nIt's time for you to update your Member Profile information!\n\nYou MUST complete this step first before continuing to your Member Portal. After you're done, please come back to this page to continue\n* Click the button below to proceed."
+                entry[i][7] +
+                "!\n\nIt's time for you to update your Member Profile information!\n\nYou MUST complete this step first before continuing to your Member Portal. After you're done, please come back to this page to continue\n* Click the button below to proceed."
             );
           }
 
@@ -388,8 +389,8 @@ function validate_account(callback) {
           console.log("User isn't active.");
           alert(
             "Hello, " +
-            entry[i][7] +
-            "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance"
+              entry[i][7] +
+              "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance"
           );
 
           signOut();
@@ -400,16 +401,15 @@ function validate_account(callback) {
         pikapp_user.is_owner = parseInt(entry[i][3]);
         pikapp_user.is_excused = parseInt(entry[i][4]);
 
-        callback()
+        callback();
         break;
       } else {
-
       }
     }
     if (!validated) {
       console.log("Account not found");
       if (google_profile.getEmail().indexOf("@vols.utk.edu") != -1) {
-        console.log("UT email address. Showing account creation.")
+        console.log("UT email address. Showing account creation.");
         signInButton.style = "display:none;";
         signOutButton.style = "display:block;";
         helpText.innerHTML =
@@ -418,20 +418,23 @@ function validate_account(callback) {
           "<br>You don't appear to be a member of the Alpha Sigma chapter yet.";
         document.getElementById("createAccount").style = "display:block;";
       } else {
-        console.log("Not a UT email address.")
+        console.log("Not a UT email address.");
         alert("Please sign in with an UT email address.\nSigning you out.");
         signOut();
         return;
       }
     }
-
-  }).fail(function () {
+  }).fail(function() {
     signOut();
     alert(
       "An unexpected error occured signing you in.\n\nPlease try again later\nIf the problem persists, please contact the chapter secretary for assistance."
     );
   });
+}
 
+function initialize_elements() {
+  signInButton = document.getElementById("gBtn");
+  signOutButton = document.getElementById("signout");
 }
 
 function show_loading(should_load) {
@@ -463,15 +466,13 @@ function onSignIn(googleUser) {
   var id_token = googleUser.getAuthResponse().id_token;
   console.log("ID Token: " + id_token);
 
+  initialize_elements();
+
   check_announcements();
-  validate_account(function () {
+  validate_account(function() {
     console.log(pikapp_user.entry);
     todoFunction();
   });
-
-
-
-
 
   // $.getJSON(accounts_sheet, function (data) {
   //   var entry = data.values;
@@ -481,7 +482,7 @@ function onSignIn(googleUser) {
   //     location.href = "/";
   //   }
 
-  //   
+  //
   // }).fail(function () {
   //   signOut();
   //   alert(
@@ -491,7 +492,6 @@ function onSignIn(googleUser) {
 }
 
 function todoFunction() {
-
   var info = document.getElementById("info");
   var img = document.getElementById("profile_pic");
   img.style.display = "block";
@@ -536,43 +536,47 @@ function todoFunction() {
     }
 
     // TODO - USE FOR LOOP TO SET ALL ELEMENTS VISIBLE EXCEPT ADMIN MENU
-    var menu = document.getElementById("memberMenu");
+    var menu = document.getElementById("section_home");
     menu.style = "visibility: visible;";
-    var attendance_section = document.getElementById("attendance");
+    var attendance_section = document.getElementById("section_attendance");
     attendance_section.style = "visibility: visible;";
-    var announcements_section = document.getElementById("announcements");
+    var announcements_section = document.getElementById(
+      "section_announcements"
+    );
     announcements_section.style = "visibility: visible;";
-    var calendar_section = document.getElementById("calendar");
+    var calendar_section = document.getElementById("section_calendar");
     calendar_section.style = "visibility: visible;";
-    var members_section = document.getElementById("members");
+    var members_section = document.getElementById("section_members");
     members_section.style = "visibility: visible;";
-    var committees_section = document.getElementById("committees");
+    var committees_section = document.getElementById("section_committees");
     committees_section.style = "visibility: visible;";
 
     signInButton.style = "display:none;";
 
     if (pikapp_user.is_owner) {
-      var adminMenu = document.getElementById("adminMenu");
+      var adminMenu = document.getElementById("section_admin");
       adminMenu.style = "display:visible;";
 
       var ownerMenu = document.getElementById("ownerMenu");
       ownerMenu.style = "display:visible;";
     } else if (pikapp_user.is_admin) {
-      var adminMenu = document.getElementById("adminMenu");
+      var adminMenu = document.getElementById("section_admin");
       adminMenu.style = "display:visible;";
     }
     signOutButton.style = "display:block;";
 
     var lastCodeRow;
     var codes;
-    $.getJSON(codes_sheet, function (data) {
+    $.getJSON(codes_sheet, function(data) {
       codes = data.values;
 
       if (codes.length != 1) {
         lastCodeRow = codes[codes.length - 1];
 
         info.innerHTML +=
-          "<br><b>** Mandatory " + lastCodeRow[2] + " on " +
+          "<br><b>** Mandatory " +
+          lastCodeRow[2] +
+          " on " +
           lastCodeRow[0].split(" ")[0] +
           " **</b>";
 
@@ -583,7 +587,7 @@ function todoFunction() {
 
       var report_element = document.getElementById("table");
 
-      $.getJSON(attendence_sheet_url, function (data) {
+      $.getJSON(attendence_sheet_url, function(data) {
         attendance_sheet_entries = data.values;
         var header = attendance_sheet_entries[0];
 
@@ -626,7 +630,11 @@ function todoFunction() {
           //report_element.innerHTML += "Missed dates:<br>"
           var displayNoMissed = false;
 
-          var percent_attended = ((account_entry[header.indexOf("Attended")] / account_entry[header.indexOf("Total")]) * 100).toFixed(2);
+          var percent_attended = (
+            (account_entry[header.indexOf("Attended")] /
+              account_entry[header.indexOf("Total")]) *
+            100
+          ).toFixed(2);
           for (var i = 3; i < header.length; i++) {
             title = "";
             if (header[i].indexOf("/") == -1) {
@@ -655,7 +663,12 @@ function todoFunction() {
                   header[i] = "- " + header[i];
               }
               report_element.innerHTML +=
-                header[i] + ": " + ((header[i].indexOf("Attended") != -1) ? (account_entry[i] + " (" + percent_attended + "%)") : account_entry[i]) + "<br>";
+                header[i] +
+                ": " +
+                (header[i].indexOf("Attended") != -1
+                  ? account_entry[i] + " (" + percent_attended + "%)"
+                  : account_entry[i]) +
+                "<br>";
             } else {
               if (
                 account_entry[i] == "P_EXC" ||
@@ -705,9 +718,10 @@ function todoFunction() {
         }
 
         document.getElementById("loading").style.display = "none";
-      }).fail(function () {
+      }).fail(function() {
         report_element.innerHTML =
-          "An unexpected error occured fetching your attendance report." + error_try_later;
+          "An unexpected error occured fetching your attendance report." +
+          error_try_later;
       });
     });
 
@@ -720,8 +734,14 @@ function todoFunction() {
       "<br>Email: " +
       google_profile.getEmail() +
       "<br>Status: " +
-      (pikapp_user.is_owner ? "Owner" : pikapp_user.is_admin ? "Admin" : "Member") +
-      (pikapp_user.is_setup ? "" : "") /*TODO". Click below to set up your account"*/ ;
+      (pikapp_user.is_owner
+        ? "Owner"
+        : pikapp_user.is_admin
+        ? "Admin"
+        : "Member") +
+      (pikapp_user.is_setup
+        ? ""
+        : "") /*TODO". Click below to set up your account"*/;
 
     img.src = google_profile.getImageUrl();
 
@@ -742,7 +762,6 @@ function todoFunction() {
     }
   } else {
     show_loading(false);
-
   }
 }
 
@@ -750,10 +769,9 @@ function signOut() {
   console.log("Signing out!");
   auth2 = gapi.auth2.getAuthInstance();
 
-  auth2.signOut().then(function () {
+  auth2.signOut().then(function() {
     console.log("User signed out.");
     show_loading(false);
-
 
     signOutButton.style = "display:none;";
     signInButton.style = "display:block;";
@@ -763,13 +781,13 @@ function signOut() {
     document.getElementById("profile_pic").style.display = "none";
     document.getElementById("editButton").style.display = "none";
 
-    document.getElementById("memberMenu").style.display = "none";
-    document.getElementById("committees").style.display = "none";
-    document.getElementById("attendance").style.display = "none";
-    document.getElementById("calendar").style.display = "none";
-    document.getElementById("announcements").style.display = "none";
-    document.getElementById("members").style.display = "none";
-    document.getElementById("adminMenu").style.display = "none";
+    document.getElementById("section_home").style.display = "none";
+    document.getElementById("section_committees").style.display = "none";
+    document.getElementById("section_attendance").style.display = "none";
+    document.getElementById("section_calendar").style.display = "none";
+    document.getElementById("section_announcements").style.display = "none";
+    document.getElementById("section_members").style.display = "none";
+    document.getElementById("section_admin").style.display = "none";
     document.getElementById("createAccount").style.display = "none";
 
     document.getElementById("loggedoffMenu").style.display = "block";
@@ -796,7 +814,7 @@ function openNav() {
   console.log("Opened nav");
 }
 
-$(".form").focusout(function () {
+$(".form").focusout(function() {
   $(this).focus();
   console.log("Form out of focus. Focusing back on form");
 });
@@ -806,8 +824,8 @@ function removeFocus() {
 }
 document.body.addEventListener("touchstart", removeFocus);
 
-$(function () {
-  $(".blockdiv div").click(function () {
+$(function() {
+  $(".blockdiv div").click(function() {
     /*
     if ($(this).attr("hidden")) {
       $(this).find("a").show(200);
@@ -820,7 +838,7 @@ $(function () {
     */
   });
 
-  $(document).keypress(function (event) {
+  $(document).keypress(function(event) {
     if (event.which == 32) {
       if (snakeShown) {
         hideSnake();
@@ -836,23 +854,23 @@ $(function () {
     }
   });
 
-  $(".top").dblclick(function () {
+  $(".top").dblclick(function() {
     binaryToggle();
   });
-  $(".blockDiv h1").dblclick(function () {
+  $(".blockDiv h1").dblclick(function() {
     $(".content").css("color", getRandomColor);
     $(".content").css("outline-color", getRandomColor);
     $("p").css("color", getRandomColor);
     $("h1").css("color", getRandomColor);
   });
 
-  $(".content").click(function () {
+  $(".content").click(function() {
     if (snakeShown) {
       hideSnake();
     }
     if (videoBlurred) {
       $("#HHSLogo").css("transform", "scale(1.1, 1.1)");
-      setTimeout(function () {
+      setTimeout(function() {
         $("#HHSLogo").css("transform", "scale(1.0, 1.0)");
       }, 450);
     }
@@ -902,7 +920,7 @@ function closeNav() {
   console.log("Closed Nav");
 }
 
-window.addEventListener("resize", function (event) {
+window.addEventListener("resize", function(event) {
   if (isOpen === true) {
     openNavAction();
   }
@@ -935,28 +953,30 @@ function recursiveReplace(node) {
       // element
       $(node)
         .contents()
-        .each(function () {
+        .each(function() {
           recursiveReplace(this);
         });
     }
   }
 }
 
-(function () {
+(function() {
   var SIZE =
-    window.innerWidth < window.innerHeight ?
-    window.innerWidth :
-    window.innerHeight; // Size of the play-field in pixels
+    window.innerWidth < window.innerHeight
+      ? window.innerWidth
+      : window.innerHeight; // Size of the play-field in pixels
   var GRID_SIZE = SIZE / 50;
   var c;
   var context;
 
   var direction = (newDirection = 1); // -2: up, 2: down, -1: left, 1: right
   var snakeLength = 5;
-  var snake = [{
-    x: SIZE / 2,
-    y: SIZE / 2
-  }]; // Snake starts in the center
+  var snake = [
+    {
+      x: SIZE / 2,
+      y: SIZE / 2
+    }
+  ]; // Snake starts in the center
   var candy = null;
   var end = false;
 
@@ -1036,7 +1056,7 @@ function recursiveReplace(node) {
     context.fillRect(candy.x, candy.y, GRID_SIZE, GRID_SIZE); // Paint the candy
   }
 
-  $("body").on("DOMNodeInserted", "canvas", function () {
+  $("body").on("DOMNodeInserted", "canvas", function() {
     console.log("Hereee");
     c = document.getElementById("c");
     c.height = c.width = SIZE * 2; // 2x our resolution so retina screens look good
@@ -1045,13 +1065,14 @@ function recursiveReplace(node) {
     context.scale(2, 2); // Scale our canvas for retina screens
 
     setInterval(tick, 100); // Kick off the game loop!
-    window.onkeydown = function (e) {
-      newDirection = {
-        37: -1,
-        38: -2,
-        39: 1,
-        40: 2
-      } [e.keyCode] || newDirection;
+    window.onkeydown = function(e) {
+      newDirection =
+        {
+          37: -1,
+          38: -2,
+          39: 1,
+          40: 2
+        }[e.keyCode] || newDirection;
     };
   });
 })();
