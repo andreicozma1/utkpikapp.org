@@ -60,10 +60,6 @@ padding: .15em;
   border-radius: 50%;
 }
 
-#controls a::selection {
-  border-style: solid;
-}
-
 .important {
   border-style: solid;
   border-width: 2px;
@@ -151,11 +147,6 @@ head {
   color: red;
 }
 
-.iframe-cont {
-  width: 100%;
-  padding: 0 !important;
-  margin: 0 !important
-}
 
 iframe {
   overflow: auto !important;
