@@ -389,7 +389,7 @@ function validate_account(callback) {
           alert(
             "Hello, " +
             entry[i][7] +
-            "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance"
+            "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance.\n\nLogging you out..."
           );
 
           signOut();
@@ -637,14 +637,17 @@ function todoFunction() {
             title = "";
             if (header[i].indexOf("/") == -1) {
               switch (header[i]) {
+                case "Attended":
+                  header[i] = "# " + header[i].toUpperCase();
+                  break;
                 case "Left":
-                  header[i] = "Passes Left";
+                  header[i] = "# REMAINING PASSES";
                   break;
                 case "Total":
                   header[i] = "- Total Events";
                   break;
                 case "Unexcused":
-                  header[i] = "* " + header[i];
+                  header[i] = "# " + header[i].toUpperCase();
 
                   if (account_entry[i] == 0) {
                     displayNoMissed = true;
@@ -653,7 +656,7 @@ function todoFunction() {
                   }
                   break;
                 case "Fine":
-                  header[i] = "* " + header[i];
+                  header[i] = "* " + header[i].toUpperCase();
 
                   account_entry[i] += "<br>";
                   break;
