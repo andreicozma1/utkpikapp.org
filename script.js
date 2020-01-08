@@ -35,7 +35,7 @@ var codes_sheet =
 var attendence_sheet_url =
   "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Overview?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 
-window.onload = function(e) {
+window.onload = function (e) {
   this.console.log("Loaded window");
   auth2 = gapi.auth2.getAuthInstance();
 
@@ -43,7 +43,7 @@ window.onload = function(e) {
   var video = document.getElementById("vid");
   video.addEventListener(
     "loadedmetadata",
-    function() {
+    function () {
       video.currentTime = Math.random() * video.duration;
     },
     false
@@ -51,7 +51,7 @@ window.onload = function(e) {
 };
 
 function refreshAttendance() {
-  $.getJSON(today_sheet, function(data) {
+  $.getJSON(today_sheet, function (data) {
     today_attendance = data.values;
 
     var missing_members_element = document.getElementById("missing_members");
@@ -100,8 +100,7 @@ function refreshAttendance() {
               " " +
               attendance_sheet_entries[i][2] +
               "<br>";
-          } else {
-          }
+          } else {}
         }
       }
     } else {
@@ -206,7 +205,7 @@ function onFailure() {
 }
 
 function loadMembersTab() {
-  $.getJSON(exec_sheet, function(data) {
+  $.getJSON(exec_sheet, function (data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
       document.getElementById("exec_members").innerHTML +=
@@ -223,7 +222,7 @@ function loadMembersTab() {
         "</a></div>";
     }
   });
-  $.getJSON(accounts_sheet, function(data) {
+  $.getJSON(accounts_sheet, function (data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
       if (entry[i][6] != undefined && entry[i][5] == 1) {
@@ -254,7 +253,7 @@ function loadMembersTab() {
 }
 
 function loadCommitteesTab() {
-  $.getJSON(committees_sheet, function(data) {
+  $.getJSON(committees_sheet, function (data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
       for (var h = 0; h < entry[0].length; h++) {
@@ -280,7 +279,7 @@ function loadCommitteesTab() {
 
 function check_announcements() {
   console.log("Checking announcements");
-  $.getJSON(announcements_sheet, function(data) {
+  $.getJSON(announcements_sheet, function (data) {
     var entry = data.values;
 
     var popup_title = "";
@@ -321,10 +320,10 @@ function check_announcements() {
         if (
           window.confirm(
             message +
-              "Link: " +
-              popup_link +
-              "\n" +
-              "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
+            "Link: " +
+            popup_link +
+            "\n" +
+            "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
           )
         ) {
           if (popup_link != "") {
@@ -341,7 +340,7 @@ function check_announcements() {
 function validate_account(callback) {
   console.log("Validating account with database");
 
-  $.getJSON(accounts_sheet, function(data) {
+  $.getJSON(accounts_sheet, function (data) {
     var entry = data.values;
 
     if (entry == undefined) {
@@ -370,8 +369,8 @@ function validate_account(callback) {
           } else {
             alert(
               "Welcome back, " +
-                entry[i][7] +
-                "!\n\nIt's time for you to update your Member Profile information!\n\nYou MUST complete this step first before continuing to your Member Portal. After you're done, please come back to this page to continue\n* Click the button below to proceed."
+              entry[i][7] +
+              "!\n\nIt's time for you to update your Member Profile information!\n\nYou MUST complete this step first before continuing to your Member Portal. After you're done, please come back to this page to continue\n* Click the button below to proceed."
             );
           }
 
@@ -389,8 +388,8 @@ function validate_account(callback) {
           console.log("User isn't active.");
           alert(
             "Hello, " +
-              entry[i][7] +
-              "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance"
+            entry[i][7] +
+            "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance"
           );
 
           signOut();
@@ -403,8 +402,7 @@ function validate_account(callback) {
 
         callback();
         break;
-      } else {
-      }
+      } else {}
     }
     if (!validated) {
       console.log("Account not found");
@@ -424,7 +422,7 @@ function validate_account(callback) {
         return;
       }
     }
-  }).fail(function() {
+  }).fail(function () {
     signOut();
     alert(
       "An unexpected error occured signing you in.\n\nPlease try again later\nIf the problem persists, please contact the chapter secretary for assistance."
@@ -469,7 +467,7 @@ function onSignIn(googleUser) {
   initialize_elements();
 
   check_announcements();
-  validate_account(function() {
+  validate_account(function () {
     console.log(pikapp_user.entry);
     todoFunction();
   });
@@ -497,7 +495,7 @@ function todoFunction() {
   img.style.display = "block";
   var helpText = document.getElementById("helpText");
   if (validated) {
-    var editProfileButton = document.getElementById("editButton");
+    var editProfileButton = document.getElementById("btn_profile");
     editProfileButton.style.display = "block";
     if (editProfileButton.href.indexOf("entry") == -1) {
       editProfileButton.href +=
@@ -567,7 +565,7 @@ function todoFunction() {
 
     var lastCodeRow;
     var codes;
-    $.getJSON(codes_sheet, function(data) {
+    $.getJSON(codes_sheet, function (data) {
       codes = data.values;
 
       if (codes.length != 1) {
@@ -587,7 +585,7 @@ function todoFunction() {
 
       var report_element = document.getElementById("table");
 
-      $.getJSON(attendence_sheet_url, function(data) {
+      $.getJSON(attendence_sheet_url, function (data) {
         attendance_sheet_entries = data.values;
         var header = attendance_sheet_entries[0];
 
@@ -665,9 +663,9 @@ function todoFunction() {
               report_element.innerHTML +=
                 header[i] +
                 ": " +
-                (header[i].indexOf("Attended") != -1
-                  ? account_entry[i] + " (" + percent_attended + "%)"
-                  : account_entry[i]) +
+                (header[i].indexOf("Attended") != -1 ?
+                  account_entry[i] + " (" + percent_attended + "%)" :
+                  account_entry[i]) +
                 "<br>";
             } else {
               if (
@@ -718,7 +716,7 @@ function todoFunction() {
         }
 
         document.getElementById("loading").style.display = "none";
-      }).fail(function() {
+      }).fail(function () {
         report_element.innerHTML =
           "An unexpected error occured fetching your attendance report." +
           error_try_later;
@@ -734,14 +732,14 @@ function todoFunction() {
       "<br>Email: " +
       google_profile.getEmail() +
       "<br>Status: " +
-      (pikapp_user.is_owner
-        ? "Owner"
-        : pikapp_user.is_admin
-        ? "Admin"
-        : "Member") +
-      (pikapp_user.is_setup
-        ? ""
-        : "") /*TODO". Click below to set up your account"*/;
+      (pikapp_user.is_owner ?
+        "Owner" :
+        pikapp_user.is_admin ?
+        "Admin" :
+        "Member") +
+      (pikapp_user.is_setup ?
+        "" :
+        "") /*TODO". Click below to set up your account"*/ ;
 
     img.src = google_profile.getImageUrl();
 
@@ -769,7 +767,7 @@ function signOut() {
   console.log("Signing out!");
   auth2 = gapi.auth2.getAuthInstance();
 
-  auth2.signOut().then(function() {
+  auth2.signOut().then(function () {
     console.log("User signed out.");
     show_loading(false);
 
@@ -814,7 +812,7 @@ function openNav() {
   console.log("Opened nav");
 }
 
-$(".form").focusout(function() {
+$(".form").focusout(function () {
   $(this).focus();
   console.log("Form out of focus. Focusing back on form");
 });
@@ -824,8 +822,8 @@ function removeFocus() {
 }
 document.body.addEventListener("touchstart", removeFocus);
 
-$(function() {
-  $(".blockdiv div").click(function() {
+$(function () {
+  $(".blockdiv div").click(function () {
     /*
     if ($(this).attr("hidden")) {
       $(this).find("a").show(200);
@@ -838,7 +836,7 @@ $(function() {
     */
   });
 
-  $(document).keypress(function(event) {
+  $(document).keypress(function (event) {
     if (event.which == 32) {
       if (snakeShown) {
         hideSnake();
@@ -854,23 +852,23 @@ $(function() {
     }
   });
 
-  $(".top").dblclick(function() {
+  $(".top").dblclick(function () {
     binaryToggle();
   });
-  $(".blockDiv h1").dblclick(function() {
+  $(".blockDiv h1").dblclick(function () {
     $(".content").css("color", getRandomColor);
     $(".content").css("outline-color", getRandomColor);
     $("p").css("color", getRandomColor);
     $("h1").css("color", getRandomColor);
   });
 
-  $(".content").click(function() {
+  $(".content").click(function () {
     if (snakeShown) {
       hideSnake();
     }
     if (videoBlurred) {
       $("#HHSLogo").css("transform", "scale(1.1, 1.1)");
-      setTimeout(function() {
+      setTimeout(function () {
         $("#HHSLogo").css("transform", "scale(1.0, 1.0)");
       }, 450);
     }
@@ -920,7 +918,7 @@ function closeNav() {
   console.log("Closed Nav");
 }
 
-window.addEventListener("resize", function(event) {
+window.addEventListener("resize", function (event) {
   if (isOpen === true) {
     openNavAction();
   }
@@ -953,30 +951,28 @@ function recursiveReplace(node) {
       // element
       $(node)
         .contents()
-        .each(function() {
+        .each(function () {
           recursiveReplace(this);
         });
     }
   }
 }
 
-(function() {
+(function () {
   var SIZE =
-    window.innerWidth < window.innerHeight
-      ? window.innerWidth
-      : window.innerHeight; // Size of the play-field in pixels
+    window.innerWidth < window.innerHeight ?
+    window.innerWidth :
+    window.innerHeight; // Size of the play-field in pixels
   var GRID_SIZE = SIZE / 50;
   var c;
   var context;
 
   var direction = (newDirection = 1); // -2: up, 2: down, -1: left, 1: right
   var snakeLength = 5;
-  var snake = [
-    {
-      x: SIZE / 2,
-      y: SIZE / 2
-    }
-  ]; // Snake starts in the center
+  var snake = [{
+    x: SIZE / 2,
+    y: SIZE / 2
+  }]; // Snake starts in the center
   var candy = null;
   var end = false;
 
@@ -1056,7 +1052,7 @@ function recursiveReplace(node) {
     context.fillRect(candy.x, candy.y, GRID_SIZE, GRID_SIZE); // Paint the candy
   }
 
-  $("body").on("DOMNodeInserted", "canvas", function() {
+  $("body").on("DOMNodeInserted", "canvas", function () {
     console.log("Hereee");
     c = document.getElementById("c");
     c.height = c.width = SIZE * 2; // 2x our resolution so retina screens look good
@@ -1065,14 +1061,13 @@ function recursiveReplace(node) {
     context.scale(2, 2); // Scale our canvas for retina screens
 
     setInterval(tick, 100); // Kick off the game loop!
-    window.onkeydown = function(e) {
-      newDirection =
-        {
-          37: -1,
-          38: -2,
-          39: 1,
-          40: 2
-        }[e.keyCode] || newDirection;
+    window.onkeydown = function (e) {
+      newDirection = {
+        37: -1,
+        38: -2,
+        39: 1,
+        40: 2
+      } [e.keyCode] || newDirection;
     };
   });
 })();

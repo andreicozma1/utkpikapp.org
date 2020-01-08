@@ -7,8 +7,9 @@
     content="985120126863-jp08oapp0iq28lloav4cabh7t3i9jbo4.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../styles.css?v129">
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no">
+  <link rel="stylesheet" type="text/css" href="../styles.css?v135">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9 user-scalable=no">
   <meta name="keywords"
     content="Pi Kappa Phi, Alpha Sigma, Chapter, PiKapp, PONG, PKP, UTK, Tennessee, Portal, Member, Rush">
   <meta name="author" content="Andrei Cozma">
@@ -34,29 +35,28 @@
 
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v54"></script>
+  <script src="/script.js?v57"></script>
 
 
   <div>
     <div class="top">
       <a href="/menu.html" id="menuFallBackLink"><img class="menuStyle fadein0" src="/res/menu.png"
           onclick="openNav()"></a>
-      <a target="_blank" href="http://utifc.org/"> <img class="headerLogo fadein1" src="/res/aelogo.png"></a>
+      <a target="_blank" href="https://abilityexperience.org/about/"> <img class="headerLogo fadein1"
+          src="/res/aelogo.png"></a>
     </div>
   </div>
   <div id="mySidenav" class="sidenav">
     <center>
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="/">HOME</a>
-
-      <a href="/recruitment/">RECRUITMENT</a>
-      <a href="/philanthrioy/">PHILANTHROPY</a>
-           <a href="/history">CHAPTER HISTORY</a>
-      <a href="/portal/">MEMBER PORTAL</a>
- <a href="/shirts/">SHIRT STORE</a>
-      <a href="/gallery/">GALLERY</a>
-
-      <a href="/about/">ABOUT</a>
+      <a href="/"><i class="fas fa-home"></i> HOME</a>
+      <a href="/history"><i class="fas fa-history"></i> &Alpha;&Sigma; HISTORY</a>
+      <a href="/recruitment/"><i class="fas fa-search-plus"></i> RECRUITMENT</a>
+      <a href="/philanthropy/"><i class="fas fa-hand-holding-usd"></i> PHILANTHROPY</a>
+      <a href="/gallery/"><i class="fas fa-photo-video"></i> PHOTO GALLERY</a>
+      <a href="/shirts/"><i class="fas fa-tshirt"></i> SHIRT STORE</a>
+      <a href="/portal/"><i class="fas fa-at"></i> MY PORTAL</a>
+      <a href="/about/"><i class="far fa-address-card"></i> ABOUT</a>
       <div class="scMediaBar">
         <a href="https://utkpikapp.slack.com/"><img src="/res/slack.png"></a>
         <a href="https://www.instagram.com/pikapputk/"><img src="/res/insta.png"></a>
@@ -69,15 +69,16 @@
 
   <div class="content ">
     <div class="blockdiv">
-      <h1>Portal</h1>
+      <h1><i class="fas fa-at"></i> Portal</h1>
       <img id="profile_pic" src="/res/unknown.jpg">
       <div id="section_general">
-        <h1>General</h1>
+        <h1><i class="fas fa-globe"></i> General</h1>
         <div>
           <!---<a href="slack://open?team={C8QLEESNP}">ANNOUNCEMENTS</a>---->
 
 
-          <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank" class="important">GUEST CHECK-IN</a>
+          <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank" class="important"><i class="fas fa-check"></i>
+            GUEST CHECK-IN</a>
           <a href="https://www.ticketreturn.com/UTK/SelectEvent.aspx" onclick="tickets()" targer="_blank">GAME
             TICKETS</a>
         </div>
@@ -85,7 +86,9 @@
       </div>
 
       <div id="section_member">
-        <h1 onClick="toggle(this)">Member Access</h1>
+        <h1 onClick="toggle(this)"><i class="fas fa-home"></i> Member Access <a id="btn_profile"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform"
+            target="_blank">PROFILE</a></h1>
 
         <div id="loggedoffMenu" style="display: block;">
           <p id="helpText">Sign In with your UT account to get access to all member features.</p>
@@ -103,9 +106,7 @@
         </div>
 
 
-        <a id="editButton"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSe4cBr3TViWjPS8p0RTcxefbaJzDZDNEVBO9OFBlUpbVKyIdQ/viewform"
-          target="_blank">PROFILE</a>
+
 
 
 
@@ -116,6 +117,17 @@
           <p id="info"></p>
           <b id="signed_in_today_1" style="display: none;"></b>
 
+
+          <div id="controls">
+            <a href="#section_general"><i class="fas fa-home fa-lg"></i></a>
+            <a href="#section_attendance"><i class="fas fa-hourglass-half fa-lg"></i></a>
+            <a href="#section_announcements"><i class="fas fa-bullhorn fa-lg"></i></a>
+            <a href="#section_calendar"><i class="far fa-calendar-alt fa-lg"></i></a>
+            <a href="#section_members"><i class="fas fa-users fa-lg"></i></a>
+            <a href="#section_committees"><i class="fas fa-layer-group fa-lg"></i></a>
+          </div>
+
+          <!-- 
           <div id="controls">
             <a href="#section_general"><img src="/res/icons/home.png"></a>
             <a href="#section_attendance"><img src="/res/icons/attendance.png"></a href="#section_home">
@@ -123,36 +135,42 @@
             <a href="#section_calendar"><img src="/res/icons/calendar.png"></a href="#section_home">
             <a href="#section_members"><img src="/res/icons/members.png"></a href="#section_home">
             <a href="#section_committees"><img src="/res/icons/committee.png"></a href="#section_home">
-          </div>
+          </div> -->
 
 
           <div>
-            <h1>PERSONAL ATTENDANCE</h1>
+            <h1><i class="fas fa-hourglass-half"></i> PERSONAL ATTENDANCE</h1>
 
 
             <div><b>YOUR REPORT</b>
               <p id="table">Report Loading...</p>
             </div>
 
-            <a id="chapterSignIn" onclick="confirmLocation()" target="_blank">EVENT
+            <a id="chapterSignIn" onclick="confirmLocation()" target="_blank"><i class="fas fa-check"></i> EVENT
               SIGN-IN</a>
-            <a id="excuseButton"
-              href="https://docs.google.com/forms/d/e/1FAIpQLSf0jJtVsFBlgKcrvxs9B0VWsUnB5HM9_7shr9aJhJIypAEMCQ/viewform"
-              target="_blank">EXCUSE FORM</a>
+            <a id="excuseButton" href="/portal/missed_event.html">MISSED EVENT</a>
+            <a href="/bylaws/" target="_blank">ATTENDANCE POLICY</a>
 
-            <p id="chapterHint">* IMPORTANT: You are personally responsible to sign in to mandatory fraternity events,
-              keep track of your attendance through the Member Portal and email reports, and contact the secretary to
-              discuss and resolve any attendance-related issues as outlined under the Chapter Constitution and
-              Bylaws.<br>Excuses may require proof of attendance, and fines will be put in a week after a missed event.
+            <p id="chapterHint">You are personally responsible attend and sign in to mandatory events,
+              keep track of your attendance through the Member Portal and email reports, and contact the secretary
+              regarding any attendance-related issues as outlined under the chapter's current Attendance
+              Policy.<br>Excuses may
+              require proof of attendance, and fines will be put in a week after a missed event.
             </p>
 
           </div>
 
-
+          <div>
+            <h1><i class="fas fa-hand-holding-usd"></i> PHILANTHROPY</h1>
+            <a href="/philanthropy/"><i class="fas fa-exclamation-circle"></i> REQUIREMENTS</a>
+            <a href="/philanthropy/volunteering/">VOLUNTEER FORM</a>
+            <a href="/philanthropy/fundraising/">FUNDRAISING FORM</a>
+          </div>
 
           <div id="guest_list">
-            <h1>GUEST LIST</h1>
-            <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank">GUEST CHECK-IN</a>
+            <h1><i class="fas fa-user-check"></i> GUEST LIST</h1>
+            <a href="https://forms.gle/sv8vbpQQsdBYe34N9" target="_blank"><i class="fas fa-check"></i> GUEST
+              CHECK-IN</a>
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=1670700471&single=true"
               target="_blank">RESPONSES</a>
           </div>
@@ -161,56 +179,57 @@
 
           <div id="elections">
             <h1>
-              OFFICER ELECTIONS
+              <i class="fas fa-vote-yea"></i> OFFICER ELECTIONS
             </h1>
             <a href="https://docs.google.com/a/utkpikapp.org/forms/d/e/1FAIpQLSexd8aXoha4Rt4ohJmFQhIbO-BmgPyOI_atTVNfo0SP-8K0qg/viewform"
-              target="_blank">RUN FOR EXEC</a>
+              target="_blank"><i class="fas fa-running"></i> RUN FOR EXEC</a>
             <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vQVwdzhnboDxSdBdbSTaNMtX0qIlqnzW7z-2HhwcOf80I5QMI00MiCnd3JZHgxV4_2W9eDX6qPvYQNj/pubhtml?gid=762002455&single=true"
               target="_blank">CURRENT NOMINEES</a>
           </div>
+
           <div id="housing">
-            <h1>HOUSING</h1>
-            <a href="https://pkpp.twa.rentmanager.com/ApplyNow?propertyID=37" target="_blank">APPLY FOR A LEASE</a>
+            <h1><i class="fas fa-home"></i> HOUSING</h1>
+            <a href="https://pkpp.twa.rentmanager.com/ApplyNow?propertyID=37" target="_blank"><i
+                class="fas fa-file-contract"></i> APPLY FOR A LEASE</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiSfbMmaf66mCziKnXa8V-gUBfL-sqKgSB6ihLvoAg5Ks4PA/viewform"
               target="_blank">ROOMING PREFERENCE</a>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiSfbMmaf66mCziKnXa8V-gUBfL-sqKgSB6ihLvoAg5Ks4PA/viewform"
               target="_blank">PREFERENCE RESPONSES</a>
-            <a href="  https://pkpp.twa.rentmanager.com/" target="_blank">RENT MANAGER</a>
+            <a href="https://pkpproperties.org/our-properties/welcome-home-to-alpha-sigma/">PROPERTIES HOMEPAGE</a>
+            <a href="https://pkpp.twa.rentmanager.com/" target="_blank">RENT MANAGER</a>
 
 
           </div>
           <div>
-            <h1> DOCUMENTS</h1>
+            <h1><i class="far fa-file-alt"></i> DOCUMENTS</h1>
 
             <a href="https://drive.google.com/drive/folders/1v5Kjx5jbGdAWZ6YvybGs9XRJqJl7nOJd?usp=sharing"
-              target="_blank">GOOGLE DRIVE</a>
+              target="_blank"><i class="fab fa-google-drive"></i> GOOGLE DRIVE</a>
 
-            <a href="https://drive.google.com/open?id=1vNYRVBtUsLhE1Py857K6HerH-NoeKVPH" target="_blank">IMPORTANT
+            <a href="https://drive.google.com/open?id=1vNYRVBtUsLhE1Py857K6HerH-NoeKVPH" target="_blank"><i
+                class="far fa-star"></i> IMPORTANT
               DOCS</a>
+            <a href="/bylaws/" target="_blank">CONSTITUTION & BYLAWS</a>
             <a href="https://drive.google.com/open?id=1y7OO6TH2gdmUDmChVQlYK1uCGhH-kag3" target="_blank">FORMS &
               RESPONSES</a>
           </div>
-
           <div>
-            <h1>MANAGEMENT</h1>
-            <a href="https://my.omegafi.com/" target="_blank">OMEGAFI</a>
-            <a href="https://gateway.pikapp.org/" target="_blank">CHAPTER GATEWAY</a>
+            <h1><i class="fas fa-store"></i> PIKAPP MERCH</h1>
 
-          </div>
-          <div>
-            <h1>PIKAPP MERCH</h1>
-
-            <a href="/shirts" target="_blank">ALPHA SIGMA SHIRTS</a>
+            <a href="/shirts" target="_blank"><i class="fas fa-tshirt"></i> ALPHA SIGMA SHIRTS</a>
             <a href="https://pikapp.org/shop/" target="_blank">OFFICIAL PIKAPP STORE</a>
           </div>
 
           <div>
-            <h1>GENERAL</h1>
+            <h1><i class="fas fa-globe"></i> GENERAL</h1>
+            <a href="https://my.omegafi.com/" target="_blank"><i class="fas fa-dollar-sign"></i> OMEGAFI</a>
+            <a href="https://gateway.pikapp.org/" target="_blank">CHAPTER GATEWAY</a>
             <a href="https://forms.gle/bCqg9KdN891NAq86A" target="_blank">PORTAL FEEDBACK</a>
 
             <!---<a href="TODO" onclick="tickets()" targer="_blank">FAQ</a>---->
 
-            <a id="signout" style="display:none" href="#" onclick="signOut()">SIGN OUT</a>
+            <a id="signout" style="display:none" href="#" onclick="signOut()"><i class="fas fa-sign-out-alt"></i> SIGN
+              OUT</a>
             <i>Created with &#9829; by Andrei Cozma</i>
           </div>
 
@@ -219,7 +238,7 @@
       </div>
 
       <div id="section_attendance" style="display:none;">
-        <h1 onClick="toggle(this)">Chapter Attendance</h1>
+        <h1 onClick="toggle(this)"><i class="fas fa-hourglass-half"></i> Chapter Attendance</h1>
         <div>
           <div>
             <h1 id="today_header">TODAY</h1>
@@ -250,16 +269,16 @@
       </div>
 
       <div id="section_announcements" style="display:none;">
-        <h1 onClick="toggle(this)">Announcements</h1>
+        <h1 onClick="toggle(this)"><i class="fas fa-bullhorn"></i> Announcements</h1>
 
         <div>
           <div>
-            <h1>SLACK</h1>
+            <h1><i class="fab fa-slack"></i> SLACK</h1>
             <p>* Slack is your primary source for all important chapter announcements.<br>Team Name: utkpikapp.slack.com
             </p>
-            <a href="https://utkpikapp.slack.com/signup" target="_blank">SIGN UP</a>
-            <a href="https://utkpikapp.slack.com/" target="_blank">ALPHA SIGMA CHANNEL</a>
-            <a href="https://slack.com/downloads/" target="_blank">DOWNLOAD SLACK</a>
+            <a href="https://utkpikapp.slack.com/signup" target="_blank"><i class="fas fa-sign-in-alt"></i> SIGN UP</a>
+            <a href="https://utkpikapp.slack.com/" target="_blank"><i class="fas fa-link"></i> ALPHA SIGMA CHANNEL</a>
+            <a href="https://slack.com/downloads/" target="_blank"><i class="fas fa-download"></i> DOWNLOAD SLACK</a>
             <p>* Please download the Slack App on your phone so you don't miss anything!</p>
           </div>
           <div>
@@ -271,14 +290,15 @@
       </div>
 
       <div id="section_calendar" style="display:none;">
-        <h1 onClick="toggle(this)">Calendar</h1>
+        <h1 onClick="toggle(this)"><i class="far fa-calendar-alt"></i> Calendar</h1>
         <div>
 
           <div>
             <iframe
               src="https://calendar.google.com/calendar/b/2/embed?height=500&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=YWxwaGFzaWdtYUB1dGtwaWthcHAub3Jn&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23d60a46&amp;color=%231F753C&amp;mode=AGENDA&amp;showTitle=1&amp;showNav=1&amp;showDate=1&amp;showTabs=1&amp;showCalendars=0"
               style="border-width:0" width="100%" height="500" frameborder="0" scrolling="no"></iframe>
-            <a href="https://calendar.google.com/calendar/embed?src=alphasigma%40utkpikapp.org" target="_blank">DIRECT
+            <a href="https://calendar.google.com/calendar/embed?src=alphasigma%40utkpikapp.org" target="_blank"><i
+                class="fas fa-link"></i> DIRECT
               LINK</a>
 
             <a href="https://calendar.google.com/calendar/ical/alphasigma%40utkpikapp.org/public/basic.ics"
@@ -292,7 +312,7 @@
       </div>
 
       <div id="section_members" style="display:none;">
-        <h1 onClick="toggle(this)">Members</h1>
+        <h1 onClick="toggle(this)"><i class="fas fa-users"></i> Members</h1>
 
         <div>
           <h2>EXEC BOARD & MANAGEMENT</h2>
@@ -310,7 +330,7 @@
       </div>
 
       <div id="section_committees" style="display:none;">
-        <h1 onClick="toggle(this)">Committees</h1>
+        <h1 onClick="toggle(this)"><i class="fas fa-layer-group"></i> Committees</h1>
         <div>
           <div class="grid_container" id="committees_inner">
 
@@ -319,11 +339,11 @@
       </div>
 
       <div id="section_admin" style="display:none;">
-        <h1 onClick="toggle(this)">Control Panel</h1>
+        <h1 onClick="toggle(this)"><i class="fas fa-cogs"></i> Control Panel</h1>
         <div id="ownerMenu" style="display:none;">
           <h2>Owner Menu</h2>
           <div>
-            <h1>GENERAL</h1>
+            <h1><i class="fas fa-globe"></i> GENERAL</h1>
             <a href="https://docs.google.com/spreadsheets/d/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/edit?usp=sharing"
               target="_blank">* DATABASE *</a>
           </div>
@@ -332,7 +352,7 @@
         <div>
           <h2>Admin Menu</h2>
           <div>
-            <h1>GENERAL</h1>
+            <h1><i class="fas fa-globe"></i> GENERAL</h1>
             <a href="https://drive.google.com/drive/folders/1UQroDdykpydv3yYlSc9jiqsLVr2QVx4T?usp=sharing"
               target="_blank">Exec Google Drive</a>
           </div>
@@ -378,6 +398,9 @@
             <a href="https://docs.google.com/spreadsheets/d/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/edit#gid=1799238262"
               target="_blank">EDIT Excuses</a>
 
+            <br>
+            <br>
+            <br>
           </div>
 
 

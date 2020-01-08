@@ -24,19 +24,30 @@
   margin: auto;
 }
 
-.blockdiv div div .grid_container div img{
+.blockdiv div div .grid_container div img {
   position: absolute;
-width: 3em;
-right: 0;
-top: 0;
-border-radius: 50%;
-padding: .15em;
+  width: 3em;
+  right: 0;
+  top: 0;
+  border-radius: 50%;
+  padding: .15em;
+}
+
+li {
+  display: list-item !important;
+  text-align: left !important;
+}
+
+#fund_logo {
+  width: 60%;
+  margin: auto;
+  padding: .5em;
 }
 
 #controls {
   position: fixed;
-  width: 100%;
-  margin: 0;
+  width: 20em;
+  margin: auto;
   padding: 0;
 
   bottom: 0;
@@ -44,10 +55,12 @@ padding: .15em;
   right: 0;
 
   z-index: 5;
-
-  background-color: transparent;
-  border: none;
-  background-image: linear-gradient(transparent, white);
+  border-color: white;
+  border-style: solid;
+  border-bottom: none;
+  background-color: rgba(0, 0, 0, .6);
+  /* border: none; */
+  /* background-image: linear-gradient(transparent, black); */
 }
 
 #controls a {
@@ -57,7 +70,14 @@ padding: .15em;
   display: inline-block;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  /* border-radius: 50%; */
+  padding-bottom: .8em;
+  padding-top: .8em;
+
+}
+
+#controls a i:hover {
+  color: gold;
 }
 
 .important {
@@ -284,14 +304,14 @@ iframe::-webkit-scrollbar {
 }
 
 
-#editButton {
+.blockdiv div h1 a {
   display: none;
   position: absolute;
   right: 0;
   top: 0;
-  height: auto;
   width: auto;
-  padding:0;
+  font-size: .7em;
+  margin: .3em;
 }
 
 
@@ -331,7 +351,7 @@ iframe::-webkit-scrollbar {
   margin: 0;
   text-align: center;
   color: #fff;
-  padding-top: .2em;
+  /* padding-top: .2em; */
 }
 
 #profile_pic {
