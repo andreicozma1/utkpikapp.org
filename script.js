@@ -62,35 +62,26 @@ function refreshAttendance() {
       "signed_in_today_2"
     );
     var today_header_element = document.getElementById("today_header");
-    if (today_attendance != undefined) {
+
+    var signed_in_count = 0;
+    if (today_attendance.length > 1) {
       missing_members_element.innerHTML = "";
-      var signed_in_count = today_attendance.length - 1;
-      var total_members_count = attendance_sheet_entries.length - 2;
-      var signed_in_perc = (
-        (signed_in_count / total_members_count) *
-        100
-      ).toFixed(2);
-      var signed_in_today_text =
-        signed_in_count +
-        " out of " +
-        total_members_count +
-        " (" +
-        signed_in_perc +
-        "%)";
-      console.log(signed_in_today_text);
-      signed_in_today_1_element.style.display = "block";
-      signed_in_today_1_element.innerHTML = signed_in_today_text;
-      signed_in_today_2_element.innerHTML = "- " + signed_in_today_text;
+
+
+
       for (var i = 0; i < attendance_sheet_entries.length; i++) {
+
         if (attendance_sheet_entries[i][0].indexOf("@") != -1) {
+
           var found = false;
 
           for (var j = 0; j < today_attendance.length; j++) {
-            if (
+            if (today_attendance[j][1] != null &&
               today_attendance[j][1].indexOf("@") != -1 &&
               today_attendance[j][1] == attendance_sheet_entries[i][0]
             ) {
               found = true;
+              signed_in_count++;
             }
           }
           if (found == false) {
@@ -110,6 +101,26 @@ function refreshAttendance() {
       signed_in_today_1_element.style.display = "none";
       signed_in_today_2_element.innerHTML = "- No one signed in yet today";
     }
+
+
+
+    var total_members_count = attendance_sheet_entries.length - 2;
+
+    var signed_in_perc = (
+      (signed_in_count / total_members_count) *
+      100
+    ).toFixed(2);
+    var signed_in_today_text =
+      signed_in_count +
+      " out of " +
+      total_members_count +
+      " (" +
+      signed_in_perc +
+      "%)";
+    console.log(signed_in_today_text);
+    signed_in_today_1_element.style.display = "block";
+    signed_in_today_1_element.innerHTML = signed_in_today_text;
+    signed_in_today_2_element.innerHTML = "- " + signed_in_today_text;
   });
 }
 
@@ -153,13 +164,13 @@ function getLocation() {
 }
 
 function redirectSignIn(code = "") {
-  window.location.href =
+  window.open(
     "https://docs.google.com/forms/d/e/1FAIpQLSf7c8D_wwBKNMdJS7z6jJ-rdOcmv1LAHKo9SPgk0jgX92uEzQ/viewform?usp=pp_url&entry.248598887=" +
     google_profile.getGivenName() +
     "&entry.1123381156=" +
     google_profile.getFamilyName() +
     "&entry.594337284=" +
-    code;
+    code);
 }
 
 function showError(error) {
@@ -225,10 +236,15 @@ function loadMembersTab() {
   $.getJSON(accounts_sheet, function (data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
-      if (entry[i][6] != undefined && entry[i][5] == 1) {
+      if (entry[i][6] != undefined && entry[i][5] == "ACTIVE") {
         // var url= entry[i][24]
         // var url_id = url.split("?id=");
         // console.log(url_id[1])
+        // alert(entry[i][0]);
+        if (entry[i][0] == "jmize3@vols.utk.edu") {
+
+          entry[i][11] += " Alcoholic";
+        }
         document.getElementById("all_members").innerHTML +=
           "<div>" +
           // "<img src='https://drive.google.com/uc?export=view&id=" +
@@ -382,14 +398,14 @@ function validate_account(callback) {
           return;
         }
 
-        pikapp_user.is_active = parseInt(entry[i][5]);
+        pikapp_user.status = entry[i][5];
 
-        if (!pikapp_user.is_active) {
-          console.log("User isn't active.");
+
+        if (pikapp_user.status != "ACTIVE") {
           alert(
             "Hello, " +
             entry[i][7] +
-            "!\n\nIt seems like your account is currently set as inactive!\nIf you think this is an error, please contact the chapter secretary for assistance.\n\nLogging you out..."
+            "!\n\nAccount status: " + pikapp_user.status + "\nIf you think this is an error, please contact the chapter secretary for assistance.\n\nLogging you out..."
           );
 
           signOut();
@@ -405,6 +421,7 @@ function validate_account(callback) {
       } else {}
     }
     if (!validated) {
+      show_loading(false);
       console.log("Account not found");
       if (google_profile.getEmail().indexOf("@vols.utk.edu") != -1) {
         console.log("UT email address. Showing account creation.");
@@ -780,7 +797,7 @@ function signOut() {
       "Sign In with your UT account to get access to all member features.";
 
     document.getElementById("profile_pic").style.display = "none";
-    document.getElementById("editButton").style.display = "none";
+    // document.getElementById("editButton").style.display = "none";
 
     document.getElementById("section_home").style.display = "none";
     document.getElementById("section_committees").style.display = "none";
