@@ -35,7 +35,7 @@
 
   <script src="/jquery.js"></script>
 
-  <script src="/script.js?v71"></script>
+  <script src="/script.js?v74"></script>
 
 
   <div>
@@ -146,7 +146,7 @@
               <p id="table">Report Loading...</p>
             </div>
 
-            <a id="chapterSignIn" onclick="confirmLocation()" target="_blank"><i class="fas fa-check"></i> EVENT
+            <a id="chapterSignIn" onclick="redirectSignIn()" target="_blank"><i class="fas fa-check"></i> EVENT
               SIGN-IN</a>
             <a id="excuseButton" href="/portal/missed_event.html">MISSED EVENT</a>
             <a href="/bylaws/" target="_blank">ATTENDANCE POLICY</a>
@@ -422,9 +422,9 @@
 
   <div id="loading"> <img src="/res/loading.gif"></div>
 
-  <video id="vid" autoplay loop muted playsinline class="fadeinvid">
+  <!-- <video id="vid" autoplay loop muted playsinline class="fadeinvid">
     <source src="/res/vid.mp4" type="video/mp4">
-  </video>
+  </video> -->
 
   <div id="gBtn" class="signin">
     <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onFailure" onclick="show_loading(true);"
