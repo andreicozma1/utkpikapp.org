@@ -164,13 +164,13 @@ function getLocation() {
 }
 
 function redirectSignIn(code = "") {
-  window.open(
+  window.location.href =
     "https://docs.google.com/forms/d/e/1FAIpQLSf7c8D_wwBKNMdJS7z6jJ-rdOcmv1LAHKo9SPgk0jgX92uEzQ/viewform?usp=pp_url&entry.248598887=" +
     google_profile.getGivenName() +
     "&entry.1123381156=" +
     google_profile.getFamilyName() +
     "&entry.594337284=" +
-    code);
+    code;
 }
 
 function showError(error) {
@@ -302,23 +302,29 @@ function check_announcements() {
     var popup_body = "";
     var popup_link = "";
     var popup_author = "";
-    for (var i = 0; i < entry.length; i++) {
-      if (entry[i][4].indexOf("POPUP") != -1) {
-        console.log("Found matchind popup");
-        var entry_date = entry[i][9].split("/");
+    console.log("HERE")
+    for (var i = 1; i < entry.length; i++) {
 
-        var date = new Date();
-        if (
-          entry_date[0] == date.getMonth() + 1 &&
-          entry_date[1] == date.getDate() &&
-          entry_date[2] == date.getFullYear()
-        ) {
-          console.log("Found matching date");
-          popup_title = entry[i][6];
-          popup_body = entry[i][7];
-          popup_link = entry[i][8];
-          popup_author = entry[i][1];
+      try {
+        if (entry[i][4].indexOf("POPUP") != -1) {
+          console.log("Found matchind popup");
+          var entry_date = entry[i][9].split("/");
+
+          var date = new Date();
+          if (
+            entry_date[0] == date.getMonth() + 1 &&
+            entry_date[1] == date.getDate() &&
+            entry_date[2] == date.getFullYear()
+          ) {
+            console.log("Found matching date");
+            popup_title = entry[i][6];
+            popup_body = entry[i][7];
+            popup_link = entry[i][8];
+            popup_author = entry[i][1];
+          }
         }
+      } catch (e) {
+        console.log("Err retrieving announcement " + i)
       }
     }
     if (popup_title != "" && popup_body != "" && popup_author != "") {
@@ -336,10 +342,12 @@ function check_announcements() {
         if (
           window.confirm(
             message +
-            "Link: " +
-            popup_link +
-            "\n" +
-            "* Click OK to proceed to the link.\n* CANCEL to dismiss this message."
+            // "Link: " +
+            // popup_link +
+            // "\n" +
+
+            "* Click OK to proceed to the link.\n* CANCEL to dismiss this message.\n" +
+            "Don't forget to sign in to any mandatory events after visiting the following page."
           )
         ) {
           if (popup_link != "") {
