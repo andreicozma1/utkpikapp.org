@@ -40,28 +40,33 @@ window.onload = function (e) {
   auth2 = gapi.auth2.getAuthInstance();
 
   console.log(window.location.pathname);
-  var video = document.getElementById("vid");
-  video.addEventListener(
-    "loadedmetadata",
-    function () {
-      video.currentTime = Math.random() * video.duration;
-    },
-    false
-  );
+  // var video = document.getElementById("vid");
+  // video.addEventListener(
+  //   "loadedmetadata",
+  //   function () {
+  //     video.currentTime = Math.random() * video.duration;
+  //   },
+  //   false
+  // );
 };
 
 function refreshAttendance() {
   $.getJSON(today_sheet, function (data) {
     today_attendance = data.values;
 
-    var missing_members_element = document.getElementById("missing_members");
+    console.log(today_attendance);
+
+
     var signed_in_today_1_element = document.getElementById(
       "signed_in_today_1"
     );
     var signed_in_today_2_element = document.getElementById(
       "signed_in_today_2"
     );
+
     var today_header_element = document.getElementById("today_header");
+    var missing_members_element = document.getElementById("missing_members");
+
 
     var signed_in_count = 0;
     if (today_attendance.length > 1) {
@@ -604,7 +609,7 @@ function todoFunction() {
           " **</b>";
 
         var event_name_element = document.getElementById("event_name");
-        event_name_element.innerHTML = lastCodeRow[2];
+        event_name_element.innerHTML = lastCodeRow[2] + " on " + lastCodeRow[0].split(" ")[0];
         signInCode = lastCodeRow[lastCodeRow.length - 1];
       }
 
