@@ -26,10 +26,10 @@ var announcements_sheet =
   "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Announcements?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 var today_sheet =
   "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Today?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-var exec_sheet =
-  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Exec?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
-var committees_sheet =
-  "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Committees?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+// var exec_sheet =
+//   "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Exec?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
+// var committees_sheet =
+//   "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Committees?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 var codes_sheet =
   "https://sheets.googleapis.com/v4/spreadsheets/1F5AbJiDq2kmPA0am1qss23Hnt-Vz7woKBY1SEVShSBM/values/Codes?key=AIzaSyCrC8oMBTDJak8KW0dzZgKdy1DRu3B4AsI";
 var attendence_sheet_url =
@@ -221,23 +221,23 @@ function onFailure() {
 }
 
 function loadMembersTab() {
-  $.getJSON(exec_sheet, function (data) {
-    var entry = data.values;
-    for (var i = 1; i < entry.length; i++) {
-      document.getElementById("exec_members").innerHTML +=
-        "<div><h1>" +
-        entry[i][2] +
-        "</h1><b>" +
-        entry[i][0] +
-        " " +
-        entry[i][1] +
-        "</b><a class='nobold' href='mailto:" +
-        entry[i][3] +
-        "'>" +
-        "Email" +
-        "</a></div>";
-    }
-  });
+  // $.getJSON(exec_sheet, function (data) {
+  //   var entry = data.values;
+  //   for (var i = 1; i < entry.length; i++) {
+  //     document.getElementById("exec_members").innerHTML +=
+  //       "<div><h1>" +
+  //       entry[i][2] +
+  //       "</h1><b>" +
+  //       entry[i][0] +
+  //       " " +
+  //       entry[i][1] +
+  //       "</b><a class='nobold' href='mailto:" +
+  //       entry[i][3] +
+  //       "'>" +
+  //       "Email" +
+  //       "</a></div>";
+  //   }
+  // });
   $.getJSON(accounts_sheet, function (data) {
     var entry = data.values;
     for (var i = 1; i < entry.length; i++) {
@@ -273,30 +273,30 @@ function loadMembersTab() {
   });
 }
 
-function loadCommitteesTab() {
-  $.getJSON(committees_sheet, function (data) {
-    var entry = data.values;
-    for (var i = 1; i < entry.length; i++) {
-      for (var h = 0; h < entry[0].length; h++) {
-        if (
-          entry[0][h].indexOf("Committee") != -1 &&
-          entry[0][h].indexOf("Name") != -1
-        ) {
-          if (entry[i][h] != null) {
-            document.getElementById("committees_inner").innerHTML +=
-              "<div class='center'><h1>" +
-              entry[i][h] +
-              "</h1><b>Run by " +
-              entry[i][h + 1] +
-              "</b>About: " +
-              entry[i][h + 2] +
-              "</div>";
-          }
-        }
-      }
-    }
-  });
-}
+// function loadCommitteesTab() {
+//   $.getJSON(committees_sheet, function (data) {
+//     var entry = data.values;
+//     for (var i = 1; i < entry.length; i++) {
+//       for (var h = 0; h < entry[0].length; h++) {
+//         if (
+//           entry[0][h].indexOf("Committee") != -1 &&
+//           entry[0][h].indexOf("Name") != -1
+//         ) {
+//           if (entry[i][h] != null) {
+//             document.getElementById("committees_inner").innerHTML +=
+//               "<div class='center'><h1>" +
+//               entry[i][h] +
+//               "</h1><b>Run by " +
+//               entry[i][h + 1] +
+//               "</b>About: " +
+//               entry[i][h + 2] +
+//               "</div>";
+//           }
+//         }
+//       }
+//     }
+//   });
+// }
 
 function check_announcements() {
   console.log("Checking announcements");
@@ -576,8 +576,8 @@ function todoFunction() {
     calendar_section.style = "visibility: visible;";
     var members_section = document.getElementById("section_members");
     members_section.style = "visibility: visible;";
-    var committees_section = document.getElementById("section_committees");
-    committees_section.style = "visibility: visible;";
+    // var committees_section = document.getElementById("section_committees");
+    // committees_section.style = "visibility: visible;";
 
     signInButton.style = "display:none;";
 
@@ -777,7 +777,7 @@ function todoFunction() {
     img.src = google_profile.getImageUrl();
 
     loadMembersTab();
-    loadCommitteesTab();
+    // loadCommitteesTab();
 
     var excuseButton = document.getElementById("excuseButton");
     if (excuseButton.href.indexOf("entry") == -1) {
@@ -813,7 +813,7 @@ function signOut() {
     // document.getElementById("editButton").style.display = "none";
 
     document.getElementById("section_home").style.display = "none";
-    document.getElementById("section_committees").style.display = "none";
+    // document.getElementById("section_committees").style.display = "none";
     document.getElementById("section_attendance").style.display = "none";
     document.getElementById("section_calendar").style.display = "none";
     document.getElementById("section_announcements").style.display = "none";
